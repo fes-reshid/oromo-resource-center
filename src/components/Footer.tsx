@@ -8,11 +8,13 @@ const Footer = () => {
           {/* Organization Info */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">O</span>
-              </div>
+              <img 
+                src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png" 
+                alt="Oromo Resource Centre Inc Logo" 
+                className="w-12 h-12 object-contain bg-white rounded-lg p-1"
+              />
               <div>
-                <h3 className="text-xl font-bold">Oromo Resource Center</h3>
+                <h3 className="text-xl font-bold">Oromo Resource Centre Inc</h3>
                 <p className="text-primary-foreground/80 text-sm">Melbourne Community Hub</p>
               </div>
             </div>
@@ -78,7 +80,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-primary-foreground/80 text-sm">
-            © 2024 Oromo Resource Center. All rights reserved.
+            © 2024 Oromo Resource Centre Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-2 mt-4 md:mt-0">
             <Heart className="h-4 w-4 text-accent" />

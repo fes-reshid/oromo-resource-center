@@ -25,11 +25,13 @@ const Header = () => {
         {/* Main header */}
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">O</span>
-            </div>
+            <img 
+              src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png" 
+              alt="Oromo Resource Centre Inc Logo" 
+              className="w-12 h-12 object-contain"
+            />
             <div>
-              <h1 className="text-xl font-bold text-foreground">Oromo Resource Center</h1>
+              <h1 className="text-xl font-bold text-foreground">Oromo Resource Centre Inc</h1>
               <p className="text-sm text-muted-foreground">Melbourne Community Hub</p>
             </div>
           </div>

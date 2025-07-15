@@ -6,45 +6,46 @@
 
 @layer base {
   :root {
-    --background: 35 20% 98%;
-    --foreground: 25 15% 15%;
+    --background: 0 0% 98%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 25 15% 15%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 15% 15%;
+    --popover-foreground: 0 0% 15%;
 
-    --primary: 140 35% 35%;
+    --primary: 140 60% 25%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 25% 92%;
-    --secondary-foreground: 25 15% 25%;
+    --secondary: 30 45% 65%;
+    --secondary-foreground: 0 0% 15%;
 
     --muted: 35 15% 95%;
     --muted-foreground: 25 10% 50%;
 
-    --accent: 45 45% 75%;
-    --accent-foreground: 25 25% 20%;
+    --accent: 30 55% 70%;
+    --accent-foreground: 0 0% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 35 20% 90%;
     --input: 35 20% 95%;
-    --ring: 140 35% 35%;
+    --ring: 140 60% 25%;
 
-    /* Custom design tokens for Oromo center */
-    --warm-green: 140 35% 35%;
-    --warm-green-light: 140 25% 85%;
-    --earth-brown: 25 30% 45%;
-    --sand-beige: 35 25% 88%;
-    --deep-forest: 140 40% 25%;
+    /* Custom design tokens matching Oromo logo */
+    --oromo-green: 140 60% 25%;
+    --oromo-green-light: 140 40% 85%;
+    --oromo-gold: 30 55% 70%;
+    --oromo-gold-dark: 30 45% 55%;
+    --oromo-brown: 25 30% 45%;
+    --oromo-accent-red: 0 65% 55%;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(140 35% 35%), hsl(140 40% 25%));
-    --gradient-warm: linear-gradient(180deg, hsl(35 25% 92%), hsl(35 15% 95%));
-    --gradient-accent: linear-gradient(45deg, hsl(45 45% 75%), hsl(35 35% 80%));
+    --gradient-hero: linear-gradient(135deg, hsl(140 60% 25%), hsl(140 60% 20%));
+    --gradient-warm: linear-gradient(180deg, hsl(30 45% 90%), hsl(30 40% 95%));
+    --gradient-accent: linear-gradient(45deg, hsl(30 55% 70%), hsl(30 45% 55%));
     
     /* Shadows */
     --shadow-warm: 0 4px 20px -4px hsl(140 35% 35% / 0.15);
