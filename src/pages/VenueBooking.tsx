@@ -31,7 +31,7 @@ const VenueBooking = () => {
     const formData = new FormData(e.currentTarget);
     
     try {
-      const { error } = await supabase.from('venue_bookings').insert({
+      const bookingData = {
         applicant_name: formData.get('name') as string,
         contact_number: formData.get('contact') as string,
         email: formData.get('email') as string,
@@ -48,9 +48,16 @@ const VenueBooking = () => {
         needs_projector: equipmentNeeds.projector,
         other_equipment: formData.get('other-equipment') as string || null,
         agreed_to_terms: agreedToTerms,
-      });
+      };
 
-      if (error) throw error;
+      console.log('Submitting booking data:', bookingData);
+
+      const { error } = await supabase.from('venue_bookings').insert(bookingData);
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       toast({
         title: "Booking Submitted!",
