@@ -5,8 +5,73 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const VenueBooking = () => {
+  const [equipmentNeeds, setEquipmentNeeds] = useState({
+    tables: false,
+    chairs: false,
+    audio: false,
+    projector: false,
+  });
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleEquipmentChange = (equipment: string, checked: boolean) => {
+    setEquipmentNeeds(prev => ({ ...prev, [equipment]: checked }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      const { error } = await supabase.from('venue_bookings').insert({
+        applicant_name: formData.get('name') as string,
+        contact_number: formData.get('contact') as string,
+        email: formData.get('email') as string,
+        organization: formData.get('organization') as string || null,
+        purpose: formData.get('purpose') as string,
+        booking_date: formData.get('date') as string,
+        expected_attendees: parseInt(formData.get('attendees') as string),
+        start_time: formData.get('start-time') as string,
+        end_time: formData.get('end-time') as string,
+        room_area: formData.get('room') as string || null,
+        needs_tables: equipmentNeeds.tables,
+        needs_chairs: equipmentNeeds.chairs,
+        needs_audio: equipmentNeeds.audio,
+        needs_projector: equipmentNeeds.projector,
+        other_equipment: formData.get('other-equipment') as string || null,
+        agreed_to_terms: agreedToTerms,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Booking Submitted!",
+        description: "Your venue booking request has been submitted successfully. We will contact you within 2-3 business days.",
+      });
+
+      // Reset form
+      e.currentTarget.reset();
+      setEquipmentNeeds({ tables: false, chairs: false, audio: false, projector: false });
+      setAgreedToTerms(false);
+    } catch (error) {
+      console.error('Error submitting venue booking:', error);
+      toast({
+        title: "Error",
+        description: "There was an error submitting your booking request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -50,7 +115,7 @@ const VenueBooking = () => {
             <CardTitle className="text-2xl">Venue Booking Form</CardTitle>
           </CardHeader>
           <CardContent>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Booking Details */}
               <div>
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -60,19 +125,19 @@ const VenueBooking = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="name">Name of Applicant *</Label>
-                    <Input id="name" placeholder="Enter your full name" />
+                    <Input id="name" name="name" placeholder="Enter your full name" required />
                   </div>
                   <div>
                     <Label htmlFor="contact">Contact Number *</Label>
-                    <Input id="contact" placeholder="Enter your phone number" />
+                    <Input id="contact" name="contact" placeholder="Enter your phone number" required />
                   </div>
                   <div>
                     <Label htmlFor="email">Email Address *</Label>
-                    <Input id="email" type="email" placeholder="Enter your email" />
+                    <Input id="email" name="email" type="email" placeholder="Enter your email" required />
                   </div>
                   <div>
                     <Label htmlFor="organization">Organization/Group</Label>
-                    <Input id="organization" placeholder="Optional - organization name" />
+                    <Input id="organization" name="organization" placeholder="Optional - organization name" />
                   </div>
                 </div>
               </div>
@@ -82,23 +147,23 @@ const VenueBooking = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
                     <Label htmlFor="purpose">Purpose of Booking *</Label>
-                    <Textarea id="purpose" placeholder="Describe the purpose of your event" />
+                    <Textarea id="purpose" name="purpose" placeholder="Describe the purpose of your event" required />
                   </div>
                   <div>
                     <Label htmlFor="date">Date of Booking *</Label>
-                    <Input id="date" type="date" />
+                    <Input id="date" name="date" type="date" required />
                   </div>
                   <div>
                     <Label htmlFor="attendees">Expected Number of Attendees *</Label>
-                    <Input id="attendees" type="number" placeholder="Number of people" />
+                    <Input id="attendees" name="attendees" type="number" placeholder="Number of people" required />
                   </div>
                   <div>
                     <Label htmlFor="start-time">Start Time *</Label>
-                    <Input id="start-time" type="time" />
+                    <Input id="start-time" name="start-time" type="time" required />
                   </div>
                   <div>
                     <Label htmlFor="end-time">End Time *</Label>
-                    <Input id="end-time" type="time" />
+                    <Input id="end-time" name="end-time" type="time" required />
                   </div>
                 </div>
               </div>
@@ -109,32 +174,48 @@ const VenueBooking = () => {
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="room">Room/Area Requested</Label>
-                    <Input id="room" placeholder="Specify which room or area you need" />
+                    <Input id="room" name="room" placeholder="Specify which room or area you need" />
                   </div>
                   
                   <div>
                     <Label className="text-base font-medium">Equipment Needed</Label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
                       <div className="flex items-center space-x-2">
-                        <Checkbox id="tables" />
+                        <Checkbox 
+                          id="tables" 
+                          checked={equipmentNeeds.tables}
+                          onCheckedChange={(checked) => handleEquipmentChange('tables', checked as boolean)}
+                        />
                         <Label htmlFor="tables" className="text-sm">Tables</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Checkbox id="chairs" />
+                        <Checkbox 
+                          id="chairs" 
+                          checked={equipmentNeeds.chairs}
+                          onCheckedChange={(checked) => handleEquipmentChange('chairs', checked as boolean)}
+                        />
                         <Label htmlFor="chairs" className="text-sm">Chairs</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Checkbox id="audio" />
+                        <Checkbox 
+                          id="audio" 
+                          checked={equipmentNeeds.audio}
+                          onCheckedChange={(checked) => handleEquipmentChange('audio', checked as boolean)}
+                        />
                         <Label htmlFor="audio" className="text-sm">Audio Equipment</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Checkbox id="projector" />
+                        <Checkbox 
+                          id="projector" 
+                          checked={equipmentNeeds.projector}
+                          onCheckedChange={(checked) => handleEquipmentChange('projector', checked as boolean)}
+                        />
                         <Label htmlFor="projector" className="text-sm">Projector</Label>
                       </div>
                     </div>
                     <div className="mt-3">
                       <Label htmlFor="other-equipment">Other Equipment</Label>
-                      <Input id="other-equipment" placeholder="Specify any other equipment needed" />
+                      <Input id="other-equipment" name="other-equipment" placeholder="Specify any other equipment needed" />
                     </div>
                   </div>
                 </div>
@@ -162,7 +243,12 @@ const VenueBooking = () => {
                 </div>
                 
                 <div className="flex items-center space-x-2 mt-4">
-                  <Checkbox id="agree" />
+                  <Checkbox 
+                    id="agree" 
+                    checked={agreedToTerms}
+                    onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+                    required
+                  />
                   <Label htmlFor="agree" className="text-sm">
                     I agree to the terms and conditions stated above *
                   </Label>
@@ -171,8 +257,8 @@ const VenueBooking = () => {
 
               {/* Submit Button */}
               <div className="text-center pt-6">
-                <Button size="lg" className="w-full md:w-auto px-12">
-                  Submit Booking Request
+                <Button type="submit" size="lg" className="w-full md:w-auto px-12" disabled={isSubmitting || !agreedToTerms}>
+                  {isSubmitting ? 'Submitting...' : 'Submit Booking Request'}
                 </Button>
                 <p className="text-sm text-muted-foreground mt-2">
                   We will contact you within 2-3 business days to confirm your booking

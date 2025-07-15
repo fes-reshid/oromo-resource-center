@@ -14,7 +14,159 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      membership_applications: {
+        Row: {
+          address: string
+          child_1: string | null
+          child_2: string | null
+          child_3: string | null
+          child_4: string | null
+          child_5: string | null
+          child_6: string | null
+          created_at: string
+          date_of_birth: string
+          date_signed: string
+          email: string
+          first_name: string
+          home_number: string | null
+          id: string
+          is_married: boolean
+          member_signature: string
+          mobile_number: string
+          next_of_kin_mobile: string
+          next_of_kin_name: string
+          spouse_name: string | null
+          status: string | null
+          surname: string
+          updated_at: string
+          witness_name: string | null
+        }
+        Insert: {
+          address: string
+          child_1?: string | null
+          child_2?: string | null
+          child_3?: string | null
+          child_4?: string | null
+          child_5?: string | null
+          child_6?: string | null
+          created_at?: string
+          date_of_birth: string
+          date_signed: string
+          email: string
+          first_name: string
+          home_number?: string | null
+          id?: string
+          is_married?: boolean
+          member_signature: string
+          mobile_number: string
+          next_of_kin_mobile: string
+          next_of_kin_name: string
+          spouse_name?: string | null
+          status?: string | null
+          surname: string
+          updated_at?: string
+          witness_name?: string | null
+        }
+        Update: {
+          address?: string
+          child_1?: string | null
+          child_2?: string | null
+          child_3?: string | null
+          child_4?: string | null
+          child_5?: string | null
+          child_6?: string | null
+          created_at?: string
+          date_of_birth?: string
+          date_signed?: string
+          email?: string
+          first_name?: string
+          home_number?: string | null
+          id?: string
+          is_married?: boolean
+          member_signature?: string
+          mobile_number?: string
+          next_of_kin_mobile?: string
+          next_of_kin_name?: string
+          spouse_name?: string | null
+          status?: string | null
+          surname?: string
+          updated_at?: string
+          witness_name?: string | null
+        }
+        Relationships: []
+      }
+      venue_bookings: {
+        Row: {
+          agreed_to_terms: boolean
+          applicant_name: string
+          booking_date: string
+          contact_number: string
+          cost_amount: number | null
+          created_at: string
+          email: string
+          end_time: string
+          expected_attendees: number
+          id: string
+          needs_audio: boolean | null
+          needs_chairs: boolean | null
+          needs_projector: boolean | null
+          needs_tables: boolean | null
+          organization: string | null
+          other_equipment: string | null
+          purpose: string
+          room_area: string | null
+          start_time: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          agreed_to_terms?: boolean
+          applicant_name: string
+          booking_date: string
+          contact_number: string
+          cost_amount?: number | null
+          created_at?: string
+          email: string
+          end_time: string
+          expected_attendees: number
+          id?: string
+          needs_audio?: boolean | null
+          needs_chairs?: boolean | null
+          needs_projector?: boolean | null
+          needs_tables?: boolean | null
+          organization?: string | null
+          other_equipment?: string | null
+          purpose: string
+          room_area?: string | null
+          start_time: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          agreed_to_terms?: boolean
+          applicant_name?: string
+          booking_date?: string
+          contact_number?: string
+          cost_amount?: number | null
+          created_at?: string
+          email?: string
+          end_time?: string
+          expected_attendees?: number
+          id?: string
+          needs_audio?: boolean | null
+          needs_chairs?: boolean | null
+          needs_projector?: boolean | null
+          needs_tables?: boolean | null
+          organization?: string | null
+          other_equipment?: string | null
+          purpose?: string
+          room_area?: string | null
+          start_time?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
