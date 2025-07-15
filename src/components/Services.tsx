@@ -86,8 +86,13 @@ const Services = () => {
                   <span>Various Locations</span>
                 </div>
               </div>
-              <Button variant="outline" size="sm" className="w-full mt-4">
-                Join Activities
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full mt-4"
+                onClick={() => navigate('/community-services')}
+              >
+                View Services
               </Button>
             </CardContent>
           </Card>
