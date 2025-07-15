@@ -1,0 +1,93 @@
+import { Heart, MapPin, Phone, Mail, Facebook, Instagram, Globe } from 'lucide-react';
+
+const Footer = () => {
+  return (
+    <footer className="bg-primary text-primary-foreground">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Organization Info */}
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-lg">O</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">Oromo Resource Center</h3>
+                <p className="text-primary-foreground/80 text-sm">Melbourne Community Hub</p>
+              </div>
+            </div>
+            <p className="text-primary-foreground/90 mb-6 leading-relaxed">
+              Serving the Oromo community in western Melbourne with educational programs, 
+              cultural activities, and Islamic burial services. Building bridges between 
+              tradition and modern life.
+            </p>
+            <div className="flex gap-4">
+              <a href="#" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="#" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
+                <Globe className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-semibold mb-4 text-primary-foreground">Quick Links</h4>
+            <ul className="space-y-2">
+              <li><a href="#home" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Home</a></li>
+              <li><a href="#about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">About Us</a></li>
+              <li><a href="#services" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Our Services</a></li>
+              <li><a href="#contact" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Contact</a></li>
+              <li><a href="#" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Volunteer</a></li>
+              <li><a href="#" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Donate</a></li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="font-semibold mb-4 text-primary-foreground">Contact Info</h4>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary-foreground/60" />
+                <span className="text-primary-foreground/80 text-sm">Western Melbourne</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary-foreground/60" />
+                <span className="text-primary-foreground/80 text-sm">24/7 Emergency Line</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary-foreground/60" />
+                <span className="text-primary-foreground/80 text-sm">info@oromorc.org.au</span>
+              </div>
+            </div>
+
+            <div className="mt-6 p-4 bg-primary-foreground/10 rounded-lg">
+              <h5 className="font-medium text-primary-foreground mb-2">Saturday School</h5>
+              <p className="text-primary-foreground/80 text-sm">
+                Every Saturday, 9:00 AM - 3:00 PM<br />
+                Registration now open!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-primary-foreground/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-primary-foreground/80 text-sm">
+            © 2024 Oromo Resource Center. All rights reserved.
+          </p>
+          <div className="flex items-center gap-2 mt-4 md:mt-0">
+            <Heart className="h-4 w-4 text-accent" />
+            <span className="text-primary-foreground/80 text-sm">Serving our community with love</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
