@@ -120,7 +120,12 @@ const Services = () => {
                   <span>Family Guidance</span>
                 </div>
               </div>
-              <Button variant="outline" size="sm" className="w-full mt-4">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full mt-4"
+                onClick={() => navigate('/funeral-services')}
+              >
                 Learn More
               </Button>
             </CardContent>
