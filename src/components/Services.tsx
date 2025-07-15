@@ -1,8 +1,11 @@
 import { GraduationCap, Users, Heart, Calendar, MapPin, Clock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const Services = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="services" className="py-20 bg-secondary/30">
       <div className="container mx-auto px-4">
@@ -44,7 +47,12 @@ const Services = () => {
                   <span>Western Melbourne</span>
                 </div>
               </div>
-              <Button variant="outline" size="sm" className="w-full mt-4">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full mt-4"
+                onClick={() => navigate('/enrollment')}
+              >
                 Enroll Your Child
               </Button>
             </CardContent>
