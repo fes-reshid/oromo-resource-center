@@ -1,10 +1,7 @@
-import { Heart, Phone, Mail, MapPin, DollarSign, FileText, Users } from 'lucide-react';
+import { Heart, Mail, MapPin, DollarSign, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
 
 const FuneralServices = () => {
-  const navigate = useNavigate();
 
   const services = [
     "Death Certificate Assistance: Guidance in obtaining the official death certificate.",
@@ -41,7 +38,7 @@ const FuneralServices = () => {
             <CardTitle className="text-2xl text-center">Contact Information</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
               <div className="flex items-center justify-center gap-2">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span>664–678 Downing Street, Mt Cottrell VIC 3024</span>
@@ -53,16 +50,6 @@ const FuneralServices = () => {
               <div className="flex items-center justify-center gap-2">
                 <FileText className="h-5 w-5 text-primary" />
                 <span>ABN: 24 434 146 730</span>
-              </div>
-              <div className="flex items-center justify-center gap-2">
-                <Phone className="h-5 w-5 text-primary" />
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigate('/venue-booking')}
-                >
-                  Book Venue
-                </Button>
               </div>
             </div>
           </CardContent>
