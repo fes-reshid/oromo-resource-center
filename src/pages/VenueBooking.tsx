@@ -75,8 +75,11 @@ const VenueBooking = () => {
         description: "Your venue booking request has been submitted successfully. We will contact you within 2-3 business days.",
       });
 
-      // Reset form
-      e.currentTarget.reset();
+      // Reset form - use a more reliable method
+      const form = e.currentTarget;
+      if (form) {
+        form.reset();
+      }
       setEquipmentNeeds({ tables: false, chairs: false, audio: false, projector: false });
       setAgreedToTerms(false);
     } catch (error) {

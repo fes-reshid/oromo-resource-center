@@ -74,8 +74,11 @@ const Membership = () => {
         description: "Your membership application has been submitted successfully. We will contact you within 2-3 business days.",
       });
 
-      // Reset form
-      e.currentTarget.reset();
+      // Reset form - use a more reliable method
+      const form = e.currentTarget;
+      if (form) {
+        form.reset();
+      }
       setDateOfBirth(undefined);
       setIsMarried('no');
     } catch (error) {
