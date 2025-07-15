@@ -6,8 +6,16 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
-      <div className="container mx-auto px-4">
+    <header className="relative bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
+      {/* Subtle background image */}
+      <div className="absolute inset-0 opacity-5">
+        <img 
+          src="/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png" 
+          alt="" 
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+      <div className="relative container mx-auto px-4">
         {/* Top contact bar */}
         <div className="hidden md:flex items-center justify-end py-2 text-sm text-muted-foreground border-b border-border/50">
           <div className="flex items-center gap-4">

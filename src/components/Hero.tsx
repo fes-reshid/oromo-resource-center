@@ -1,6 +1,5 @@
 import { ArrowRight, Users, GraduationCap, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import heroImage from '@/assets/new-hero-image.jpg';
 
 const Hero = () => {
   return (
@@ -8,11 +7,11 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src={heroImage} 
-          alt="Oromo Resource Center building" 
+          src="/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png" 
+          alt="Oromo Resource Center grounds and memorial site" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40"></div>
       </div>
 
       {/* Content */}
