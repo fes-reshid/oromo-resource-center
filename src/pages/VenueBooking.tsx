@@ -31,6 +31,17 @@ const VenueBooking = () => {
     const formData = new FormData(e.currentTarget);
     
     try {
+      // Validate required fields
+      if (!agreedToTerms) {
+        toast({
+          title: "Error",
+          description: "Please agree to the terms and conditions.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       const bookingData = {
         applicant_name: formData.get('name') as string,
         contact_number: formData.get('contact') as string,

@@ -26,12 +26,23 @@ const Membership = () => {
     const formData = new FormData(e.currentTarget);
     
     try {
-      const { error } = await supabase.from('membership_applications').insert({
+      // Validate required fields
+      if (!dateOfBirth) {
+        toast({
+          title: "Error",
+          description: "Please select your date of birth.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const membershipData = {
         first_name: formData.get('firstName') as string,
         surname: formData.get('surname') as string,
         is_married: isMarried === 'yes',
         spouse_name: formData.get('spouse') as string || null,
-        date_of_birth: dateOfBirth?.toISOString().split('T')[0],
+        date_of_birth: dateOfBirth.toISOString().split('T')[0],
         address: formData.get('address') as string,
         mobile_number: formData.get('mobile') as string,
         home_number: formData.get('home') as string || null,
@@ -47,9 +58,16 @@ const Membership = () => {
         member_signature: formData.get('memberSignature') as string,
         witness_name: formData.get('witnessName') as string || null,
         date_signed: formData.get('dateSign') as string,
-      });
+      };
 
-      if (error) throw error;
+      console.log('Submitting membership data:', membershipData);
+
+      const { error } = await supabase.from('membership_applications').insert(membershipData);
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       toast({
         title: "Application Submitted!",
