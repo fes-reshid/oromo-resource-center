@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import schoolHero from '@/assets/school-hero.jpg';
@@ -15,6 +16,7 @@ import schoolHero from '@/assets/school-hero.jpg';
 const Enrollment = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     childName: '',
     childAge: '',
@@ -33,26 +35,76 @@ const Enrollment = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Enrollment Submitted!",
-      description: "Thank you for your enrollment. We will contact you within 2 business days.",
-    });
-    // Reset form
-    setFormData({
-      childName: '',
-      childAge: '',
-      parentName: '',
-      parentEmail: '',
-      parentPhone: '',
-      address: '',
-      emergencyContact: '',
-      emergencyPhone: '',
-      previousEducation: '',
-      specialNeeds: '',
-      additionalInfo: ''
-    });
+    setIsSubmitting(true);
+
+    try {
+      // Validate required fields
+      if (!formData.childName || !formData.childAge || !formData.parentName || 
+          !formData.parentEmail || !formData.parentPhone || !formData.address ||
+          !formData.emergencyContact || !formData.emergencyPhone) {
+        toast({
+          title: "Error",
+          description: "Please fill in all required fields.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const enrollmentData = {
+        child_name: formData.childName,
+        child_age_group: formData.childAge,
+        parent_name: formData.parentName,
+        parent_email: formData.parentEmail,
+        parent_phone: formData.parentPhone,
+        address: formData.address,
+        emergency_contact_name: formData.emergencyContact,
+        emergency_contact_phone: formData.emergencyPhone,
+        previous_education: formData.previousEducation || null,
+        special_needs: formData.specialNeeds || null,
+        additional_info: formData.additionalInfo || null,
+      };
+
+      console.log('Submitting enrollment data:', enrollmentData);
+
+      const { error } = await supabase.from('enrollments').insert(enrollmentData);
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
+
+      toast({
+        title: "Enrollment Submitted!",
+        description: "Thank you for your enrollment. We will contact you within 2 business days.",
+      });
+
+      // Reset form
+      setFormData({
+        childName: '',
+        childAge: '',
+        parentName: '',
+        parentEmail: '',
+        parentPhone: '',
+        address: '',
+        emergencyContact: '',
+        emergencyPhone: '',
+        previousEducation: '',
+        specialNeeds: '',
+        additionalInfo: ''
+      });
+    } catch (error) {
+      console.error('Error submitting enrollment:', error);
+      toast({
+        title: "Error",
+        description: "There was an error submitting your enrollment. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -294,8 +346,8 @@ const Enrollment = () => {
                 </div>
 
                 <div className="flex gap-4 pt-6">
-                  <Button type="submit" size="lg" className="flex-1">
-                    Submit Enrollment Application
+                  <Button type="submit" size="lg" className="flex-1" disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit Enrollment Application'}
                   </Button>
                   <Button 
                     type="button" 

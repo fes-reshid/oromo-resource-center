@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      enrollments: {
+        Row: {
+          additional_info: string | null
+          address: string
+          child_age_group: string
+          child_name: string
+          created_at: string
+          emergency_contact_name: string
+          emergency_contact_phone: string
+          id: string
+          parent_email: string
+          parent_name: string
+          parent_phone: string
+          previous_education: string | null
+          special_needs: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          additional_info?: string | null
+          address: string
+          child_age_group: string
+          child_name: string
+          created_at?: string
+          emergency_contact_name: string
+          emergency_contact_phone: string
+          id?: string
+          parent_email: string
+          parent_name: string
+          parent_phone: string
+          previous_education?: string | null
+          special_needs?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          additional_info?: string | null
+          address?: string
+          child_age_group?: string
+          child_name?: string
+          created_at?: string
+          emergency_contact_name?: string
+          emergency_contact_phone?: string
+          id?: string
+          parent_email?: string
+          parent_name?: string
+          parent_phone?: string
+          previous_education?: string | null
+          special_needs?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       membership_applications: {
         Row: {
           address: string
