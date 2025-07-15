@@ -42,13 +42,38 @@ const VenueBooking = () => {
         return;
       }
 
+      const selectedDate = formData.get('date') as string;
+      
+      // Check if the date is already booked
+      const { data: existingBookings, error: checkError } = await supabase
+        .from('venue_bookings')
+        .select('id, booking_date')
+        .eq('booking_date', selectedDate)
+        .neq('status', 'cancelled'); // Exclude cancelled bookings
+
+      if (checkError) {
+        console.error('Error checking existing bookings:', checkError);
+        throw checkError;
+      }
+
+      // If there are existing bookings for this date, reject the request
+      if (existingBookings && existingBookings.length > 0) {
+        toast({
+          title: "Date Unavailable",
+          description: "This date is already booked. Please contact 0456789767 or email save@edd.com to check availability and discuss alternative dates.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       const bookingData = {
         applicant_name: formData.get('name') as string,
         contact_number: formData.get('contact') as string,
         email: formData.get('email') as string,
         organization: formData.get('organization') as string || null,
         purpose: formData.get('purpose') as string,
-        booking_date: formData.get('date') as string,
+        booking_date: selectedDate,
         expected_attendees: parseInt(formData.get('attendees') as string),
         start_time: formData.get('start-time') as string,
         end_time: formData.get('end-time') as string,
@@ -257,10 +282,12 @@ const VenueBooking = () => {
                 <h3 className="text-lg font-semibold mb-4">Terms and Conditions</h3>
                 <div className="bg-muted/50 p-4 rounded-lg space-y-2 text-sm">
                   <p>• All bookings are subject to availability and must be confirmed by ORC.</p>
+                  <p>• Only one booking per day is allowed to ensure quality service.</p>
                   <p>• The venue must be left clean and in its original condition.</p>
                   <p>• Any damage to the property will be charged to the applicant.</p>
                   <p>• ORC reserves the right to cancel or change bookings if necessary.</p>
                   <p>• Full payment or deposit may be required before the booking date.</p>
+                  <p>• For availability inquiries, contact 0456789767 or email save@edd.com</p>
                 </div>
                 
                 <div className="flex items-center space-x-2 mt-4">
