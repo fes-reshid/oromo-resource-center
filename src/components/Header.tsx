@@ -1,5 +1,6 @@
 import { Menu, X, MapPin, Phone } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
@@ -46,13 +47,15 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#home" className="text-foreground hover:text-primary transition-colors">Home</a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors">About</a>
-            <a href="#services" className="text-foreground hover:text-primary transition-colors">Services</a>
-            <a href="#contact" className="text-foreground hover:text-primary transition-colors">Contact</a>
-            <Button variant="default" size="sm">
-              Get Involved
-            </Button>
+            <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
+            <a href="/#about" className="text-foreground hover:text-primary transition-colors">About</a>
+            <a href="/#services" className="text-foreground hover:text-primary transition-colors">Services</a>
+            <a href="/#contact" className="text-foreground hover:text-primary transition-colors">Contact</a>
+            <Link to="/volunteer">
+              <Button variant="default" size="sm">
+                Volunteer
+              </Button>
+            </Link>
           </nav>
 
           {/* Mobile menu button */}
@@ -70,13 +73,15 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="md:hidden pb-4 border-t border-border/50">
             <div className="flex flex-col gap-2 pt-4">
-              <a href="#home" className="block py-2 text-foreground hover:text-primary transition-colors">Home</a>
-              <a href="#about" className="block py-2 text-foreground hover:text-primary transition-colors">About</a>
-              <a href="#services" className="block py-2 text-foreground hover:text-primary transition-colors">Services</a>
-              <a href="#contact" className="block py-2 text-foreground hover:text-primary transition-colors">Contact</a>
-              <Button variant="default" size="sm" className="mt-2 self-start">
-                Get Involved
-              </Button>
+              <Link to="/" className="block py-2 text-foreground hover:text-primary transition-colors">Home</Link>
+              <a href="/#about" className="block py-2 text-foreground hover:text-primary transition-colors">About</a>
+              <a href="/#services" className="block py-2 text-foreground hover:text-primary transition-colors">Services</a>
+              <a href="/#contact" className="block py-2 text-foreground hover:text-primary transition-colors">Contact</a>
+              <Link to="/volunteer">
+                <Button variant="default" size="sm" className="mt-2 self-start">
+                  Volunteer
+                </Button>
+              </Link>
             </div>
           </nav>
         )}

@@ -336,7 +336,7 @@ const Enrollment = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4" />
-                      <span><strong>Location:</strong> Western Melbourne (exact location will be provided upon enrollment)</span>
+                      <span><strong>Location:</strong> 64-678 Downing St, Mount Cottrell VIC 3024</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <GraduationCap className="h-4 w-4" />
