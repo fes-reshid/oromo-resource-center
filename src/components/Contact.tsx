@@ -78,7 +78,12 @@ const Contact = () => {
                 <p className="text-muted-foreground mb-4">
                   Need immediate assistance or have questions? Reach out to us directly.
                 </p>
-                <Button className="w-full">
+                <Button 
+                  className="w-full"
+                  onClick={() => {
+                    window.location.href = 'tel:+61-xxx-xxx-xxx';
+                  }}
+                >
                   Call Now
                 </Button>
               </CardContent>
@@ -148,7 +153,14 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button size="lg" className="w-full">
+                <Button 
+                  size="lg" 
+                  className="w-full"
+                  onClick={() => {
+                    // Handle form submission here
+                    alert('Message functionality will be implemented with form handling');
+                  }}
+                >
                   Send Message
                 </Button>
 
