@@ -30,7 +30,7 @@ const Contact = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Western Melbourne<br />
+                  Victoria<br />
                   Serving Footscray, Sunshine,<br />
                   Werribee, and surrounding areas
                 </p>

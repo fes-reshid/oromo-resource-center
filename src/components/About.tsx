@@ -107,10 +107,10 @@ const About = () => {
         <div className="mt-20 text-center">
           <div className="bg-gradient-to-r from-secondary to-muted p-8 md:p-12 rounded-2xl">
             <h3 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-              Serving Western Melbourne
+              Serving Victoria
             </h3>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Located in the heart of western Melbourne, we are committed to being 
+              Located in the heart of Victoria, we are committed to being 
               accessible to all families in our community. From Footscray to Werribee, 
               from Sunshine to Hoppers Crossing, we welcome everyone seeking connection, 
               education, and spiritual guidance.

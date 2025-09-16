@@ -61,7 +61,7 @@ const CommunityServices = () => {
           <h2 className="text-3xl font-bold mb-4">Our Community Services</h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             We provide comprehensive support for life's special moments, combining Islamic traditions 
-            with Oromo cultural heritage to serve our community in Western Melbourne.
+            with Oromo cultural heritage to serve our community in Victoria.
           </p>
         </div>
 

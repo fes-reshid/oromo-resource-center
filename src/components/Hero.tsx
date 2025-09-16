@@ -70,7 +70,7 @@ const Hero = () => {
               </div>
               <div>
                 <div className="font-semibold">Community Hub</div>
-                <div className="text-sm opacity-90">Western Melbourne</div>
+                <div className="text-sm opacity-90">Victoria</div>
               </div>
             </div>
             

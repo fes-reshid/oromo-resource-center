@@ -19,7 +19,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-primary-foreground/90 mb-6 leading-relaxed">
-              Serving the Oromo community in western Melbourne with educational programs, 
+              Serving the Oromo community in Victoria with educational programs, 
               cultural activities, and Islamic burial services. Building bridges between 
               tradition and modern life.
             </p>
@@ -55,7 +55,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-primary-foreground/60" />
-                <span className="text-primary-foreground/80 text-sm">Western Melbourne</span>
+                <span className="text-primary-foreground/80 text-sm">Victoria</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary-foreground/60" />

@@ -44,7 +44,7 @@ const Services = () => {
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <MapPin className="h-4 w-4" />
-                  <span>Western Melbourne</span>
+                  <span>Victoria</span>
                 </div>
               </div>
               <Button 
@@ -70,7 +70,7 @@ const Services = () => {
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
                 Regular community gatherings, cultural celebrations, workshops, and 
-                support programs for families in western Melbourne.
+                support programs for families in Victoria.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground">
