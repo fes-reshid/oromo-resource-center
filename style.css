@@ -1,0 +1,221 @@
+/*
+Theme Name: Oromo Resource Centre
+Description: A warm, community-focused WordPress theme for the Oromo Resource Centre Inc. Features educational programs, cultural activities, and community services with Islamic influences and Oromo heritage design elements.
+Version: 1.0
+Author: Oromo Resource Centre Inc
+Author URI: #
+Text Domain: oromo-resource-centre
+Domain Path: /languages/
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tags: community, education, cultural, responsive, accessibility-ready, custom-header, custom-menu, featured-images, threaded-comments, translation-ready
+*/
+
+/* Oromo Resource Center Design System - Warm, community-focused palette with Islamic influences */
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 0 0% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 15%;
+  --primary: 140 60% 25%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 45% 65%;
+  --secondary-foreground: 0 0% 15%;
+  --muted: 35 15% 95%;
+  --muted-foreground: 25 10% 50%;
+  --accent: 30 55% 70%;
+  --accent-foreground: 0 0% 15%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 35 20% 90%;
+  --input: 35 20% 95%;
+  --ring: 140 60% 25%;
+  
+  /* Custom design tokens matching Oromo logo */
+  --oromo-green: 140 60% 25%;
+  --oromo-green-light: 140 40% 85%;
+  --oromo-gold: 30 55% 70%;
+  --oromo-gold-dark: 30 45% 55%;
+  --oromo-brown: 25 30% 45%;
+  --oromo-accent-red: 0 65% 55%;
+  
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, hsl(140 60% 25%), hsl(140 60% 20%));
+  --gradient-warm: linear-gradient(180deg, hsl(30 45% 90%), hsl(30 40% 95%));
+  --gradient-accent: linear-gradient(45deg, hsl(30 55% 70%), hsl(30 45% 55%));
+  
+  /* Shadows */
+  --shadow-warm: 0 4px 20px -4px hsl(140 35% 35% / 0.15);
+  --shadow-card: 0 2px 10px -2px hsl(25 15% 15% / 0.1);
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius: 0.5rem;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: hsl(var(--foreground));
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin-bottom: 1rem;
+  color: hsl(var(--muted-foreground));
+}
+
+a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+a:hover {
+  color: hsl(var(--accent));
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+
+.btn-primary:hover {
+  background-color: hsl(var(--primary) / 0.9);
+  color: hsl(var(--primary-foreground));
+}
+
+.btn-secondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border-color: hsl(var(--secondary));
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+}
+
+.btn-outline:hover {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+/* Card Component */
+.card {
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+/* Grid System */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* WordPress specific styles */
+.aligncenter { text-align: center; }
+.alignleft { float: left; margin-right: 1rem; }
+.alignright { float: right; margin-left: 1rem; }
+
+.wp-caption {
+  max-width: 100%;
+  text-align: center;
+}
+
+.wp-caption-text {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  margin-top: 0.5rem;
+}
+
+/* Comments */
+.comments-area {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.comment-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.comment {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: hsl(var(--muted));
+  border-radius: var(--radius);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+}
