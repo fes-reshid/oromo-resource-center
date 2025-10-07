@@ -22,36 +22,45 @@
     <a class="skip-link screen-reader-text" href="#main"><?php esc_html_e('Skip to content', 'oromo-resource-centre'); ?></a>
 
     <header id="masthead" class="site-header" role="banner">
-        <div class="header-overlay">
-            <div class="header-background">
-                <?php 
-                $header_bg = get_theme_mod('oromo_header_background_image');
-                if ($header_bg) : ?>
-                    <img src="<?php echo esc_url($header_bg); ?>" alt="Header Background" class="header-bg-image">
-                <?php endif; ?>
-            </div>
-            
+        <!-- Top Language Bar -->
+        <div class="language-bar">
             <div class="container">
-                <!-- Top contact bar -->
-                <div class="top-contact-bar">
-                    <div class="contact-info">
-                        <span class="location">
+                <div class="language-selector">
+                    <span><?php esc_html_e('Language —', 'oromo-resource-centre'); ?></span>
+                    <a href="<?php echo esc_url(home_url('/')); ?>" class="active"><?php esc_html_e('English', 'oromo-resource-centre'); ?></a>
+                    <span>|</span>
+                    <a href="<?php echo esc_url(home_url('/om/')); ?>"><?php esc_html_e('Oromo', 'oromo-resource-centre'); ?></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header-wrapper">
+            <div class="container">
+                <!-- Quick Links Row -->
+                <div class="quick-links-row">
+                    <div class="quick-links-left">
+                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('membership'))); ?>" class="quick-link">
+                            <i class="fas fa-users"></i>
+                            <span><?php esc_html_e('BECOME A MEMBER', 'oromo-resource-centre'); ?></span>
+                        </a>
+                        <a href="#contact" class="quick-link">
                             <i class="fas fa-map-marker-alt"></i>
-                            <?php echo esc_html(get_theme_mod('oromo_contact_location', 'Victoria')); ?>
-                        </span>
-                        <span class="phone">
-                            <i class="fas fa-phone"></i>
-                            <?php 
-                            $phone = get_theme_mod('oromo_contact_phone', 'Contact Us');
-                            if ($phone) {
-                                echo esc_html($phone);
-                            }
-                            ?>
-                        </span>
+                            <span><?php esc_html_e('CHAPTER LOCATOR', 'oromo-resource-centre'); ?></span>
+                        </a>
+                    </div>
+                    <div class="quick-links-right">
+                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('community-services'))); ?>" class="quick-badge">
+                            <?php esc_html_e('ANNUAL REPORT 2024', 'oromo-resource-centre'); ?>
+                        </a>
+                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('membership'))); ?>" class="quick-badge">
+                            <i class="fas fa-calculator"></i>
+                            <?php esc_html_e('MEMBERSHIP CALCULATOR', 'oromo-resource-centre'); ?>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Main header -->
+                <!-- Main Navigation Row -->
                 <div class="main-header">
                     <div class="site-branding">
                         <?php
@@ -97,8 +106,8 @@
                             'fallback_cb'    => 'oromo_default_menu',
                         ));
                         ?>
-                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('volunteer'))); ?>" class="btn btn-primary volunteer-btn">
-                            <?php esc_html_e('Volunteer', 'oromo-resource-centre'); ?>
+                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('donate'))); ?>" class="btn btn-primary donate-btn">
+                            <?php esc_html_e('DONATE', 'oromo-resource-centre'); ?>
                         </a>
                     </nav>
 
@@ -115,6 +124,16 @@
 
                 <!-- Mobile Navigation -->
                 <nav class="mobile-navigation" role="navigation">
+                    <div class="mobile-quick-links">
+                        <a href="<?php echo esc_url(get_permalink(get_page_by_path('membership'))); ?>" class="quick-link">
+                            <i class="fas fa-users"></i>
+                            <span><?php esc_html_e('BECOME A MEMBER', 'oromo-resource-centre'); ?></span>
+                        </a>
+                        <a href="#contact" class="quick-link">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span><?php esc_html_e('CHAPTER LOCATOR', 'oromo-resource-centre'); ?></span>
+                        </a>
+                    </div>
                     <?php
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
@@ -123,8 +142,8 @@
                         'fallback_cb'    => 'oromo_default_menu',
                     ));
                     ?>
-                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('volunteer'))); ?>" class="btn btn-primary mobile-volunteer-btn">
-                        <?php esc_html_e('Volunteer', 'oromo-resource-centre'); ?>
+                    <a href="<?php echo esc_url(get_permalink(get_page_by_path('donate'))); ?>" class="btn btn-primary mobile-donate-btn">
+                        <?php esc_html_e('DONATE', 'oromo-resource-centre'); ?>
                     </a>
                 </nav>
             </div>
@@ -137,10 +156,11 @@
  */
 function oromo_default_menu() {
     echo '<ul class="nav-menu">';
-    echo '<li><a href="' . esc_url(home_url('/')) . '">' . esc_html__('Home', 'oromo-resource-centre') . '</a></li>';
-    echo '<li><a href="#about">' . esc_html__('About', 'oromo-resource-centre') . '</a></li>';
-    echo '<li><a href="#services">' . esc_html__('Services', 'oromo-resource-centre') . '</a></li>';
-    echo '<li><a href="#contact">' . esc_html__('Contact', 'oromo-resource-centre') . '</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/')) . '">' . esc_html__('HOME', 'oromo-resource-centre') . '</a></li>';
+    echo '<li><a href="#about">' . esc_html__('ABOUT', 'oromo-resource-centre') . '</a></li>';
+    echo '<li><a href="#what-we-do">' . esc_html__('WHAT WE DO', 'oromo-resource-centre') . '</a></li>';
+    echo '<li><a href="#support">' . esc_html__('SUPPORT US', 'oromo-resource-centre') . '</a></li>';
+    echo '<li><a href="' . esc_url(get_permalink(get_page_by_path('volunteer'))) . '">' . esc_html__('GET INVOLVED', 'oromo-resource-centre') . '</a></li>';
     echo '</ul>';
 }
 ?>

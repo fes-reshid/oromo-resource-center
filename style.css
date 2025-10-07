@@ -210,6 +210,134 @@ a:hover {
   border-radius: var(--radius);
 }
 
+/* Language Bar */
+.language-bar {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.language-selector a {
+  color: hsl(var(--primary-foreground));
+  margin: 0 0.25rem;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.language-selector a:hover,
+.language-selector a.active {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Main Header Wrapper */
+.main-header-wrapper {
+  background-color: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+/* Quick Links Row */
+.quick-links-row {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.5);
+}
+
+@media (min-width: 1024px) {
+  .quick-links-row {
+    display: flex;
+  }
+}
+
+.quick-links-left,
+.quick-links-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.quick-link:hover {
+  color: hsl(var(--primary));
+}
+
+.quick-link i {
+  font-size: 1rem;
+}
+
+.quick-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  transition: var(--transition-smooth);
+}
+
+.quick-badge:hover {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+}
+
+/* Main Navigation Updates */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li a {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.donate-btn,
+.mobile-donate-btn {
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Mobile Quick Links */
+.mobile-quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.5);
+  margin-bottom: 1rem;
+}
+
+/* Existing styles continue below */
+
 /* Responsive */
 @media (max-width: 768px) {
   h1 { font-size: 2rem; }
@@ -217,5 +345,17 @@ a:hover {
   
   .container {
     padding: 0 0.75rem;
+  }
+  
+  .main-header {
+    padding: 1rem 0;
+  }
+  
+  .site-title {
+    font-size: 1.25rem;
+  }
+  
+  .site-description {
+    font-size: 0.75rem;
   }
 }

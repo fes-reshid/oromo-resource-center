@@ -1,4 +1,4 @@
-import { Menu, X, MapPin, Phone } from 'lucide-react';
+import { Menu, X, MapPin, Phone, Users, Calculator } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,85 +7,109 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="relative bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
-      {/* Subtle background image */}
-      <div className="absolute inset-0 opacity-5">
-        <img 
-          src="/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png" 
-          alt="" 
-          className="w-full h-full object-cover object-center"
-        />
+    <header className="sticky top-0 z-50 bg-background">
+      {/* Top Language Bar - Green */}
+      <div className="bg-primary">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-end py-2 text-sm text-primary-foreground">
+            <span className="mr-2">Language —</span>
+            <button className="hover:underline font-semibold">English</button>
+            <span className="mx-1">|</span>
+            <button className="hover:underline">Oromo</button>
+          </div>
+        </div>
       </div>
-      <div className="relative container mx-auto px-4">
-        {/* Top contact bar */}
-        <div className="hidden md:flex items-center justify-end py-2 text-sm text-muted-foreground border-b border-border/50">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <MapPin className="h-3 w-3" />
-              <span>Victoria</span>
+
+      {/* Main Header */}
+      <div className="bg-background border-b border-border">
+        <div className="container mx-auto px-4">
+          {/* Top row with quick links */}
+          <div className="hidden lg:flex items-center justify-between py-3 border-b border-border/50">
+            <div className="flex items-center gap-6">
+              <Link to="/membership" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors">
+                <Users className="h-4 w-4" />
+                <span>BECOME A MEMBER</span>
+              </Link>
+              <a href="/#contact" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors">
+                <MapPin className="h-4 w-4" />
+                <span>CHAPTER LOCATOR</span>
+              </a>
             </div>
-            <div className="flex items-center gap-1">
-              <Phone className="h-3 w-3" />
-              <span>Contact Us</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Main header */}
-        <div className="flex items-center justify-between py-4">
-          <div className="flex items-center gap-3">
-            <img 
-              src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png" 
-              alt="Oromo Resource Centre Inc Logo" 
-              className="w-12 h-12 object-contain"
-            />
-            <div>
-              <h1 className="text-xl font-bold text-foreground">Oromo Resource Centre Inc</h1>
-              <p className="text-sm text-muted-foreground">Melbourne Community Hub</p>
-            </div>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-            <a href="/#about" className="text-foreground hover:text-primary transition-colors">About</a>
-            <a href="/#services" className="text-foreground hover:text-primary transition-colors">Services</a>
-            <a href="/#contact" className="text-foreground hover:text-primary transition-colors">Contact</a>
-            <Link to="/volunteer">
-              <Button variant="default" size="sm">
-                Volunteer
-              </Button>
-            </Link>
-          </nav>
-
-          {/* Mobile menu button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-border/50">
-            <div className="flex flex-col gap-2 pt-4">
-              <Link to="/" className="block py-2 text-foreground hover:text-primary transition-colors">Home</Link>
-              <a href="/#about" className="block py-2 text-foreground hover:text-primary transition-colors">About</a>
-              <a href="/#services" className="block py-2 text-foreground hover:text-primary transition-colors">Services</a>
-              <a href="/#contact" className="block py-2 text-foreground hover:text-primary transition-colors">Contact</a>
-              <Link to="/volunteer">
-                <Button variant="default" size="sm" className="mt-2 self-start">
-                  Volunteer
-                </Button>
+            <div className="flex items-center gap-4">
+              <Link to="/community-services" className="flex items-center gap-2 px-3 py-1 text-xs font-semibold text-foreground hover:text-primary transition-colors border border-border rounded">
+                <span>ANNUAL REPORT 2024</span>
+              </Link>
+              <Link to="/membership" className="flex items-center gap-2 px-3 py-1 text-xs font-semibold text-foreground hover:text-primary transition-colors border border-border rounded">
+                <Calculator className="h-4 w-4" />
+                <span>MEMBERSHIP CALCULATOR</span>
               </Link>
             </div>
-          </nav>
-        )}
+          </div>
+
+          {/* Main navigation row */}
+          <div className="flex items-center justify-between py-4">
+            <Link to="/" className="flex items-center gap-3">
+              <img 
+                src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png" 
+                alt="Oromo Resource Centre Inc Logo" 
+                className="w-12 h-12 object-contain"
+              />
+              <div>
+                <h1 className="text-xl font-bold text-foreground">Oromo Resource Centre Inc</h1>
+                <p className="text-xs text-muted-foreground">Melbourne Community Hub</p>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-6">
+              <Link to="/" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">HOME</Link>
+              <Link to="/#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">ABOUT</Link>
+              <Link to="/#what-we-do" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">WHAT WE DO</Link>
+              <Link to="/#support" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">SUPPORT US</Link>
+              <Link to="/volunteer" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">GET INVOLVED</Link>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6">
+                DONATE
+              </Button>
+            </nav>
+
+            {/* Mobile menu button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              className="lg:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
+        </div>
       </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-background border-b border-border">
+          <div className="container mx-auto px-4">
+            <nav className="flex flex-col gap-2 py-4">
+              <Link to="/membership" className="flex items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors">
+                <Users className="h-4 w-4" />
+                <span>BECOME A MEMBER</span>
+              </Link>
+              <a href="/#contact" className="flex items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors">
+                <MapPin className="h-4 w-4" />
+                <span>CHAPTER LOCATOR</span>
+              </a>
+              <Link to="/" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">HOME</Link>
+              <Link to="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">ABOUT</Link>
+              <Link to="/#what-we-do" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">WHAT WE DO</Link>
+              <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">SUPPORT US</Link>
+              <Link to="/volunteer" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">GET INVOLVED</Link>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold mt-2">
+                DONATE
+              </Button>
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
