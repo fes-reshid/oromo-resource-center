@@ -1,10 +1,18 @@
-import { Menu, X, MapPin, Phone, Users, Calculator } from 'lucide-react';
+import { Menu, X, MapPin, Phone, Users, Calculator, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <header className="sticky top-0 z-50 bg-background">
@@ -12,10 +20,10 @@ const Header = () => {
       <div className="bg-primary">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-end py-2 text-sm text-primary-foreground">
-            <span className="mr-2">Language —</span>
-            <button className="hover:underline font-semibold">English</button>
+            <span className="mr-2">{t('language')} —</span>
+            <button onClick={() => setLanguage('en')} className={`hover:underline ${language === 'en' ? 'font-semibold' : ''}`}>{t('english')}</button>
             <span className="mx-1">|</span>
-            <button className="hover:underline">Oromo</button>
+            <button onClick={() => setLanguage('om')} className={`hover:underline ${language === 'om' ? 'font-semibold' : ''}`}>{t('oromo')}</button>
           </div>
         </div>
       </div>
@@ -28,11 +36,11 @@ const Header = () => {
             <div className="flex items-center gap-6">
               <Link to="/membership" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors">
                 <Users className="h-4 w-4" />
-                <span>BECOME A MEMBER</span>
+                <span>{t('becomeMember')}</span>
               </Link>
               <a href="/#contact" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors">
                 <MapPin className="h-4 w-4" />
-                <span>CHAPTER LOCATOR</span>
+                <span>{t('chapterLocator')}</span>
               </a>
             </div>
             <div className="flex items-center gap-4">
@@ -62,13 +70,25 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
-              <Link to="/" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">HOME</Link>
-              <Link to="/#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">ABOUT</Link>
-              <Link to="/#what-we-do" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">WHAT WE DO</Link>
-              <Link to="/#support" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">SUPPORT US</Link>
-              <Link to="/volunteer" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">GET INVOLVED</Link>
+              <Link to="/" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</Link>
+              <Link to="/#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary transition-colors">
+                  {t('whatWeDo')} <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem asChild>
+                    <Link to="/services" className="w-full">{t('servicesLink')}</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/gallery" className="w-full">{t('gallery')}</Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Link to="/#support" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link>
+              <Link to="/volunteer" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6">
-                DONATE
+                {t('donate')}
               </Button>
             </nav>
 
@@ -92,19 +112,20 @@ const Header = () => {
             <nav className="flex flex-col gap-2 py-4">
               <Link to="/membership" className="flex items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors">
                 <Users className="h-4 w-4" />
-                <span>BECOME A MEMBER</span>
+                <span>{t('becomeMember')}</span>
               </Link>
               <a href="/#contact" className="flex items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors">
                 <MapPin className="h-4 w-4" />
-                <span>CHAPTER LOCATOR</span>
+                <span>{t('chapterLocator')}</span>
               </a>
-              <Link to="/" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">HOME</Link>
-              <Link to="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">ABOUT</Link>
-              <Link to="/#what-we-do" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">WHAT WE DO</Link>
-              <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">SUPPORT US</Link>
-              <Link to="/volunteer" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">GET INVOLVED</Link>
+              <Link to="/" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</Link>
+              <Link to="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</Link>
+              <Link to="/services" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('servicesLink')}</Link>
+              <Link to="/gallery" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('gallery')}</Link>
+              <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link>
+              <Link to="/volunteer" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold mt-2">
-                DONATE
+                {t('donate')}
               </Button>
             </nav>
           </div>
