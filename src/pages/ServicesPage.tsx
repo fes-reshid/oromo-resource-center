@@ -45,7 +45,8 @@ const ServicesPage = () => {
         t('servicesPage.support.counseling'),
         t('servicesPage.support.jobSupport')
       ],
-      color: 'secondary'
+      color: 'secondary',
+      comingSoon: true
     },
     {
       icon: Heart,
@@ -57,7 +58,8 @@ const ServicesPage = () => {
         t('servicesPage.spiritual.burialServices'),
         t('servicesPage.spiritual.religiousGuidance')
       ],
-      color: 'primary'
+      color: 'primary',
+      link: '/spiritual-services'
     }
   ];
 
@@ -105,8 +107,9 @@ const ServicesPage = () => {
                   <Button 
                     className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
                     onClick={() => service.link && navigate(service.link)}
+                    disabled={service.comingSoon}
                   >
-                    Learn More
+                    {service.comingSoon ? 'Coming Soon' : 'Learn More'}
                   </Button>
                 </CardContent>
               </Card>
