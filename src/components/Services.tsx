@@ -1,4 +1,4 @@
-import { GraduationCap, Users, Heart, Calendar, MapPin, Clock } from 'lucide-react';
+import { GraduationCap, Users, Heart, Calendar, MapPin, Clock, PartyPopper } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {/* Saturday School */}
           <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-0 bg-card/80 backdrop-blur-sm">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent"></div>
@@ -132,6 +132,44 @@ const Services = () => {
                 onClick={() => navigate('/funeral-services')}
               >
                 Learn More
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Events */}
+          <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-0 bg-card/80 backdrop-blur-sm">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-primary"></div>
+            <CardHeader className="pb-4">
+              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <PartyPopper className="h-8 w-8 text-accent" />
+              </div>
+              <CardTitle className="text-xl text-foreground">Community Events</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">
+                Join us for special events including Muhadara, ORC Family Day, and Eid celebrations.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Calendar className="h-4 w-4" />
+                  <span>Special Events</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Users className="h-4 w-4" />
+                  <span>Community Gatherings</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <PartyPopper className="h-4 w-4" />
+                  <span>Cultural Celebrations</span>
+                </div>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full mt-4"
+                onClick={() => navigate('/events')}
+              >
+                View Events
               </Button>
             </CardContent>
           </Card>
