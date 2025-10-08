@@ -1,19 +1,10 @@
-import { Heart, Mail, MapPin, DollarSign, FileText, CalendarIcon } from 'lucide-react';
+import { Heart, Mail, MapPin, DollarSign, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
-import { useState } from 'react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const FuneralServices = () => {
-  const [dateOfBirth, setDateOfBirth] = useState<Date>();
-
   const services = [
     "Death Certificate Assistance: Guidance in obtaining the official death certificate.",
     "Funeral Savings Fund: A structured plan designed to accumulate funds in advance to cover funeral expenses.",
@@ -31,18 +22,17 @@ const FuneralServices = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-primary text-primary-foreground py-16">
-        <div className="container mx-auto px-4 text-center">
-          <Heart className="h-16 w-16 mx-auto mb-4" />
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">ORC Funeral Service</h1>
-          <p className="text-xl opacity-90 max-w-3xl mx-auto">
+      <Header />
+      
+      <div className="container mx-auto px-4 py-20">
+        {/* Page Header */}
+        <div className="text-center mb-16">
+          <Heart className="h-16 w-16 mx-auto mb-4 text-primary" />
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">ORC Funeral Service</h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Comprehensive Islamic funeral services for the Muslim Oromo community in Melbourne, Australia
           </p>
         </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-16">
         {/* Contact Information */}
         <Card className="mb-12">
           <CardHeader>
@@ -171,6 +161,8 @@ const FuneralServices = () => {
           </Card>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };
