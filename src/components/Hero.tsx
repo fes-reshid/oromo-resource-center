@@ -45,8 +45,8 @@ const Hero = () => {
             </Button>
             <Button 
               size="lg" 
-              variant="outline" 
-              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              variant="default" 
+              className="bg-background text-foreground border-2 border-background hover:bg-background/90"
               onClick={() => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
