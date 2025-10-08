@@ -4,9 +4,11 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { GraduationCap, Users, Heart, Sparkles, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ServicesPage = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
   const services = [
     {
@@ -19,7 +21,8 @@ const ServicesPage = () => {
         t('servicesPage.educational.quranicStudies'),
         t('servicesPage.educational.languageClasses')
       ],
-      color: 'primary'
+      color: 'primary',
+      link: '/school'
     },
     {
       icon: Sparkles,
@@ -99,7 +102,10 @@ const ServicesPage = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button 
+                    className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
+                    onClick={() => service.link && navigate(service.link)}
+                  >
                     Learn More
                   </Button>
                 </CardContent>
