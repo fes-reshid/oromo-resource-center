@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { GraduationCap, Users, Heart, Sparkles, CheckCircle } from 'lucide-react';
 
 const ServicesPage = () => {
@@ -98,6 +99,9 @@ const ServicesPage = () => {
                       </li>
                     ))}
                   </ul>
+                  <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Learn More
+                  </Button>
                 </CardContent>
               </Card>
             );
