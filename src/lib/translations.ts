@@ -126,7 +126,6 @@ export const translations = {
         description: 'Preserving and celebrating our rich Oromo heritage',
         celebrations: 'Cultural celebrations',
         workshops: 'Traditional workshops',
-        musicDance: 'Music and dance events',
         heritagePreservation: 'Heritage preservation'
       },
       support: {
@@ -275,7 +274,6 @@ export const translations = {
         description: 'Dhaalaa Oromoo badhaadhaa ta\'e kunuunsuu fi kabajuu',
         celebrations: 'Ayyaanota aadaa',
         workshops: 'Workshopii aadaa',
-        musicDance: 'Taateewwan muuziqaa fi sirba',
         heritagePreservation: 'Kunuunsa dhaalaa'
       },
       support: {

@@ -27,7 +27,6 @@ const ServicesPage = () => {
       features: [
         t('servicesPage.cultural.celebrations'),
         t('servicesPage.cultural.workshops'),
-        t('servicesPage.cultural.musicDance'),
         t('servicesPage.cultural.heritagePreservation')
       ],
       color: 'accent'

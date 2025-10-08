@@ -1,4 +1,4 @@
-import { Menu, X, MapPin, Phone, Users, Calculator, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -31,28 +31,6 @@ const Header = () => {
       {/* Main Header */}
       <div className="bg-background border-b border-border">
         <div className="container mx-auto px-4">
-          {/* Top row with quick links */}
-          <div className="hidden lg:flex items-center justify-between py-3 border-b border-border/50">
-            <div className="flex items-center gap-6">
-              <Link to="/membership" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors">
-                <Users className="h-4 w-4" />
-                <span>{t('becomeMember')}</span>
-              </Link>
-              <a href="/#contact" className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors">
-                <MapPin className="h-4 w-4" />
-                <span>{t('chapterLocator')}</span>
-              </a>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link to="/community-services" className="flex items-center gap-2 px-3 py-1 text-xs font-semibold text-foreground hover:text-primary transition-colors border border-border rounded">
-                <span>ANNUAL REPORT 2024</span>
-              </Link>
-              <Link to="/membership" className="flex items-center gap-2 px-3 py-1 text-xs font-semibold text-foreground hover:text-primary transition-colors border border-border rounded">
-                <Calculator className="h-4 w-4" />
-                <span>MEMBERSHIP CALCULATOR</span>
-              </Link>
-            </div>
-          </div>
 
           {/* Main navigation row */}
           <div className="flex items-center justify-between py-4">
@@ -70,8 +48,8 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
-              <Link to="/" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</Link>
-              <Link to="/#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</Link>
+              <a href="/" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</a>
+              <a href="/#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary transition-colors">
                   {t('whatWeDo')} <ChevronDown className="h-4 w-4" />
@@ -110,16 +88,8 @@ const Header = () => {
         <div className="lg:hidden bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <nav className="flex flex-col gap-2 py-4">
-              <Link to="/membership" className="flex items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors">
-                <Users className="h-4 w-4" />
-                <span>{t('becomeMember')}</span>
-              </Link>
-              <a href="/#contact" className="flex items-center gap-2 py-2 text-sm text-foreground hover:text-primary transition-colors">
-                <MapPin className="h-4 w-4" />
-                <span>{t('chapterLocator')}</span>
-              </a>
-              <Link to="/" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</Link>
-              <Link to="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</Link>
+              <a href="/" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</a>
+              <a href="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <Link to="/services" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('servicesLink')}</Link>
               <Link to="/gallery" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('gallery')}</Link>
               <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link>
