@@ -18,10 +18,17 @@ export const translations = {
     volunteer: 'Volunteer',
     
     hero: {
-      title: 'Oromo Resource Centre Inc',
-      subtitle: 'Building a stronger community through education, culture, and Islamic values',
-      joinUs: 'Join Our Community',
-      learnMore: 'Learn More'
+      title: 'Building Community,',
+      titleAccent: 'Preserving Culture',
+      description: 'The Oromo Resource Center serves Melbourne\'s western communities with Saturday education programs, cultural activities, and Islamic burial services. Together, we strengthen our heritage and support our families.',
+      learnMore: 'Learn More About Us',
+      contactUs: 'Contact Us Today',
+      saturdaySchool: 'Saturday School',
+      educationalPrograms: 'Educational Programs',
+      communityHub: 'Community Hub',
+      victoria: 'Victoria',
+      burialServices: 'Burial Services',
+      islamicTraditions: 'Islamic Traditions'
     },
     
     about: {
@@ -166,10 +173,17 @@ export const translations = {
     volunteer: 'Tattaafataa',
     
     hero: {
-      title: 'Giddugala Qabeenya Oromoo Inc',
-      subtitle: 'Hawaasa cimaa barnoota, aadaa fi gatiiwwan Islaamaan ijaaruu',
-      joinUs: 'Hawaasa Keenyatti Makadhu',
-      learnMore: 'Dabalataan Baruu'
+      title: 'Hawaasa Ijaaruu,',
+      titleAccent: 'Aadaa Kunuunsuu',
+      description: 'Giddugala Qabeenya Oromoo hawaasaalee dhihaa Melboorn tajaajila, sagantaalee barnootaa Sanbata, sochiiwwan aadaa fi tajaajiloota awwaala Islaamaa kennuu. Waliin, dhaalaa fi maatii keenya jabeessina.',
+      learnMore: 'Waa\'ee Keenya Dabalataan Baruu',
+      contactUs: 'Har\'a Nu Quunnamaa',
+      saturdaySchool: 'Mana Barumsaa Sanbata',
+      educationalPrograms: 'Sagantaalee Barnootaa',
+      communityHub: 'Giddugala Hawaasaa',
+      victoria: 'Victoria',
+      burialServices: 'Tajaajiloota Awwaala',
+      islamicTraditions: 'Aadaa Islaamaa'
     },
     
     about: {

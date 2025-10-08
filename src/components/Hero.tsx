@@ -1,7 +1,12 @@
 import { ArrowRight, Users, GraduationCap, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const { t } = useLanguage();
+  const navigate = useNavigate();
+
   return (
     <section id="home" className="relative min-h-screen flex items-center">
       {/* Background Image */}
@@ -18,14 +23,12 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-2xl text-primary-foreground">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Building Community, 
-            <span className="block text-accent">Preserving Culture</span>
+            {t('hero.title')}
+            <span className="block text-accent">{t('hero.titleAccent')}</span>
           </h1>
           
           <p className="text-lg md:text-xl mb-8 leading-relaxed opacity-95">
-            The Oromo Resource Center serves Melbourne's western communities with 
-            Saturday education programs, cultural activities, and Islamic burial services. 
-            Together, we strengthen our heritage and support our families.
+            {t('hero.description')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -37,7 +40,7 @@ const Hero = () => {
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Learn More About Us
+              {t('hero.learnMore')}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
@@ -48,41 +51,50 @@ const Hero = () => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Contact Us Today
+              {t('hero.contactUs')}
             </Button>
           </div>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="flex items-center gap-3">
+            <button 
+              onClick={() => navigate('/school')}
+              className="flex items-center gap-3 hover:bg-primary-foreground/10 p-3 rounded-lg transition-colors cursor-pointer text-left"
+            >
               <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
                 <GraduationCap className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <div className="font-semibold">Saturday School</div>
-                <div className="text-sm opacity-90">Educational Programs</div>
+                <div className="font-semibold">{t('hero.saturdaySchool')}</div>
+                <div className="text-sm opacity-90">{t('hero.educationalPrograms')}</div>
               </div>
-            </div>
+            </button>
             
-            <div className="flex items-center gap-3">
+            <button 
+              onClick={() => navigate('/community-services')}
+              className="flex items-center gap-3 hover:bg-primary-foreground/10 p-3 rounded-lg transition-colors cursor-pointer text-left"
+            >
               <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
                 <Users className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <div className="font-semibold">Community Hub</div>
-                <div className="text-sm opacity-90">Victoria</div>
+                <div className="font-semibold">{t('hero.communityHub')}</div>
+                <div className="text-sm opacity-90">{t('hero.victoria')}</div>
               </div>
-            </div>
+            </button>
             
-            <div className="flex items-center gap-3">
+            <button 
+              onClick={() => navigate('/funeral-services')}
+              className="flex items-center gap-3 hover:bg-primary-foreground/10 p-3 rounded-lg transition-colors cursor-pointer text-left"
+            >
               <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
                 <Heart className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <div className="font-semibold">Burial Services</div>
-                <div className="text-sm opacity-90">Islamic Traditions</div>
+                <div className="font-semibold">{t('hero.burialServices')}</div>
+                <div className="text-sm opacity-90">{t('hero.islamicTraditions')}</div>
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </div>
