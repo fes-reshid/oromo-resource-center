@@ -95,6 +95,19 @@ const VenueBooking = () => {
         throw error;
       }
 
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-form-notification', {
+          body: {
+            formType: 'venue_booking',
+            data: bookingData
+          }
+        });
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError);
+        // Don't fail the submission if email fails
+      }
+
       toast({
         title: "Booking Submitted!",
         description: "Your venue booking request has been submitted successfully. We will contact you within 2-3 business days.",

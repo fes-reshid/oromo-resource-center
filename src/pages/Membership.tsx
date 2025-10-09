@@ -70,6 +70,19 @@ const Membership = () => {
         throw error;
       }
 
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-form-notification', {
+          body: {
+            formType: 'membership',
+            data: membershipData
+          }
+        });
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError);
+        // Don't fail the submission if email fails
+      }
+
       toast({
         title: "Application Submitted!",
         description: "Your membership application has been submitted successfully. We will contact you within 2-3 business days.",

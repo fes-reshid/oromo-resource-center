@@ -76,6 +76,19 @@ const Enrollment = () => {
         throw error;
       }
 
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-form-notification', {
+          body: {
+            formType: 'enrollment',
+            data: enrollmentData
+          }
+        });
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError);
+        // Don't fail the submission if email fails
+      }
+
       toast({
         title: "Enrollment Submitted!",
         description: "Thank you for your enrollment. We will contact you within 2 business days.",

@@ -42,16 +42,31 @@ const Volunteer = () => {
         return;
       }
 
-      const { error } = await supabase.from('volunteer_applications').insert({
+      const volunteerData = {
         name: formData.name,
         email: formData.email,
         mobile: formData.mobile,
         description: formData.description,
-      });
+      };
+
+      const { error } = await supabase.from('volunteer_applications').insert(volunteerData);
 
       if (error) {
         console.error('Supabase error:', error);
         throw error;
+      }
+
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-form-notification', {
+          body: {
+            formType: 'volunteer',
+            data: volunteerData
+          }
+        });
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError);
+        // Don't fail the submission if email fails
       }
 
       toast({
