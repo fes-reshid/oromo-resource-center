@@ -3,10 +3,12 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card } from '@/components/ui/card';
-import { ImageIcon } from 'lucide-react';
+import { ImageIcon, X } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 const Gallery = () => {
   const { t } = useLanguage();
+  const [selectedAlbum, setSelectedAlbum] = useState<number | null>(null);
   
   const albums = [
     {
@@ -54,6 +56,7 @@ const Gallery = () => {
             <Card 
               key={album.id} 
               className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300"
+              onClick={() => setSelectedAlbum(album.id)}
             >
               <div className="relative h-64 overflow-hidden bg-muted">
                 <img 
@@ -83,6 +86,27 @@ const Gallery = () => {
           </div>
         </div>
       </main>
+      
+      <Dialog open={selectedAlbum !== null} onOpenChange={() => setSelectedAlbum(null)}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {albums.find(a => a.id === selectedAlbum)?.title}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+            {selectedAlbum && (
+              <div className="col-span-2 md:col-span-3">
+                <img 
+                  src={albums.find(a => a.id === selectedAlbum)?.image} 
+                  alt={albums.find(a => a.id === selectedAlbum)?.title}
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
       
       <Footer />
     </div>
