@@ -9,7 +9,7 @@ const corsHeaders = {
 };
 
 interface FormNotificationRequest {
-  formType: 'venue_booking' | 'membership' | 'volunteer' | 'enrollment';
+  formType: 'venue_booking' | 'membership' | 'volunteer' | 'enrollment' | 'contact';
   data: any;
 }
 
@@ -131,6 +131,21 @@ const handler = async (req: Request): Promise<Response> => {
           ${data.previous_education ? `<p><strong>Previous Education:</strong> ${data.previous_education}</p>` : ''}
           ${data.special_needs ? `<p><strong>Special Needs:</strong> ${data.special_needs}</p>` : ''}
           ${data.additional_info ? `<p><strong>Additional Comments:</strong> ${data.additional_info}</p>` : ''}
+        `;
+        break;
+
+      case 'contact':
+        subject = `New Contact Message - ${data.first_name} ${data.last_name}`;
+        html = `
+          <h1>New Contact Form Message</h1>
+          <h2>Contact Details</h2>
+          <p><strong>Name:</strong> ${data.first_name} ${data.last_name}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <p><strong>Phone:</strong> ${data.phone}</p>
+          <p><strong>Service Type:</strong> ${data.service_type}</p>
+          
+          <h2>Message</h2>
+          <p>${data.message}</p>
         `;
         break;
 

@@ -1,10 +1,99 @@
+import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    serviceType: '',
+    message: ''
+  });
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Validate required fields
+      if (!formData.firstName || !formData.lastName || !formData.email || 
+          !formData.phone || !formData.serviceType || !formData.message) {
+        toast({
+          title: "Error",
+          description: "Please fill in all required fields.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      const contactData = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        service_type: formData.serviceType,
+        message: formData.message,
+      };
+
+      const { error } = await supabase.from('contact_messages').insert(contactData);
+
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
+
+      // Send email notification
+      try {
+        await supabase.functions.invoke('send-form-notification', {
+          body: {
+            formType: 'contact',
+            data: contactData
+          }
+        });
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError);
+        // Don't fail the submission if email fails
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for contacting us. We will get back to you soon.",
+      });
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        serviceType: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error submitting contact message:', error);
+      toast({
+        title: "Error",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section id="contact" className="py-20 bg-gradient-to-br from-secondary/30 to-muted/30">
       <div className="container mx-auto px-4">
@@ -100,69 +189,99 @@ const Contact = () => {
                 </p>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-2 block">
+                        First Name *
+                      </label>
+                      <Input 
+                        placeholder="Your first name" 
+                        value={formData.firstName}
+                        onChange={(e) => handleInputChange('firstName', e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-2 block">
+                        Last Name *
+                      </label>
+                      <Input 
+                        placeholder="Your last name"
+                        value={formData.lastName}
+                        onChange={(e) => handleInputChange('lastName', e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">
-                      First Name
+                      Email Address *
                     </label>
-                    <Input placeholder="Your first name" />
+                    <Input 
+                      type="email" 
+                      placeholder="your.email@example.com"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      required
+                    />
                   </div>
+
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">
-                      Last Name
+                      Phone Number *
                     </label>
-                    <Input placeholder="Your last name" />
+                    <Input 
+                      type="tel" 
+                      placeholder="Your phone number"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      required
+                    />
                   </div>
-                </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    Email Address
-                  </label>
-                  <Input type="email" placeholder="your.email@example.com" />
-                </div>
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-2 block">
+                      How can we help you? *
+                    </label>
+                    <select 
+                      className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground"
+                      value={formData.serviceType}
+                      onChange={(e) => handleInputChange('serviceType', e.target.value)}
+                      required
+                    >
+                      <option value="">Select a service</option>
+                      <option value="saturday-school">Saturday School Enrollment</option>
+                      <option value="community">Community Activities</option>
+                      <option value="burial">Burial Services</option>
+                      <option value="general">General Inquiry</option>
+                      <option value="volunteer">Volunteer Opportunities</option>
+                    </select>
+                  </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    Phone Number
-                  </label>
-                  <Input type="tel" placeholder="Your phone number" />
-                </div>
+                  <div>
+                    <label className="text-sm font-medium text-foreground mb-2 block">
+                      Message *
+                    </label>
+                    <Textarea 
+                      placeholder="Please tell us more about how we can help you..." 
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      required
+                    />
+                  </div>
 
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    How can we help you?
-                  </label>
-                  <select className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground">
-                    <option value="">Select a service</option>
-                    <option value="saturday-school">Saturday School Enrollment</option>
-                    <option value="community">Community Activities</option>
-                    <option value="burial">Burial Services</option>
-                    <option value="general">General Inquiry</option>
-                    <option value="volunteer">Volunteer Opportunities</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">
-                    Message
-                  </label>
-                  <Textarea 
-                    placeholder="Please tell us more about how we can help you..." 
-                    rows={5}
-                  />
-                </div>
-
-                <Button 
-                  size="lg" 
-                  className="w-full"
-                  onClick={() => {
-                    // Handle form submission here
-                    alert('Message functionality will be implemented with form handling');
-                  }}
-                >
-                  Send Message
-                </Button>
+                  <Button 
+                    type="submit"
+                    size="lg" 
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </Button>
+                </form>
 
                 <p className="text-sm text-muted-foreground text-center">
                   For urgent matters, especially burial services, please call our 24/7 line directly.
