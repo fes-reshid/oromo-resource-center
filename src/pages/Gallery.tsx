@@ -12,25 +12,25 @@ const Gallery = () => {
     {
       id: 1,
       title: t('galleryPage.saturdaySchoolAlbum'),
-      image: '/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png',
+      image: '/lovable-uploads/gallery-1.jpg',
       count: 45
     },
     {
       id: 2,
       title: t('galleryPage.communityGatheringAlbum'),
-      image: '/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png',
+      image: '/lovable-uploads/gallery-2.jpg',
       count: 32
     },
     {
       id: 3,
       title: t('galleryPage.culturalEventsAlbum'),
-      image: '/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png',
+      image: '/lovable-uploads/gallery-3.jpg',
       count: 28
     },
     {
       id: 4,
       title: t('galleryPage.islamicEventsAlbum'),
-      image: '/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png',
+      image: '/lovable-uploads/gallery-4.jpg',
       count: 38
     }
   ];
