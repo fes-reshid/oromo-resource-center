@@ -65,9 +65,11 @@ const Header = () => {
               </DropdownMenu>
               <Link to="/#support" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link>
               <Link to="/volunteer" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6">
-                {t('donate')}
-              </Button>
+              <Link to="/donate">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6">
+                  {t('donate')}
+                </Button>
+              </Link>
             </nav>
 
             {/* Mobile menu button */}
@@ -94,9 +96,11 @@ const Header = () => {
               <Link to="/gallery" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('gallery')}</Link>
               <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link>
               <Link to="/volunteer" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold mt-2">
-                {t('donate')}
-              </Button>
+              <Link to="/donate" className="block mt-2">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold w-full">
+                  {t('donate')}
+                </Button>
+              </Link>
             </nav>
           </div>
         </div>
