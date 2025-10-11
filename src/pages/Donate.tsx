@@ -19,10 +19,18 @@ const Donate = () => {
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
             {t('donate')}
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
             Support the Oromo Resource Centre in serving our community through education, 
             cultural preservation, and essential services.
           </p>
+          <div className="max-w-3xl mx-auto space-y-2">
+            <p className="text-lg font-semibold text-primary">
+              ✓ All donations are tax deductible
+            </p>
+            <p className="text-lg font-semibold text-primary">
+              ✓ Your donation is Sadaqah Jariyah (ongoing charity)
+            </p>
+          </div>
         </div>
 
         {/* Coming Soon - Stripe */}
@@ -98,11 +106,20 @@ const Donate = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
+            <div className="mb-4 p-4 bg-primary/10 rounded-lg border border-primary/20">
+              <p className="text-lg font-semibold text-primary mb-2">
+                All donations are tax deductible and count as Sadaqah Jariyah
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Your donation is an ongoing charity that continues to benefit the community, 
+                earning you rewards long after your contribution.
+              </p>
+            </div>
             <ul className="space-y-2 text-muted-foreground">
               <li>• All donations support our community programs, educational services, and cultural activities</li>
               <li>• Your contribution helps us maintain our facilities and continue serving the Oromo community</li>
               <li>• Every donation, no matter the size, makes a meaningful difference</li>
-              <li>• For receipts or queries, please contact us at oromoirc@gmail.com</li>
+              <li>• For tax receipts or queries, please contact us at oromoirc@gmail.com</li>
             </ul>
           </CardContent>
         </Card>
