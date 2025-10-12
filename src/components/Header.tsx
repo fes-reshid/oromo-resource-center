@@ -1,6 +1,6 @@
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import {
@@ -13,6 +13,12 @@ import {
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const location = useLocation();
+  
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-background">
@@ -48,10 +54,10 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
-              <a href="/" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</a>
+              <Link to="/" className={`text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
               <a href="/#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary transition-colors">
+                <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-semibold transition-colors ${isActive('/services') || isActive('/gallery') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
                   {t('whatWeDo')} <ChevronDown className="h-4 w-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -64,7 +70,7 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
               {/* <Link to="/#support" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link> */}
-              <Link to="/volunteer" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
+              <Link to="/volunteer" className={`text-sm font-semibold transition-colors ${isActive('/volunteer') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('getInvolved')}</Link>
               <Link to="/donate">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6">
                   {t('donate')}
@@ -90,12 +96,12 @@ const Header = () => {
         <div className="lg:hidden bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <nav className="flex flex-col gap-2 py-4">
-              <a href="/" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('home')}</a>
+              <Link to="/" className={`py-2 text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
               <a href="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
-              <Link to="/services" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('servicesLink')}</Link>
-              <Link to="/gallery" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('gallery')}</Link>
+              <Link to="/services" className={`py-2 text-sm font-semibold transition-colors ${isActive('/services') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('servicesLink')}</Link>
+              <Link to="/gallery" className={`py-2 text-sm font-semibold transition-colors ${isActive('/gallery') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('gallery')}</Link>
               {/* <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link> */}
-              <Link to="/volunteer" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
+              <Link to="/volunteer" className={`py-2 text-sm font-semibold transition-colors ${isActive('/volunteer') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('getInvolved')}</Link>
               <Link to="/donate" className="block mt-2">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold w-full">
                   {t('donate')}
