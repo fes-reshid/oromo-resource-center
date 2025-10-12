@@ -63,7 +63,7 @@ const Header = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/#support" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link>
+              {/* <Link to="/#support" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link> */}
               <Link to="/volunteer" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
               <Link to="/donate">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6">
@@ -94,7 +94,7 @@ const Header = () => {
               <a href="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <Link to="/services" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('servicesLink')}</Link>
               <Link to="/gallery" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('gallery')}</Link>
-              <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link>
+              {/* <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link> */}
               <Link to="/volunteer" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('getInvolved')}</Link>
               <Link to="/donate" className="block mt-2">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold w-full">
