@@ -13,6 +13,15 @@ interface FormNotificationRequest {
   data: any;
 }
 
+// Helper function to convert object to CSV
+const objectToCSV = (data: any): string => {
+  const headers = Object.keys(data).join(',');
+  const values = Object.values(data).map(val => 
+    typeof val === 'string' && val.includes(',') ? `"${val}"` : val
+  ).join(',');
+  return `${headers}\n${values}`;
+};
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -153,11 +162,21 @@ const handler = async (req: Request): Promise<Response> => {
         throw new Error(`Unknown form type: ${formType}`);
     }
 
+    // Generate CSV content
+    const csvContent = objectToCSV(data);
+    const csvBase64 = btoa(csvContent);
+    
     const emailResponse = await resend.emails.send({
       from: "ORC Forms <onboarding@resend.dev>",
       to: ["savefes@gmail.com"],
       subject: subject,
       html: html,
+      attachments: [
+        {
+          filename: `${formType}_${new Date().toISOString().split('T')[0]}.csv`,
+          content: csvBase64,
+        },
+      ],
     });
 
     console.log("Email sent successfully:", emailResponse);
