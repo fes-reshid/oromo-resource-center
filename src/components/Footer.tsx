@@ -80,7 +80,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-primary-foreground/80 text-sm">
-            © 2024 Oromo Resource Centre Inc. All rights reserved.
+            © 2025 Oromo Resource Centre Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-2 mt-4 md:mt-0">
             <Heart className="h-4 w-4 text-accent" />

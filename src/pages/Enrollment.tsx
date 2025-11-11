@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, User, Calendar, Phone, Mail, MapPin, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,24 @@ const Enrollment = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Load JotForm embed handler script
+  useEffect(() => {
+    const script1 = document.createElement('script');
+    script1.src = 'https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js';
+    script1.async = true;
+    document.body.appendChild(script1);
+
+    script1.onload = () => {
+      const script2 = document.createElement('script');
+      script2.innerHTML = `window.jotformEmbedHandler("iframe[id='JotFormIFrame-253146975453869']", "https://form.jotform.com/")`;
+      document.body.appendChild(script2);
+    };
+
+    return () => {
+      document.body.removeChild(script1);
+    };
+  }, []);
   const [formData, setFormData] = useState({
     childName: '',
     childAge: '',
@@ -374,6 +392,30 @@ const Enrollment = () => {
               </form>
             </CardContent>
           </Card>
+
+          {/* JotForm Course Registration */}
+          <div className="mt-12">
+            <Card className="border-0 shadow-lg">
+              <CardHeader className="text-center pb-6">
+                <CardTitle className="text-2xl text-foreground">
+                  Course Registration Form
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <iframe
+                  id="JotFormIFrame-253146975453869"
+                  title="Course Registration Form"
+                  onLoad={() => window.parent.scrollTo(0,0)}
+                  allowTransparency={true}
+                  allow="geolocation; microphone; camera; fullscreen; payment"
+                  src="https://form.jotform.com/253146975453869"
+                  frameBorder="0"
+                  style={{ minWidth: '100%', maxWidth: '100%', height: '539px', border: 'none' }}
+                  scrolling="no"
+                />
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
