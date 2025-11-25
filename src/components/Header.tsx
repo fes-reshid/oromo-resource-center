@@ -65,6 +65,9 @@ const Header = () => {
                     <Link to="/services" className="w-full">{t('servicesLink')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
+                    <Link to="/venue-booking" className="w-full">Venue Booking</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
                     <Link to="/gallery" className="w-full">{t('gallery')}</Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -99,6 +102,7 @@ const Header = () => {
               <Link to="/" className={`py-2 text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
               <a href="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <Link to="/services" className={`py-2 text-sm font-semibold transition-colors ${isActive('/services') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('servicesLink')}</Link>
+              <Link to="/venue-booking" className={`py-2 text-sm font-semibold transition-colors ${isActive('/venue-booking') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>Venue Booking</Link>
               <Link to="/gallery" className={`py-2 text-sm font-semibold transition-colors ${isActive('/gallery') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('gallery')}</Link>
               {/* <Link to="/#support" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('supportUs')}</Link> */}
               <Link to="/volunteer" className={`py-2 text-sm font-semibold transition-colors ${isActive('/volunteer') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('getInvolved')}</Link>

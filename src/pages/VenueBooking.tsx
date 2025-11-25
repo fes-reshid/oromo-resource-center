@@ -8,6 +8,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const VenueBooking = () => {
   const [equipmentNeeds, setEquipmentNeeds] = useState({
@@ -133,7 +135,8 @@ const VenueBooking = () => {
   };
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      <Header />
+      {/* Hero Section */}
       <div className="bg-primary text-primary-foreground py-16">
         <div className="container mx-auto px-4 text-center">
           <Calendar className="h-16 w-16 mx-auto mb-4" />
@@ -329,6 +332,7 @@ const VenueBooking = () => {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </div>
   );
 };
