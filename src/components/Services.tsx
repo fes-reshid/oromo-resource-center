@@ -1,4 +1,4 @@
-import { GraduationCap, Users, Heart, Calendar, MapPin, Clock, PartyPopper } from 'lucide-react';
+import { GraduationCap, Users, Heart, Calendar, MapPin, Clock, PartyPopper, Building2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -170,6 +170,44 @@ const Services = () => {
                 onClick={() => navigate('/events')}
               >
                 View Events
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Venue Booking */}
+          <Card className="relative overflow-hidden group hover:shadow-lg transition-all duration-300 border-0 bg-card/80 backdrop-blur-sm">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent"></div>
+            <CardHeader className="pb-4">
+              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <Building2 className="h-8 w-8 text-primary" />
+              </div>
+              <CardTitle className="text-xl text-foreground">Venue Booking</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">
+                Book our community center for taziya, weddings, and other special occasions.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Building2 className="h-4 w-4" />
+                  <span>Community Center</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Calendar className="h-4 w-4" />
+                  <span>Flexible Scheduling</span>
+                </div>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <MapPin className="h-4 w-4" />
+                  <span>Victoria Location</span>
+                </div>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full mt-4"
+                onClick={() => navigate('/venue-booking')}
+              >
+                Book Venue
               </Button>
             </CardContent>
           </Card>
