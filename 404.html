@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oromo Resource Center Melbourne - Community Hub</title>
+<script>
+  // GitHub Pages has no server-side rewrites, so a deep link into this
+  // single-page app (e.g. /azan) 404s on direct load or refresh. Redirect
+  // to index.html with the intended path encoded in a query string; a
+  // bootstrap script there restores it via history.replaceState before
+  // the app's router reads the URL.
+  (function () {
+    var BASE = '/oromo-resource-center/';
+    var path = window.location.pathname;
+    var rest = path.startsWith(BASE) ? path.slice(BASE.length) : '';
+    var redirect = encodeURIComponent('/' + rest + window.location.search + window.location.hash);
+    window.location.replace(BASE + 'index.html?redirect=' + redirect);
+  })();
+</script>
+</head>
+<body>
+<p>Redirecting…</p>
+</body>
+</html>
