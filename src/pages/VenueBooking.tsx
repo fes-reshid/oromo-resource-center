@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { submitToWeb3Forms } from '@/lib/web3forms';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -45,70 +45,33 @@ const VenueBooking = () => {
       }
 
       const selectedDate = formData.get('date') as string;
-      
-      // Check if the date is already booked
-      const { data: existingBookings, error: checkError } = await supabase
-        .from('venue_bookings')
-        .select('id, booking_date')
-        .eq('booking_date', selectedDate)
-        .neq('status', 'cancelled'); // Exclude cancelled bookings
-
-      if (checkError) {
-        console.error('Error checking existing bookings:', checkError);
-        throw checkError;
-      }
-
-      // If there are existing bookings for this date, reject the request
-      if (existingBookings && existingBookings.length > 0) {
-        toast({
-          title: "Date Unavailable",
-          description: "This date is already booked. Please contact 0456789767 or email save@edd.com to check availability and discuss alternative dates.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
 
       const bookingData = {
-        applicant_name: formData.get('name') as string,
-        contact_number: formData.get('contact') as string,
-        email: formData.get('email') as string,
-        organization: formData.get('organization') as string || null,
-        purpose: formData.get('purpose') as string,
-        booking_date: selectedDate,
-        expected_attendees: parseInt(formData.get('attendees') as string),
-        start_time: formData.get('start-time') as string,
-        end_time: formData.get('end-time') as string,
-        room_area: formData.get('room') as string || null,
-        needs_tables: equipmentNeeds.tables,
-        needs_chairs: equipmentNeeds.chairs,
-        needs_audio: equipmentNeeds.audio,
-        needs_projector: equipmentNeeds.projector,
-        other_equipment: formData.get('other-equipment') as string || null,
-        agreed_to_terms: agreedToTerms,
+        'Applicant Name': formData.get('name') as string,
+        'Contact Number': formData.get('contact') as string,
+        Email: formData.get('email') as string,
+        Organization: (formData.get('organization') as string) || 'N/A',
+        Purpose: formData.get('purpose') as string,
+        'Booking Date': selectedDate,
+        'Expected Attendees': formData.get('attendees') as string,
+        'Start Time': formData.get('start-time') as string,
+        'End Time': formData.get('end-time') as string,
+        'Room/Area': (formData.get('room') as string) || 'N/A',
+        'Needs Tables': equipmentNeeds.tables ? 'Yes' : 'No',
+        'Needs Chairs': equipmentNeeds.chairs ? 'Yes' : 'No',
+        'Needs Audio': equipmentNeeds.audio ? 'Yes' : 'No',
+        'Needs Projector': equipmentNeeds.projector ? 'Yes' : 'No',
+        'Other Equipment': (formData.get('other-equipment') as string) || 'N/A',
       };
 
-      console.log('Submitting booking data:', bookingData);
-
-      const { error } = await supabase.from('venue_bookings').insert(bookingData);
-
-      if (error) {
-        console.error('Supabase error:', error);
-        throw error;
-      }
-
-      // Send email notification
-      try {
-        await supabase.functions.invoke('send-form-notification', {
-          body: {
-            formType: 'venue_booking',
-            data: bookingData
-          }
-        });
-      } catch (emailError) {
-        console.error('Error sending email notification:', emailError);
-        // Don't fail the submission if email fails
-      }
+      // Note: this no longer auto-checks the date against existing bookings
+      // (that required a real database query, which a no-backend email form
+      // can't do) — double-booking now needs a manual check when following
+      // up on the request, same as most small venues handle it.
+      await submitToWeb3Forms(
+        `New venue booking request from ${bookingData['Applicant Name']} (${selectedDate})`,
+        bookingData,
+      );
 
       toast({
         title: "Booking Submitted!",
