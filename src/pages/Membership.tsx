@@ -24,8 +24,9 @@ const Membership = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
     try {
       // Validate required fields
       if (!dateOfBirth) {
@@ -71,11 +72,7 @@ const Membership = () => {
         description: "Your membership application has been submitted successfully. We will contact you within 2-3 business days.",
       });
 
-      // Reset form - use a more reliable method
-      const form = e.currentTarget;
-      if (form) {
-        form.reset();
-      }
+      form.reset();
       setDateOfBirth(undefined);
       setIsMarried('no');
     } catch (error) {

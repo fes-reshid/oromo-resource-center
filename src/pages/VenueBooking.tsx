@@ -30,8 +30,9 @@ const VenueBooking = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData(e.currentTarget);
-    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
     try {
       // Validate required fields
       if (!agreedToTerms) {
@@ -78,11 +79,7 @@ const VenueBooking = () => {
         description: "Your venue booking request has been submitted successfully. We will contact you within 2-3 business days.",
       });
 
-      // Reset form - use a more reliable method
-      const form = e.currentTarget;
-      if (form) {
-        form.reset();
-      }
+      form.reset();
       setEquipmentNeeds({ tables: false, chairs: false, audio: false, projector: false });
       setAgreedToTerms(false);
     } catch (error) {
