@@ -4,8 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import Reveal from '@/components/Reveal';
+import { submitToWeb3Forms } from '@/lib/web3forms';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -29,7 +30,7 @@ const Contact = () => {
 
     try {
       // Validate required fields
-      if (!formData.firstName || !formData.lastName || !formData.email || 
+      if (!formData.firstName || !formData.lastName || !formData.email ||
           !formData.phone || !formData.serviceType || !formData.message) {
         toast({
           title: "Error",
@@ -40,34 +41,14 @@ const Contact = () => {
         return;
       }
 
-      const contactData = {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        service_type: formData.serviceType,
-        message: formData.message,
-      };
-
-      const { error } = await supabase.from('contact_messages').insert(contactData);
-
-      if (error) {
-        console.error('Supabase error:', error);
-        throw error;
-      }
-
-      // Send email notification
-      try {
-        await supabase.functions.invoke('send-form-notification', {
-          body: {
-            formType: 'contact',
-            data: contactData
-          }
-        });
-      } catch (emailError) {
-        console.error('Error sending email notification:', emailError);
-        // Don't fail the submission if email fails
-      }
+      await submitToWeb3Forms(`New contact form message from ${formData.firstName} ${formData.lastName}`, {
+        'First Name': formData.firstName,
+        'Last Name': formData.lastName,
+        Email: formData.email,
+        Phone: formData.phone,
+        'Service Type': formData.serviceType,
+        Message: formData.message,
+      });
 
       toast({
         title: "Message Sent!",
@@ -97,20 +78,20 @@ const Contact = () => {
   return (
     <section id="contact" className="py-20 bg-gradient-to-br from-secondary/30 to-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
             Get in Touch
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Whether you have questions about our services or need immediate support, 
+            Whether you have questions about our services or need immediate support,
             we're here to help our community.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Information */}
           <div className="lg:col-span-1 space-y-6">
-            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-foreground">
                   <MapPin className="h-5 w-5 text-primary" />
@@ -126,7 +107,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-foreground">
                   <Phone className="h-5 w-5 text-primary" />
@@ -142,7 +123,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-foreground">
                   <Clock className="h-5 w-5 text-primary" />
@@ -158,7 +139,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
+            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <MessageCircle className="h-6 w-6 text-primary" />
@@ -167,7 +148,7 @@ const Contact = () => {
                 <p className="text-muted-foreground mb-4">
                   Need immediate assistance or have questions? Reach out to us directly.
                 </p>
-                <Button 
+                <Button
                   className="w-full"
                   onClick={() => {
                     window.location.href = 'tel:+61-xxx-xxx-xxx';
@@ -181,7 +162,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
+            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-foreground">Send us a Message</CardTitle>
                 <p className="text-muted-foreground">
@@ -195,8 +176,8 @@ const Contact = () => {
                       <label className="text-sm font-medium text-foreground mb-2 block">
                         First Name *
                       </label>
-                      <Input 
-                        placeholder="Your first name" 
+                      <Input
+                        placeholder="Your first name"
                         value={formData.firstName}
                         onChange={(e) => handleInputChange('firstName', e.target.value)}
                         required
@@ -206,7 +187,7 @@ const Contact = () => {
                       <label className="text-sm font-medium text-foreground mb-2 block">
                         Last Name *
                       </label>
-                      <Input 
+                      <Input
                         placeholder="Your last name"
                         value={formData.lastName}
                         onChange={(e) => handleInputChange('lastName', e.target.value)}
@@ -219,8 +200,8 @@ const Contact = () => {
                     <label className="text-sm font-medium text-foreground mb-2 block">
                       Email Address *
                     </label>
-                    <Input 
-                      type="email" 
+                    <Input
+                      type="email"
                       placeholder="your.email@example.com"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
@@ -232,8 +213,8 @@ const Contact = () => {
                     <label className="text-sm font-medium text-foreground mb-2 block">
                       Phone Number *
                     </label>
-                    <Input 
-                      type="tel" 
+                    <Input
+                      type="tel"
                       placeholder="Your phone number"
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
@@ -245,7 +226,7 @@ const Contact = () => {
                     <label className="text-sm font-medium text-foreground mb-2 block">
                       How can we help you? *
                     </label>
-                    <select 
+                    <select
                       className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground"
                       value={formData.serviceType}
                       onChange={(e) => handleInputChange('serviceType', e.target.value)}
@@ -264,8 +245,8 @@ const Contact = () => {
                     <label className="text-sm font-medium text-foreground mb-2 block">
                       Message *
                     </label>
-                    <Textarea 
-                      placeholder="Please tell us more about how we can help you..." 
+                    <Textarea
+                      placeholder="Please tell us more about how we can help you..."
                       rows={5}
                       value={formData.message}
                       onChange={(e) => handleInputChange('message', e.target.value)}
@@ -273,9 +254,9 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button 
+                  <Button
                     type="submit"
-                    size="lg" 
+                    size="lg"
                     className="w-full"
                     disabled={isSubmitting}
                   >

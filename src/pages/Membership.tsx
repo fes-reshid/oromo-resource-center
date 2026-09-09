@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { submitToWeb3Forms } from '@/lib/web3forms';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 
@@ -39,49 +39,32 @@ const Membership = () => {
       }
 
       const membershipData = {
-        first_name: formData.get('firstName') as string,
-        surname: formData.get('surname') as string,
-        is_married: isMarried === 'yes',
-        spouse_name: formData.get('spouse') as string || null,
-        date_of_birth: dateOfBirth.toISOString().split('T')[0],
-        address: formData.get('address') as string,
-        mobile_number: formData.get('mobile') as string,
-        home_number: formData.get('home') as string || null,
-        email: formData.get('email') as string,
-        next_of_kin_name: formData.get('nextOfKin') as string,
-        next_of_kin_mobile: formData.get('nextOfKinMobile') as string,
-        child_1: formData.get('child1') as string || null,
-        child_2: formData.get('child2') as string || null,
-        child_3: formData.get('child3') as string || null,
-        child_4: formData.get('child4') as string || null,
-        child_5: formData.get('child5') as string || null,
-        child_6: formData.get('child6') as string || null,
-        member_signature: formData.get('memberSignature') as string,
-        witness_name: formData.get('witnessName') as string || null,
-        date_signed: formData.get('dateSign') as string,
+        'First Name': formData.get('firstName') as string,
+        Surname: formData.get('surname') as string,
+        'Is Married': isMarried === 'yes' ? 'Yes' : 'No',
+        'Spouse Name': (formData.get('spouse') as string) || 'N/A',
+        'Date of Birth': dateOfBirth.toISOString().split('T')[0],
+        Address: formData.get('address') as string,
+        'Mobile Number': formData.get('mobile') as string,
+        'Home Number': (formData.get('home') as string) || 'N/A',
+        Email: formData.get('email') as string,
+        'Next of Kin Name': formData.get('nextOfKin') as string,
+        'Next of Kin Mobile': formData.get('nextOfKinMobile') as string,
+        'Child 1': (formData.get('child1') as string) || '',
+        'Child 2': (formData.get('child2') as string) || '',
+        'Child 3': (formData.get('child3') as string) || '',
+        'Child 4': (formData.get('child4') as string) || '',
+        'Child 5': (formData.get('child5') as string) || '',
+        'Child 6': (formData.get('child6') as string) || '',
+        'Member Signature': formData.get('memberSignature') as string,
+        'Witness Name': (formData.get('witnessName') as string) || 'N/A',
+        'Date Signed': formData.get('dateSign') as string,
       };
 
-      console.log('Submitting membership data:', membershipData);
-
-      const { error } = await supabase.from('membership_applications').insert(membershipData);
-
-      if (error) {
-        console.error('Supabase error:', error);
-        throw error;
-      }
-
-      // Send email notification
-      try {
-        await supabase.functions.invoke('send-form-notification', {
-          body: {
-            formType: 'membership',
-            data: membershipData
-          }
-        });
-      } catch (emailError) {
-        console.error('Error sending email notification:', emailError);
-        // Don't fail the submission if email fails
-      }
+      await submitToWeb3Forms(
+        `New membership application from ${membershipData['First Name']} ${membershipData.Surname}`,
+        membershipData,
+      );
 
       toast({
         title: "Application Submitted!",
