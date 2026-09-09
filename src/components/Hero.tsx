@@ -12,7 +12,7 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png" 
+          src="lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png"
           alt="Oromo Resource Center grounds and memorial site" 
           className="w-full h-full object-cover"
         />

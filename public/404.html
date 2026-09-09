@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirecting…</title>
+<script>
+  // GitHub Pages has no server-side rewrites, so directly loading or
+  // refreshing a client-side route (e.g. /azan) 404s here. Redirect to
+  // index.html with the intended path encoded in a query string; the
+  // bootstrap script in index.html restores it via history.replaceState
+  // before the app's router reads the URL.
+  (function () {
+    var l = window.location;
+    var redirect = encodeURIComponent(l.pathname + l.search + l.hash);
+    l.replace('/index.html?redirect=' + redirect);
+  })();
+</script>
+</head>
+<body></body>
+</html>

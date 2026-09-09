@@ -121,3 +121,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  @keyframes dhikr-slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-dhikr-slide-in {
+    animation: dhikr-slide-in 0.6s ease-out;
+  }
+}

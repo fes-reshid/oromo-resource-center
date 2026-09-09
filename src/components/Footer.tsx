@@ -1,4 +1,5 @@
 import { Heart, MapPin, Phone, Mail, Facebook, Instagram, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <img 
-                src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png" 
+                src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
                 alt="Oromo Resource Centre Inc Logo" 
                 className="w-12 h-12 object-contain bg-white rounded-lg p-1"
               />
@@ -40,12 +41,12 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-primary-foreground">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Home</a></li>
-              <li><a href="/#about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">About Us</a></li>
-              <li><a href="/services" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Our Services</a></li>
-              <li><a href="/#contact" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Contact</a></li>
-              <li><a href="/volunteer" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Volunteer</a></li>
-              <li><a href="/membership" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Membership</a></li>
+              <li><Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Home</Link></li>
+              <li><a href="index.html#about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">About Us</a></li>
+              <li><Link to="/services" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Our Services</Link></li>
+              <li><a href="index.html#contact" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Contact</a></li>
+              <li><Link to="/volunteer" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Volunteer</Link></li>
+              <li><Link to="/membership" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">Membership</Link></li>
             </ul>
           </div>
 
