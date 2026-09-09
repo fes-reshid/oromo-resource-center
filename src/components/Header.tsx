@@ -42,7 +42,7 @@ const Header = () => {
           <div className="flex items-center justify-between py-4">
             <Link to="/" className="flex items-center gap-3">
               <img 
-                src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png" 
+                src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
                 alt="Oromo Resource Centre Inc Logo" 
                 className="w-12 h-12 object-contain"
               />
@@ -55,7 +55,7 @@ const Header = () => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
               <Link to="/" className={`text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
-              <a href="/#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
+              <a href="index.html#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <DropdownMenu>
                 <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-semibold transition-colors ${isActive('/services') || isActive('/gallery') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
                   {t('whatWeDo')} <ChevronDown className="h-4 w-4" />
@@ -100,7 +100,7 @@ const Header = () => {
           <div className="container mx-auto px-4">
             <nav className="flex flex-col gap-2 py-4">
               <Link to="/" className={`py-2 text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
-              <a href="/#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
+              <a href="index.html#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <Link to="/services" className={`py-2 text-sm font-semibold transition-colors ${isActive('/services') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('servicesLink')}</Link>
               <Link to="/venue-booking" className={`py-2 text-sm font-semibold transition-colors ${isActive('/venue-booking') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>Venue Booking</Link>
               <Link to="/gallery" className={`py-2 text-sm font-semibold transition-colors ${isActive('/gallery') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('gallery')}</Link>

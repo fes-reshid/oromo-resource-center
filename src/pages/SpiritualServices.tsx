@@ -1,20 +1,24 @@
+import { useMemo } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, Heart, Users, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { jumuahTime } from '@/data/prayerTimes';
+import { getMelbourneNow, MELBOURNE_TZ } from '@/lib/prayerCountdown';
+import { getDailyPrayers } from '@/lib/livePrayerTimes';
+
+const timeFormatter = new Intl.DateTimeFormat('en-AU', {
+  timeZone: MELBOURNE_TZ,
+  hour: 'numeric',
+  minute: '2-digit',
+  hour12: true,
+});
 
 const SpiritualServices = () => {
   const navigate = useNavigate();
-
-  const prayerTimes = [
-    { name: 'Fajr', time: '5:30 AM' },
-    { name: 'Dhuhr', time: '1:00 PM' },
-    { name: 'Asr', time: '4:30 PM' },
-    { name: 'Maghrib', time: '7:00 PM' },
-    { name: 'Isha', time: '8:30 PM' }
-  ];
+  const todaysPrayers = useMemo(() => getDailyPrayers(getMelbourneNow(new Date())), []);
 
   const burialFeatures = [
     'Islamic Traditions',
@@ -50,8 +54,8 @@ const SpiritualServices = () => {
                 Join our community for Jumma (Friday) prayer services. Experience spiritual unity and strengthen your faith with fellow community members.
               </p>
               <div className="bg-primary/5 p-4 rounded-lg">
-                <p className="font-semibold text-foreground mb-2">Friday Prayer Times:</p>
-                <p className="text-lg text-primary">1:00 PM - 2:00 PM</p>
+                <p className="font-semibold text-foreground mb-2">Friday Prayer Time:</p>
+                <p className="text-lg text-primary">{jumuahTime}</p>
               </div>
             </CardContent>
           </Card>
@@ -66,19 +70,38 @@ const SpiritualServices = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Daily prayer times for Melbourne, Victoria
+                Today's Adhan and Iqama times, calculated live for Mount Cottrell, Victoria
               </p>
               <div className="space-y-3">
-                {prayerTimes.map((prayer, index) => (
-                  <div key={index} className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                    <span className="font-medium text-foreground">{prayer.name}</span>
-                    <span className="text-primary font-semibold">{prayer.time}</span>
-                  </div>
-                ))}
+                {todaysPrayers
+                  .filter((prayer) => prayer.name !== 'Sunrise')
+                  .map((prayer) => (
+                    <div key={prayer.name} className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
+                      <span className="font-medium text-foreground">{prayer.name}</span>
+                      <span className="text-primary font-semibold text-right">
+                        Adhan {timeFormatter.format(prayer.adhan)}
+                        {prayer.iqama && (
+                          <>
+                            {' '}
+                            <span className="text-muted-foreground font-normal">
+                              · Iqama {timeFormatter.format(prayer.iqama)}
+                            </span>
+                          </>
+                        )}
+                      </span>
+                    </div>
+                  ))}
               </div>
               <p className="text-sm text-muted-foreground mt-4">
-                * Times are approximate and may vary. Please check with the centre for exact timings.
+                * Calculated times — please check with the centre for exact timings.
               </p>
+              <Button
+                variant="outline"
+                className="w-full mt-4"
+                onClick={() => navigate('/azan')}
+              >
+                Open Live Prayer Display
+              </Button>
             </CardContent>
           </Card>
         </div>
