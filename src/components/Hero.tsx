@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ArrowRight, Users, GraduationCap, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -6,14 +7,25 @@ import { useNavigate } from 'react-router-dom';
 const Hero = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setLoaded(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const fadeUp = () =>
+    `transition-all duration-700 ease-out ${
+      loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+    }`;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img 
+        <img
           src="lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png"
-          alt="Oromo Resource Center grounds and memorial site" 
+          alt="Oromo Resource Center grounds and memorial site"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40"></div>
@@ -22,19 +34,28 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-2xl text-primary-foreground">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1
+            className={`text-4xl md:text-6xl font-bold mb-6 leading-tight ${fadeUp()}`}
+            style={{ transitionDelay: loaded ? '0ms' : '0ms' }}
+          >
             {t('hero.title')}
             <span className="block text-accent">{t('hero.titleAccent')}</span>
           </h1>
-          
-          <p className="text-lg md:text-xl mb-8 leading-relaxed opacity-95">
+
+          <p
+            className={`text-lg md:text-xl mb-8 leading-relaxed opacity-95 ${fadeUp()}`}
+            style={{ transitionDelay: loaded ? '150ms' : '0ms' }}
+          >
             {t('hero.description')}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button 
-              size="lg" 
-              variant="secondary" 
+          <div
+            className={`flex flex-col sm:flex-row gap-4 mb-12 ${fadeUp()}`}
+            style={{ transitionDelay: loaded ? '300ms' : '0ms' }}
+          >
+            <Button
+              size="lg"
+              variant="secondary"
               className="group"
               onClick={() => {
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
@@ -43,9 +64,9 @@ const Hero = () => {
               {t('hero.learnMore')}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button 
-              size="lg" 
-              variant="default" 
+            <Button
+              size="lg"
+              variant="default"
               className="bg-background text-foreground border-2 border-background hover:bg-background/90"
               onClick={() => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -56,8 +77,11 @@ const Hero = () => {
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <button 
+          <div
+            className={`grid grid-cols-1 sm:grid-cols-3 gap-6 ${fadeUp()}`}
+            style={{ transitionDelay: loaded ? '450ms' : '0ms' }}
+          >
+            <button
               onClick={() => navigate('/school')}
               className="flex items-center gap-3 hover:bg-primary-foreground/10 p-3 rounded-lg transition-colors cursor-pointer text-left"
             >
@@ -69,8 +93,8 @@ const Hero = () => {
                 <div className="text-sm opacity-90">{t('hero.educationalPrograms')}</div>
               </div>
             </button>
-            
-            <button 
+
+            <button
               onClick={() => navigate('/community-services')}
               className="flex items-center gap-3 hover:bg-primary-foreground/10 p-3 rounded-lg transition-colors cursor-pointer text-left"
             >
@@ -82,8 +106,8 @@ const Hero = () => {
                 <div className="text-sm opacity-90">{t('hero.victoria')}</div>
               </div>
             </button>
-            
-            <button 
+
+            <button
               onClick={() => navigate('/funeral-services')}
               className="flex items-center gap-3 hover:bg-primary-foreground/10 p-3 rounded-lg transition-colors cursor-pointer text-left"
             >
