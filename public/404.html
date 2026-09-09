@@ -10,10 +10,23 @@
   // index.html with the intended path encoded in a query string; the
   // bootstrap script in index.html restores it via history.replaceState
   // before the app's router reads the URL.
+  //
+  // The app is reachable at more than one depth (e.g.
+  // fes-reshid.github.io/oromo-resource-center/ as well as the
+  // oirc.org.au custom domain root), so the redirect target is computed
+  // from the current path rather than hardcoded — every route in this
+  // app is a single flat segment, so dropping the last path segment
+  // always yields the app's real base directory.
   (function () {
     var l = window.location;
-    var redirect = encodeURIComponent(l.pathname + l.search + l.hash);
-    l.replace('/index.html?redirect=' + redirect);
+    var segments = l.pathname.split('/');
+    var lastSegment = segments.pop();
+    var base = segments.join('/') + '/';
+    // Encode only the part of the path *after* the app's base — index.html's
+    // bootstrap script re-prepends that same base, so including it here too
+    // would duplicate it (e.g. .../oromo-resource-center/oromo-resource-center/azan).
+    var rest = '/' + lastSegment + l.search + l.hash;
+    l.replace(base + 'index.html?redirect=' + encodeURIComponent(rest));
   })();
 </script>
 </head>
