@@ -3,44 +3,56 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card } from '@/components/ui/card';
-import { ImageIcon, X } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+
+interface GalleryPhoto {
+  image: string;
+  album: string;
+  caption?: string;
+}
+
+// Every file dropped into src/content/gallery-photos/ (via the CMS's
+// "Gallery Photos" collection, or directly) is picked up automatically at
+// build time — adding a photo never requires a code change.
+const photoModules = import.meta.glob<GalleryPhoto>('/src/content/gallery-photos/*.json', {
+  eager: true,
+  import: 'default',
+});
+const allPhotos = Object.values(photoModules);
+
+const ALBUM_ORDER = [
+  'Saturday School',
+  'Community Gatherings',
+  'Cultural Events',
+  'Islamic Events',
+];
+
+function groupByAlbum(photos: GalleryPhoto[]) {
+  const groups = new Map<string, GalleryPhoto[]>();
+  for (const photo of photos) {
+    const list = groups.get(photo.album) ?? [];
+    list.push(photo);
+    groups.set(photo.album, list);
+  }
+  const orderedNames = [
+    ...ALBUM_ORDER.filter((name) => groups.has(name)),
+    ...[...groups.keys()].filter((name) => !ALBUM_ORDER.includes(name)),
+  ];
+  return orderedNames.map((name) => ({ name, photos: groups.get(name)! }));
+}
 
 const Gallery = () => {
   const { t } = useLanguage();
-  const [selectedAlbum, setSelectedAlbum] = useState<number | null>(null);
-  
-  const albums = [
-    {
-      id: 1,
-      title: t('galleryPage.saturdaySchoolAlbum'),
-      image: '/lovable-uploads/gallery-1.jpg',
-      count: 45
-    },
-    {
-      id: 2,
-      title: t('galleryPage.communityGatheringAlbum'),
-      image: '/lovable-uploads/gallery-2.jpg',
-      count: 32
-    },
-    {
-      id: 3,
-      title: t('galleryPage.culturalEventsAlbum'),
-      image: '/lovable-uploads/gallery-3.jpg',
-      count: 28
-    },
-    {
-      id: 4,
-      title: t('galleryPage.islamicEventsAlbum'),
-      image: '/lovable-uploads/gallery-4.jpg',
-      count: 38
-    }
-  ];
+  const [selectedAlbum, setSelectedAlbum] = useState<string | null>(null);
+
+  const albums = groupByAlbum(allPhotos);
+  const activeAlbum = albums.find((a) => a.name === selectedAlbum);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
@@ -51,63 +63,62 @@ const Gallery = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {albums.map((album) => (
-            <Card 
-              key={album.id} 
-              className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300"
-              onClick={() => setSelectedAlbum(album.id)}
-            >
-              <div className="relative h-64 overflow-hidden bg-muted">
-                <img 
-                  src={album.image} 
-                  alt={album.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
-                  <div className="text-white">
-                    <h3 className="text-xl font-bold mb-2">{album.title}</h3>
-                    <div className="flex items-center gap-2 text-sm">
-                      <ImageIcon className="h-4 w-4" />
-                      <span>{album.count} photos</span>
+        {albums.length === 0 ? (
+          <p className="text-center text-muted-foreground">
+            No photos yet — check back soon!
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {albums.map((album) => (
+              <Card
+                key={album.name}
+                className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300"
+                onClick={() => setSelectedAlbum(album.name)}
+              >
+                <div className="relative h-64 overflow-hidden bg-muted">
+                  <img
+                    src={album.photos[0].image}
+                    alt={album.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                    <div className="text-white">
+                      <h3 className="text-xl font-bold mb-2">{album.name}</h3>
+                      <div className="flex items-center gap-2 text-sm">
+                        <ImageIcon className="h-4 w-4" />
+                        <span>{album.photos.length} photo{album.photos.length === 1 ? '' : 's'}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        <div className="text-center mt-16">
-          <div className="inline-block bg-primary/10 px-8 py-4 rounded-lg">
-            <p className="text-muted-foreground">
-              {t('galleryPage.recentEvents')} - More photos coming soon!
-            </p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </main>
-      
+
       <Dialog open={selectedAlbum !== null} onOpenChange={() => setSelectedAlbum(null)}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>
-              {albums.find(a => a.id === selectedAlbum)?.title}
-            </DialogTitle>
+            <DialogTitle>{activeAlbum?.name}</DialogTitle>
           </DialogHeader>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-            {selectedAlbum && (
-              <div className="col-span-2 md:col-span-3">
-                <img 
-                  src={albums.find(a => a.id === selectedAlbum)?.image} 
-                  alt={albums.find(a => a.id === selectedAlbum)?.title}
+            {activeAlbum?.photos.map((photo, i) => (
+              <figure key={i} className="space-y-1">
+                <img
+                  src={photo.image}
+                  alt={photo.caption || activeAlbum.name}
                   className="w-full h-auto rounded-lg"
                 />
-              </div>
-            )}
+                {photo.caption && (
+                  <figcaption className="text-xs text-muted-foreground">{photo.caption}</figcaption>
+                )}
+              </figure>
+            ))}
           </div>
         </DialogContent>
       </Dialog>
-      
+
       <Footer />
     </div>
   );
