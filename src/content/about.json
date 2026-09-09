@@ -1,0 +1,28 @@
+{
+  "heading": "About Our Center",
+  "description": "The Oromo Resource Center is a cornerstone of the Melbourne community, dedicated to preserving our rich cultural heritage while supporting families in their spiritual and educational journey.",
+  "pillars": [
+    {
+      "title": "Our Mission",
+      "text": "To strengthen our community through education, cultural preservation, and spiritual guidance while maintaining our Islamic values."
+    },
+    {
+      "title": "Our Vision",
+      "text": "A thriving Oromo community in Melbourne where children learn their heritage and families find support in all aspects of life."
+    },
+    {
+      "title": "Our Values",
+      "text": "Community, education, cultural pride, spiritual growth, and compassionate service to all families."
+    }
+  ],
+  "stats": [
+    { "value": 200, "suffix": "+", "label": "Families Served" },
+    { "value": 10, "suffix": "+", "label": "Years of Service" },
+    { "value": 50, "suffix": "+", "label": "Weekly Students" },
+    { "value": 24, "suffix": "/7", "label": "Community Support" }
+  ],
+  "servingVictoria": {
+    "heading": "Serving Victoria",
+    "text": "Located in the heart of Victoria, we are committed to being accessible to all families in our community. From Footscray to Werribee, from Sunshine to Hoppers Crossing, we welcome everyone seeking connection, education, and spiritual guidance."
+  }
+}

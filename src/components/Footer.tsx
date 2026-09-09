@@ -1,5 +1,6 @@
 import { Heart, MapPin, Phone, Mail, Facebook, Instagram, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import content from '@/content/footer.json';
 
 const Footer = () => {
   return (
@@ -9,29 +10,27 @@ const Footer = () => {
           {/* Organization Info */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <img 
+              <img
                 src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
-                alt="Oromo Resource Centre Inc Logo" 
+                alt="Oromo Resource Centre Inc Logo"
                 className="w-12 h-12 object-contain bg-white rounded-lg p-1"
               />
               <div>
-                <h3 className="text-xl font-bold">Oromo Resource Centre Inc</h3>
-                <p className="text-primary-foreground/80 text-sm">Melbourne Community Hub</p>
+                <h3 className="text-xl font-bold">{content.orgName}</h3>
+                <p className="text-primary-foreground/80 text-sm">{content.tagline}</p>
               </div>
             </div>
             <p className="text-primary-foreground/90 mb-6 leading-relaxed">
-              Serving the Oromo community in Victoria with educational programs, 
-              cultural activities, and Islamic burial services. Building bridges between 
-              tradition and modern life.
+              {content.description}
             </p>
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/664DowningStreet" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
+              <a href={content.social.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
+              <a href={content.social.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="https://oromorc.org.au" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
+              <a href={content.social.website} target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary-foreground/20 rounded-lg flex items-center justify-center hover:bg-primary-foreground/30 transition-colors">
                 <Globe className="h-5 w-5" />
               </a>
             </div>
@@ -54,25 +53,25 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-primary-foreground">Contact Info</h4>
             <div className="space-y-3">
-              <a href="https://maps.google.com/?q=Victoria,Australia" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+              <a href={content.contact.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <MapPin className="h-4 w-4 text-primary-foreground/60" />
-                <span className="text-primary-foreground/80 text-sm">Victoria</span>
+                <span className="text-primary-foreground/80 text-sm">{content.contact.location}</span>
               </a>
-              <a href="tel:+61" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+              <a href={content.contact.phoneHref} className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <Phone className="h-4 w-4 text-primary-foreground/60" />
-                <span className="text-primary-foreground/80 text-sm">24/7 Emergency Line</span>
+                <span className="text-primary-foreground/80 text-sm">{content.contact.phoneLabel}</span>
               </a>
-              <a href="mailto:info@oromorc.org.au" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+              <a href={`mailto:${content.contact.email}`} className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <Mail className="h-4 w-4 text-primary-foreground/60" />
-                <span className="text-primary-foreground/80 text-sm">info@oromorc.org.au</span>
+                <span className="text-primary-foreground/80 text-sm">{content.contact.email}</span>
               </a>
             </div>
 
             <div className="mt-6 p-4 bg-primary-foreground/10 rounded-lg">
-              <h5 className="font-medium text-primary-foreground mb-2">Saturday School</h5>
+              <h5 className="font-medium text-primary-foreground mb-2">{content.saturdaySchool.title}</h5>
               <p className="text-primary-foreground/80 text-sm">
-                Every Saturday, 9:00 AM - 3:00 PM<br />
-                Registration now open!
+                {content.saturdaySchool.text}<br />
+                {content.saturdaySchool.note}
               </p>
             </div>
           </div>
@@ -81,11 +80,11 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-primary-foreground/80 text-sm">
-            © 2025 Oromo Resource Centre Inc. All rights reserved.
+            {content.copyright}
           </p>
           <div className="flex items-center gap-2 mt-4 md:mt-0">
             <Heart className="h-4 w-4 text-accent" />
-            <span className="text-primary-foreground/80 text-sm">Serving our community with love</span>
+            <span className="text-primary-foreground/80 text-sm">{content.loveNote}</span>
           </div>
         </div>
       </div>

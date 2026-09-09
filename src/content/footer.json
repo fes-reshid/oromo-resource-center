@@ -1,0 +1,24 @@
+{
+  "orgName": "Oromo Resource Centre Inc",
+  "tagline": "Melbourne Community Hub",
+  "description": "Serving the Oromo community in Victoria with educational programs, cultural activities, and Islamic burial services. Building bridges between tradition and modern life.",
+  "social": {
+    "facebook": "https://www.facebook.com/664DowningStreet",
+    "instagram": "https://instagram.com",
+    "website": "https://oromorc.org.au"
+  },
+  "contact": {
+    "location": "Victoria",
+    "mapsUrl": "https://maps.google.com/?q=Victoria,Australia",
+    "phoneLabel": "24/7 Emergency Line",
+    "phoneHref": "tel:+61",
+    "email": "info@oromorc.org.au"
+  },
+  "saturdaySchool": {
+    "title": "Saturday School",
+    "text": "Every Saturday, 9:00 AM - 3:00 PM",
+    "note": "Registration now open!"
+  },
+  "copyright": "© 2025 Oromo Resource Centre Inc. All rights reserved.",
+  "loveNote": "Serving our community with love"
+}

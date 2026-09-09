@@ -1,0 +1,34 @@
+{
+  "description": "Support the Oromo Resource Centre in serving our community through education, cultural preservation, and essential services.",
+  "taxNote": "All donations are tax deductible",
+  "sadaqahNote": "Your donation is Sadaqah Jariyah (ongoing charity)",
+  "onlinePayments": {
+    "heading": "Online Card Payments",
+    "text": "Coming Soon! We're working on integrating secure online card payments through Stripe. Soon you'll be able to donate easily using your credit or debit card."
+  },
+  "bankTransfer": {
+    "heading": "Bank Transfer Details",
+    "intro": "You can make a direct bank transfer to support our organization. Please use the details below:",
+    "accountName": "Oromo Resource Centre",
+    "bsb": "063-622",
+    "accountNumber": "10636275",
+    "payId": "oromoirc@gmail.com",
+    "note": "Please include your name or reference in the transfer description so we can acknowledge your generous donation."
+  },
+  "aboutYourDonation": {
+    "heading": "About Your Donation",
+    "highlight": "All donations are tax deductible and count as Sadaqah Jariyah",
+    "highlightText": "Your donation is an ongoing charity that continues to benefit the community, earning you rewards long after your contribution.",
+    "bullets": [
+      "All donations support our community programs, educational services, and cultural activities",
+      "Your contribution helps us maintain our facilities and continue serving the Oromo community",
+      "Every donation, no matter the size, makes a meaningful difference",
+      "For tax receipts or queries, please contact us at oromoirc@gmail.com"
+    ]
+  },
+  "impact": {
+    "heading": "Your Impact Matters",
+    "text": "Your generous donation helps us provide Saturday school education, preserve our cultural heritage, offer Islamic burial services, and support families in our community.",
+    "abn": "24 434 146 730"
+  }
+}
