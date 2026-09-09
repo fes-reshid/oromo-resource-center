@@ -5,14 +5,14 @@
   "social": {
     "facebook": "https://www.facebook.com/664DowningStreet",
     "instagram": "https://instagram.com",
-    "website": "https://oromorc.org.au"
+    "website": "https://oromorc.org"
   },
   "contact": {
-    "location": "Victoria",
-    "mapsUrl": "https://maps.google.com/?q=Victoria,Australia",
+    "location": "664 Downing St, Mount Cottrell VIC",
+    "mapsUrl": "https://maps.google.com/?q=664+Downing+St+Mount+Cottrell+VIC+3024",
     "phoneLabel": "24/7 Emergency Line",
     "phoneHref": "tel:+61",
-    "email": "info@oromorc.org.au"
+    "email": "oromoirc@gmail.com"
   },
   "saturdaySchool": {
     "title": "Saturday School",
