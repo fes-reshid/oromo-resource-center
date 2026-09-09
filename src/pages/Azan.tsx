@@ -1,6 +1,22 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sunrise, Sun, CloudSun, Sunset, Moon, Building2, Heart } from 'lucide-react';
+import {
+  Sunrise,
+  Sun,
+  CloudSun,
+  Sunset,
+  Moon,
+  Building2,
+  Heart,
+  Calendar,
+  Clock,
+  MapPin,
+  PartyPopper,
+  FerrisWheel,
+  Candy,
+  Palette,
+  Popcorn,
+} from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { afterPrayerDhikr, type DhikrSlide } from '@/data/afterPrayerDhikr';
 import { jumuahTime } from '@/data/prayerTimes';
@@ -8,6 +24,17 @@ import { formatHijri } from '@/lib/hijri';
 import { getMelbourneNow, formatCountdown, MELBOURNE_TZ } from '@/lib/prayerCountdown';
 import { getDailyPrayers, getNextSalah } from '@/lib/livePrayerTimes';
 import { getAppBase } from '@/lib/appBase';
+import eventsContent from '@/content/upcoming-events.json';
+
+type EventItem = (typeof eventsContent.events)[number];
+
+const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
+  'Jumping Castle': PartyPopper,
+  'Chair O Plane': FerrisWheel,
+  'Fairy Floss': Candy,
+  'Face Painting': Palette,
+  Popcorn: Popcorn,
+};
 
 const PRAYER_ICONS: Record<string, typeof Sunrise> = {
   Fajr: Sunrise,
@@ -27,10 +54,12 @@ const prayerTimeFormatter = new Intl.DateTimeFormat('en-AU', {
 
 type Slide =
   | { kind: 'dhikr'; id: number; dhikr: DhikrSlide }
+  | { kind: 'event'; id: number; event: EventItem }
   | { kind: 'donation'; id: number };
 
 const slides: Slide[] = [
   ...afterPrayerDhikr.map((dhikr): Slide => ({ kind: 'dhikr', id: dhikr.id, dhikr })),
+  ...eventsContent.events.map((event, i): Slide => ({ kind: 'event', id: 2000 + i, event })),
   { kind: 'donation', id: 1000 },
 ];
 
@@ -136,6 +165,64 @@ const Azan = () => {
                 </div>
               </div>
             </>
+          ) : slide.kind === 'event' ? (
+            <div key={slide.id} className="animate-dhikr-slide-in flex-1 flex flex-col min-h-0 overflow-y-auto">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="inline-flex items-center gap-2 bg-primary/10 px-3 py-1 rounded-full mb-2">
+                    <PartyPopper className="h-4 w-4 text-primary" />
+                    <span className="text-xs lg:text-sm font-semibold text-primary uppercase tracking-wide">
+                      Upcoming Event
+                    </span>
+                  </div>
+                  <h1 className="text-2xl lg:text-4xl font-extrabold text-foreground leading-tight">
+                    {slide.event.title}
+                  </h1>
+                  <p className="text-lg lg:text-xl font-semibold text-primary">{slide.event.titleOromo}</p>
+                  <p className="text-sm lg:text-base text-muted-foreground mt-1">{slide.event.tagline}</p>
+                </div>
+                <img
+                  src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+                  alt="Oromo Resource Centre Inc Logo"
+                  className="w-14 h-14 lg:w-20 lg:h-20 object-contain flex-shrink-0"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:gap-3 mb-4 text-sm lg:text-base">
+                <div className="flex items-center gap-2 bg-secondary/40 rounded-lg px-3 py-2">
+                  <Calendar className="h-4 w-4 lg:h-5 lg:w-5 text-primary flex-shrink-0" />
+                  <span className="font-medium text-foreground">{slide.event.date}</span>
+                </div>
+                <div className="flex items-center gap-2 bg-secondary/40 rounded-lg px-3 py-2">
+                  <Clock className="h-4 w-4 lg:h-5 lg:w-5 text-primary flex-shrink-0" />
+                  <span className="font-medium text-foreground">{slide.event.time}</span>
+                </div>
+                <div className="flex items-center gap-2 bg-secondary/40 rounded-lg px-3 py-2">
+                  <MapPin className="h-4 w-4 lg:h-5 lg:w-5 text-primary flex-shrink-0" />
+                  <span className="font-medium text-foreground">{slide.event.location}</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                {slide.event.activities.map((activity) => {
+                  const Icon = ACTIVITY_ICONS[activity] ?? PartyPopper;
+                  return (
+                    <span
+                      key={activity}
+                      className="inline-flex items-center gap-1.5 text-xs lg:text-sm font-medium bg-primary/10 text-primary px-3 py-1.5 rounded-full"
+                    >
+                      <Icon className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
+                      {activity}
+                    </span>
+                  );
+                })}
+              </div>
+
+              <p className="text-sm lg:text-base text-muted-foreground mb-2">{slide.event.foodNote}</p>
+              <p className="text-primary font-medium text-sm lg:text-base leading-relaxed">
+                {slide.event.closingOromo}
+              </p>
+            </div>
           ) : (
             <div
               key="donation"

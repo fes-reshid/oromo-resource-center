@@ -1,0 +1,58 @@
+{
+  "heading": "ORC Funeral Service",
+  "subheading": "Comprehensive Islamic funeral services for the Muslim Oromo community in Melbourne, Australia",
+  "contactInfo": {
+    "address": "664–678 Downing Street, Mt Cottrell VIC 3024",
+    "email": "oromoirc@gmail.com",
+    "abn": "24 434 146 730"
+  },
+  "about": {
+    "heading": "About ORC Janaza Service",
+    "text": "The ORC Janaza Service provides comprehensive Islamic funeral services for the Muslim Oromo community in Melbourne, Australia. Our services follow the traditional Islamic funeral and burial rites (Tajheez-o-Takfeen) in compliance with Australian legal requirements. We aim to support families during their time of loss with dignity, respect, and professionalism, ensuring the deceased is treated in accordance with Islamic teachings."
+  },
+  "services": [
+    "Death Certificate Assistance: Guidance in obtaining the official death certificate.",
+    "Funeral Savings Fund: A structured plan designed to accumulate funds in advance to cover funeral expenses.",
+    "Kafan (Shroud): Provision and application of the Islamic burial shroud.",
+    "Ghusl (Ritual Washing): Preparation of the deceased's body through ritual washing, performed by trained male or female staff as appropriate.",
+    "Shrouding: Wrapping the deceased in the kafan according to Islamic tradition.",
+    "Ghusl Facilities: Use of our designated washing facility or access to partnered community facilities.",
+    "Janazah Prayer: Organizing and conducting the funeral prayer (Salat al-Janazah) at the mosque.",
+    "Transportation: Arranging the transfer of the deceased to the mosque and subsequently to the cemetery.",
+    "Casket/Janaza Box: Provided through our affiliated Muslim funeral services.",
+    "Burial Arrangements: Coordinating the burial process at designated Muslim cemeteries and securing a burial plot (qabr) in accordance with Islamic requirements.",
+    "Taaziya (Condolence Gathering): Facilitation of up to three days of bereavement gathering at ORC or another venue chosen by the family.",
+    "Education and Training: Providing community education and training related to Islamic funeral rites and procedures."
+  ],
+  "savingsFund": {
+    "heading": "Funeral Savings Fund",
+    "intro": "The ORC Funeral Savings Fund offers financial planning for future funeral costs and is open to all members of the Muslim Oromo community in Melbourne.",
+    "keyFeatures": [
+      "**Initial Registration Fee:** $500 per family (one-time, non-refundable)",
+      "**Monthly Contribution:** $50 per family via direct debit",
+      "**Coverage:** Full or partial funeral cost coverage",
+      "**Continuity:** Monthly contributions must be maintained",
+      "**Liability Limit:** Limited to total contributed amount"
+    ],
+    "estimatedCostHeading": "Estimated Costs (June 2025):",
+    "averageCost": "Average Funeral Cost: $8,500",
+    "averageCostNote": "Based on burials at Bacchus Marsh Cemetery, VIC 3340 during office hours",
+    "banking": {
+      "accountName": "Oromo Resource Centre",
+      "bsb": "063-622",
+      "accountNumber": "10636275"
+    }
+  },
+  "importantNotes": [
+    "All services are provided with a commitment to the highest standards of Islamic integrity, confidentiality, and cultural sensitivity.",
+    "As the ORC funeral service expands, we plan to offer in-house transport and burial services directly.",
+    "We encourage families to plan early and educate younger generations about the importance of Islamic burial traditions.",
+    "Actual costs may vary due to changes in location, cemetery fees, administrative costs, and burial time (weekends, after-hours, etc.).",
+    "Members or their next of kin are responsible for notifying ORC of any changes to contact or banking details and ensuring timely payments."
+  ],
+  "membershipCta": {
+    "heading": "Join Our Funeral Scheme",
+    "text": "Secure your family's future with our comprehensive Islamic funeral service membership",
+    "buttonText": "Become a Member"
+  }
+}

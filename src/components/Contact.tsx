@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import Reveal from '@/components/Reveal';
 import { submitToWeb3Forms } from '@/lib/web3forms';
+import content from '@/content/contact.json';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -80,11 +81,10 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <Reveal className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
-            Get in Touch
+            {content.heading}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Whether you have questions about our services or need immediate support,
-            we're here to help our community.
+            {content.subtitle}
           </p>
         </Reveal>
 
@@ -95,14 +95,12 @@ const Contact = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-foreground">
                   <MapPin className="h-5 w-5 text-primary" />
-                  Location
+                  {content.location.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Victoria<br />
-                  Serving Footscray, Sunshine,<br />
-                  Werribee, and surrounding areas
+                <p className="text-muted-foreground whitespace-pre-line">
+                  {content.location.text}
                 </p>
               </CardContent>
             </Card>
@@ -111,14 +109,13 @@ const Contact = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-foreground">
                   <Phone className="h-5 w-5 text-primary" />
-                  Emergency Contact
+                  {content.emergencyContact.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  For burial services and<br />
-                  urgent community support<br />
-                  <span className="font-semibold text-primary">Available 24/7</span>
+                <p className="text-muted-foreground whitespace-pre-line">
+                  {content.emergencyContact.text}{'\n'}
+                  <span className="font-semibold text-primary">{content.emergencyContact.highlight}</span>
                 </p>
               </CardContent>
             </Card>
@@ -127,14 +124,13 @@ const Contact = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-foreground">
                   <Clock className="h-5 w-5 text-primary" />
-                  Saturday School Hours
+                  {content.saturdaySchoolHours.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">
-                  Every Saturday<br />
-                  9:00 AM - 3:00 PM<br />
-                  <span className="text-sm">Registration required</span>
+                <p className="text-muted-foreground whitespace-pre-line">
+                  {content.saturdaySchoolHours.text}{'\n'}
+                  <span className="text-sm">{content.saturdaySchoolHours.note}</span>
                 </p>
               </CardContent>
             </Card>
@@ -143,15 +139,15 @@ const Contact = () => {
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <MessageCircle className="h-6 w-6 text-primary" />
-                  <h3 className="font-semibold text-foreground">Quick Contact</h3>
+                  <h3 className="font-semibold text-foreground">{content.quickContact.title}</h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  Need immediate assistance or have questions? Reach out to us directly.
+                  {content.quickContact.text}
                 </p>
                 <Button
                   className="w-full"
                   onClick={() => {
-                    window.location.href = 'tel:+61-xxx-xxx-xxx';
+                    window.location.href = `tel:${content.quickContact.phone}`;
                   }}
                 >
                   Call Now
@@ -164,9 +160,9 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
               <CardHeader>
-                <CardTitle className="text-foreground">Send us a Message</CardTitle>
+                <CardTitle className="text-foreground">{content.formHeading}</CardTitle>
                 <p className="text-muted-foreground">
-                  We'll get back to you as soon as possible.
+                  {content.formSubtitle}
                 </p>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -265,7 +261,7 @@ const Contact = () => {
                 </form>
 
                 <p className="text-sm text-muted-foreground text-center">
-                  For urgent matters, especially burial services, please call our 24/7 line directly.
+                  {content.urgentNote}
                 </p>
               </CardContent>
             </Card>

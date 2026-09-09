@@ -3,34 +3,31 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import content from '@/content/funeral-services.json';
+
+// Renders "**bold**" segments (as authored in the CMS content) as <strong>.
+function renderBold(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith('**') && part.endsWith('**') ? (
+      <strong key={i}>{part.slice(2, -2)}</strong>
+    ) : (
+      <span key={i}>{part}</span>
+    ),
+  );
+}
 
 const FuneralServices = () => {
-  const services = [
-    "Death Certificate Assistance: Guidance in obtaining the official death certificate.",
-    "Funeral Savings Fund: A structured plan designed to accumulate funds in advance to cover funeral expenses.",
-    "Kafan (Shroud): Provision and application of the Islamic burial shroud.",
-    "Ghusl (Ritual Washing): Preparation of the deceased's body through ritual washing, performed by trained male or female staff as appropriate.",
-    "Shrouding: Wrapping the deceased in the kafan according to Islamic tradition.",
-    "Ghusl Facilities: Use of our designated washing facility or access to partnered community facilities.",
-    "Janazah Prayer: Organizing and conducting the funeral prayer (Salat al-Janazah) at the mosque.",
-    "Transportation: Arranging the transfer of the deceased to the mosque and subsequently to the cemetery.",
-    "Casket/Janaza Box: Provided through our affiliated Muslim funeral services.",
-    "Burial Arrangements: Coordinating the burial process at designated Muslim cemeteries and securing a burial plot (qabr) in accordance with Islamic requirements.",
-    "Taaziya (Condolence Gathering): Facilitation of up to three days of bereavement gathering at ORC or another venue chosen by the family.",
-    "Education and Training: Providing community education and training related to Islamic funeral rites and procedures."
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-20">
         {/* Page Header */}
         <div className="text-center mb-16">
           <Heart className="h-16 w-16 mx-auto mb-4 text-primary" />
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">ORC Funeral Service</h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">{content.heading}</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive Islamic funeral services for the Muslim Oromo community in Melbourne, Australia
+            {content.subheading}
           </p>
         </div>
         {/* Contact Information */}
@@ -42,15 +39,15 @@ const FuneralServices = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
               <div className="flex items-center justify-center gap-2">
                 <MapPin className="h-5 w-5 text-primary" />
-                <span>664–678 Downing Street, Mt Cottrell VIC 3024</span>
+                <span>{content.contactInfo.address}</span>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <Mail className="h-5 w-5 text-primary" />
-                <span>oromoirc@gmail.com</span>
+                <span>{content.contactInfo.email}</span>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <FileText className="h-5 w-5 text-primary" />
-                <span>ABN: 24 434 146 730</span>
+                <span>ABN: {content.contactInfo.abn}</span>
               </div>
             </div>
           </CardContent>
@@ -58,12 +55,9 @@ const FuneralServices = () => {
 
         {/* About Section */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-center">About ORC Janaza Service</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center">{content.about.heading}</h2>
           <p className="text-lg text-muted-foreground text-center max-w-4xl mx-auto leading-relaxed">
-            The ORC Janaza Service provides comprehensive Islamic funeral services for the Muslim Oromo community in Melbourne, Australia. 
-            Our services follow the traditional Islamic funeral and burial rites (Tajheez-o-Takfeen) in compliance with Australian legal requirements.
-            We aim to support families during their time of loss with dignity, respect, and professionalism, ensuring the deceased is treated 
-            in accordance with Islamic teachings.
+            {content.about.text}
           </p>
         </div>
 
@@ -71,8 +65,8 @@ const FuneralServices = () => {
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-8 text-center">Our Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {services.map((service, index) => (
-              <Card key={index} className="border-l-4 border-l-primary">
+            {content.services.map((service) => (
+              <Card key={service} className="border-l-4 border-l-primary">
                 <CardContent className="p-4">
                   <p className="text-sm">{service}</p>
                 </CardContent>
@@ -86,42 +80,39 @@ const FuneralServices = () => {
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
               <DollarSign className="h-6 w-6" />
-              Funeral Savings Fund
+              {content.savingsFund.heading}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-muted-foreground">
-              The ORC Funeral Savings Fund offers financial planning for future funeral costs and is open to all members 
-              of the Muslim Oromo community in Melbourne.
+              {content.savingsFund.intro}
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h4 className="font-semibold mb-2">Key Features:</h4>
                 <ul className="space-y-2 text-sm">
-                  <li>• <strong>Initial Registration Fee:</strong> $500 per family (one-time, non-refundable)</li>
-                  <li>• <strong>Monthly Contribution:</strong> $50 per family via direct debit</li>
-                  <li>• <strong>Coverage:</strong> Full or partial funeral cost coverage</li>
-                  <li>• <strong>Continuity:</strong> Monthly contributions must be maintained</li>
-                  <li>• <strong>Liability Limit:</strong> Limited to total contributed amount</li>
+                  {content.savingsFund.keyFeatures.map((feature) => (
+                    <li key={feature}>• {renderBold(feature)}</li>
+                  ))}
                 </ul>
               </div>
-              
+
               <div>
-                <h4 className="font-semibold mb-2">Estimated Costs (June 2025):</h4>
+                <h4 className="font-semibold mb-2">{content.savingsFund.estimatedCostHeading}</h4>
                 <div className="bg-secondary/30 p-4 rounded-lg">
-                  <p className="text-lg font-bold">Average Funeral Cost: $8,500</p>
+                  <p className="text-lg font-bold">{content.savingsFund.averageCost}</p>
                   <p className="text-sm text-muted-foreground">
-                    Based on burials at Bacchus Marsh Cemetery, VIC 3340 during office hours
+                    {content.savingsFund.averageCostNote}
                   </p>
                 </div>
-                
+
                 <div className="mt-4">
                   <h5 className="font-medium mb-2">Banking Details:</h5>
                   <div className="text-sm space-y-1">
-                    <p><strong>Account Name:</strong> Oromo Resource Centre</p>
-                    <p><strong>BSB:</strong> 063-622</p>
-                    <p><strong>Account Number:</strong> 10636275</p>
+                    <p><strong>Account Name:</strong> {content.savingsFund.banking.accountName}</p>
+                    <p><strong>BSB:</strong> {content.savingsFund.banking.bsb}</p>
+                    <p><strong>Account Number:</strong> {content.savingsFund.banking.accountNumber}</p>
                   </div>
                 </div>
               </div>
@@ -136,11 +127,9 @@ const FuneralServices = () => {
           </CardHeader>
           <CardContent>
             <ul className="space-y-2 text-muted-foreground">
-              <li>• All services are provided with a commitment to the highest standards of Islamic integrity, confidentiality, and cultural sensitivity.</li>
-              <li>• As the ORC funeral service expands, we plan to offer in-house transport and burial services directly.</li>
-              <li>• We encourage families to plan early and educate younger generations about the importance of Islamic burial traditions.</li>
-              <li>• Actual costs may vary due to changes in location, cemetery fees, administrative costs, and burial time (weekends, after-hours, etc.).</li>
-              <li>• Members or their next of kin are responsible for notifying ORC of any changes to contact or banking details and ensuring timely payments.</li>
+              {content.importantNotes.map((note) => (
+                <li key={note}>• {note}</li>
+              ))}
             </ul>
           </CardContent>
         </Card>
@@ -150,18 +139,18 @@ const FuneralServices = () => {
           <Card className="max-w-2xl mx-auto bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
             <CardContent className="p-8">
               <Heart className="h-16 w-16 mx-auto mb-4 text-primary" />
-              <h2 className="text-3xl font-bold mb-4">Join Our Funeral Scheme</h2>
+              <h2 className="text-3xl font-bold mb-4">{content.membershipCta.heading}</h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Secure your family's future with our comprehensive Islamic funeral service membership
+                {content.membershipCta.text}
               </p>
               <Button size="lg" className="text-lg px-8 py-6 h-auto" onClick={() => window.location.href = '/membership'}>
-                Become a Member
+                {content.membershipCta.buttonText}
               </Button>
             </CardContent>
           </Card>
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

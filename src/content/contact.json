@@ -1,0 +1,26 @@
+{
+  "heading": "Get in Touch",
+  "subtitle": "Whether you have questions about our services or need immediate support, we're here to help our community.",
+  "location": {
+    "title": "Location",
+    "text": "664 Downing St, Mount Cottrell VIC\nServing the Victorian community and the\nAustralian Oromo community at large"
+  },
+  "emergencyContact": {
+    "title": "Emergency Contact",
+    "text": "For burial services and\nurgent community support",
+    "highlight": "Available 24/7"
+  },
+  "saturdaySchoolHours": {
+    "title": "Saturday School Hours",
+    "text": "Every Saturday\n9:00 AM - 3:00 PM",
+    "note": "Registration required"
+  },
+  "quickContact": {
+    "title": "Quick Contact",
+    "text": "Need immediate assistance or have questions? Reach out to us directly.",
+    "phone": "+61-xxx-xxx-xxx"
+  },
+  "formHeading": "Send us a Message",
+  "formSubtitle": "We'll get back to you as soon as possible.",
+  "urgentNote": "For urgent matters, especially burial services, please call our 24/7 line directly."
+}

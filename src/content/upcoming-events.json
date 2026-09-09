@@ -1,0 +1,30 @@
+{
+  "events": [
+    {
+      "title": "ORC Family Day",
+      "titleOromo": "Guyyaa Maatii ORC",
+      "tagline": "A Fun Day for the Whole Family!",
+      "greeting": "Afeerraa Kabajaa Oromoo hundaaf",
+      "date": "Friday, 25 September 2026",
+      "time": "10:00 AM – 6:00 PM",
+      "khutbahTime": "Friday Khutbah at 1:00 PM",
+      "location": "ORC Centre, 664–678 Downing St, Mount Cottrell VIC 3024",
+      "activities": [
+        "Jumping Castle",
+        "Chair O Plane",
+        "Fairy Floss",
+        "Face Painting",
+        "Popcorn"
+      ],
+      "foodNote": "Enjoy a variety of delicious Oromo cultural dishes made with love and tradition!",
+      "highlights": [
+        "Fun for the Whole Family",
+        "Popcorn for Kids",
+        "Community Togetherness",
+        "Fun All Day Long!"
+      ],
+      "closingOromo": "Wajjiin nyaannee Wajjiin haa Bashannannu. Taphni ijoollee fi nyaanni aadaatis ni jira.",
+      "sponsor": "Westend Tax Solution"
+    }
+  ]
+}
