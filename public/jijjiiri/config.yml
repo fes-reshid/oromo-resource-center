@@ -277,6 +277,68 @@ collections:
               - { label: "Closing Message (Oromo)", name: "closingOromo", widget: "text" }
               - { label: "Sponsor (leave blank if none)", name: "sponsor", widget: "string", required: false }
 
+  - name: "azan_settings"
+    label: "Azan Display (TV Screen)"
+    files:
+      - file: "src/content/azan.json"
+        label: "Azan Display Settings"
+        name: "azan"
+        fields:
+          - label: "Location"
+            name: "location"
+            widget: "object"
+            fields:
+              - { label: "Location Label", name: "label", widget: "string" }
+              - { label: "Latitude", name: "latitude", widget: "number", value_type: "float" }
+              - { label: "Longitude", name: "longitude", widget: "number", value_type: "float" }
+              - { label: "Calculation Method Label", name: "calculationMethodLabel", widget: "string" }
+          - label: "Iqama Offsets"
+            name: "iqamaOffsets"
+            widget: "object"
+            hint: "How many minutes after the calculated Adhan time each Iqama (standing prayer) begins."
+            fields:
+              - { label: "Fajr — minutes after Adhan", name: "fajrMinutesAfterAdhan", widget: "number" }
+              - { label: "Dhuhr — fixed Iqama time (24h, e.g. 13:30)", name: "dhuhrFixedTime", widget: "string" }
+              - { label: "Asr — minutes after Adhan", name: "asrMinutesAfterAdhan", widget: "number" }
+              - { label: "Maghrib — minutes after Adhan", name: "maghribMinutesAfterAdhan", widget: "number" }
+              - { label: "Isha — minutes after Adhan", name: "ishaMinutesAfterAdhan", widget: "number" }
+          - { label: "Jumu'ah Time", name: "jumuahTime", widget: "string" }
+          - { label: "Slide Rotation Speed (seconds)", name: "slideIntervalSeconds", widget: "number" }
+          - label: "Dhikr Panel Header"
+            name: "dhikrHeader"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+          - label: "Donation Slide"
+            name: "donationSlide"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Subheading", name: "subheading", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "QR Code Caption", name: "qrCaption", widget: "string" }
+              - { label: "Thank You Message", name: "thankYou", widget: "string" }
+              - { label: "Organization Name (on card)", name: "orgNameCard", widget: "string" }
+          - { label: "Bottom Footer Note", name: "footerNote", widget: "text" }
+
+  - name: "after_prayer_dhikr"
+    label: "After Prayer Dhikr (Azan Display)"
+    files:
+      - file: "src/content/after-prayer-dhikr.json"
+        label: "Dhikr Slides"
+        name: "dhikr"
+        fields:
+          - label: "Dhikr"
+            name: "dhikr"
+            widget: "list"
+            summary: "{{label}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number" }
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Arabic Text", name: "arabic", widget: "text" }
+              - { label: "Oromo Translation", name: "oromo", widget: "text" }
+
   - name: "translations"
     label: "Site Translations (Nav, Hero, About, etc.)"
     files:

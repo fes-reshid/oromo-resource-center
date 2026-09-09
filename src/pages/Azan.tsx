@@ -25,6 +25,8 @@ import { getMelbourneNow, formatCountdown, MELBOURNE_TZ } from '@/lib/prayerCoun
 import { getDailyPrayers, getNextSalah } from '@/lib/livePrayerTimes';
 import { getAppBase } from '@/lib/appBase';
 import eventsContent from '@/content/upcoming-events.json';
+import azanContent from '@/content/azan.json';
+import donateContent from '@/content/donate.json';
 
 type EventItem = (typeof eventsContent.events)[number];
 
@@ -63,7 +65,7 @@ const slides: Slide[] = [
   { kind: 'donation', id: 1000 },
 ];
 
-const SLIDE_INTERVAL_MS = 9000;
+const SLIDE_INTERVAL_MS = azanContent.slideIntervalSeconds * 1000;
 
 const Azan = () => {
   const [now, setNow] = useState(() => new Date());
@@ -134,10 +136,10 @@ const Azan = () => {
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <h1 className="text-2xl lg:text-4xl font-bold text-primary">
-                    After Prayer Dhikr
+                    {azanContent.dhikrHeader.title}
                   </h1>
                   <p className="text-sm lg:text-base text-muted-foreground">
-                    Zikrii Salaata Booda — Oromo Resource Centre
+                    {azanContent.dhikrHeader.subtitle}
                   </p>
                 </div>
                 <img
@@ -230,15 +232,13 @@ const Azan = () => {
             >
               <div className="flex-1 flex flex-col justify-center">
                 <h1 className="text-2xl lg:text-4xl font-bold mb-2">
-                  Setup Monthly Recurring Donations
+                  {azanContent.donationSlide.heading}
                 </h1>
                 <h2 className="text-xl lg:text-2xl font-semibold text-primary mb-4">
-                  Support the Oromo Resource Centre
+                  {azanContent.donationSlide.subheading}
                 </h2>
                 <p className="text-sm lg:text-lg text-white/80 mb-6 max-w-md">
-                  Your donation funds our Saturday school, cultural programs, and
-                  Islamic burial services. All donations are tax deductible and
-                  count as Sadaqah Jariyah.
+                  {azanContent.donationSlide.description}
                 </p>
                 <Link
                   to="/donate"
@@ -251,7 +251,7 @@ const Azan = () => {
                     <QRCodeSVG value={donateUrl} size={96} />
                   </div>
                   <p className="text-sm lg:text-base text-white/80 max-w-[14rem]">
-                    Scan QR code to donate via bank transfer or the ORC website
+                    {azanContent.donationSlide.qrCaption}
                   </p>
                 </div>
               </div>
@@ -264,7 +264,7 @@ const Azan = () => {
                   className="w-28 h-28 lg:w-36 lg:h-36 object-contain"
                 />
                 <p className="font-bold text-center text-sm lg:text-base tracking-wide">
-                  OROMO RESOURCE CENTRE INC
+                  {azanContent.donationSlide.orgNameCard}
                 </p>
               </div>
             </div>
@@ -314,13 +314,13 @@ const Azan = () => {
               <h2 className="font-semibold text-lg">Donation Details</h2>
             </div>
             <div className="text-sm lg:text-base space-y-1 opacity-95">
-              <p>Account Name: Oromo Resource Centre</p>
-              <p>BSB: 063-622</p>
-              <p>Account No: 10636275</p>
-              <p>PayID: oromoirc@gmail.com</p>
+              <p>Account Name: {donateContent.bankTransfer.accountName}</p>
+              <p>BSB: {donateContent.bankTransfer.bsb}</p>
+              <p>Account No: {donateContent.bankTransfer.accountNumber}</p>
+              <p>PayID: {donateContent.bankTransfer.payId}</p>
             </div>
             <p className="text-sm lg:text-base mt-3 font-semibold">
-              Jazaak Allahu Khayran!
+              {azanContent.donationSlide.thankYou}
             </p>
           </div>
 
@@ -378,7 +378,7 @@ const Azan = () => {
           </div>
         </div>
         <p className="text-center text-xs text-muted-foreground mt-2">
-          Adhan calculated live for Mount Cottrell, VIC (Muslim World League method) — please confirm with the Centre for exact timings.
+          {azanContent.footerNote}
         </p>
       </div>
     </div>

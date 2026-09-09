@@ -1,0 +1,30 @@
+{
+  "location": {
+    "label": "Mount Cottrell, VIC",
+    "latitude": -37.752,
+    "longitude": 144.622,
+    "calculationMethodLabel": "Muslim World League method"
+  },
+  "iqamaOffsets": {
+    "fajrMinutesAfterAdhan": 30,
+    "dhuhrFixedTime": "13:30",
+    "asrMinutesAfterAdhan": 10,
+    "maghribMinutesAfterAdhan": 10,
+    "ishaMinutesAfterAdhan": 10
+  },
+  "jumuahTime": "1:30 PM",
+  "slideIntervalSeconds": 9,
+  "dhikrHeader": {
+    "title": "After Prayer Dhikr",
+    "subtitle": "Zikrii Salaata Booda — Oromo Resource Centre"
+  },
+  "donationSlide": {
+    "heading": "Setup Monthly Recurring Donations",
+    "subheading": "Support the Oromo Resource Centre",
+    "description": "Your donation funds our Saturday school, cultural programs, and Islamic burial services. All donations are tax deductible and count as Sadaqah Jariyah.",
+    "qrCaption": "Scan QR code to donate via bank transfer or the ORC website",
+    "thankYou": "Jazaak Allahu Khayran!",
+    "orgNameCard": "OROMO RESOURCE CENTRE INC"
+  },
+  "footerNote": "Adhan calculated live for Mount Cottrell, VIC (Muslim World League method) — please confirm with the Centre for exact timings."
+}

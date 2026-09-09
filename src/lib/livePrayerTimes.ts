@@ -1,14 +1,18 @@
 import { Coordinates, CalculationMethod, PrayerTimes } from 'adhan';
 import { melbourneWallTimeToDate, type MelbourneNow } from './prayerCountdown';
+import azanContent from '@/content/azan.json';
 
-// Approximate coordinates for Mount Cottrell, VIC (Oromo Resource Centre's
-// location), used to calculate live daily prayer times the same way a
-// service like IslamicFinder does — via astronomical calculation rather
-// than a fixed table. Not independently verified against
-// islamicfinder.org (that site isn't reachable from this environment) —
-// spot-check today's times there and adjust MOUNT_COTTRELL_COORDS or the
-// calculation method below if they drift by more than a couple of minutes.
-const MOUNT_COTTRELL_COORDS = new Coordinates(-37.752, 144.622);
+// Coordinates for the Oromo Resource Centre's location, used to calculate
+// live daily prayer times the same way a service like IslamicFinder does
+// — via astronomical calculation rather than a fixed table. Not
+// independently verified against islamicfinder.org (that site isn't
+// reachable from this environment) — spot-check today's times there and
+// adjust src/content/azan.json's location or the calculation method below
+// if they drift by more than a couple of minutes.
+const MOUNT_COTTRELL_COORDS = new Coordinates(
+  azanContent.location.latitude,
+  azanContent.location.longitude,
+);
 
 export interface LivePrayerTimes {
   fajr: Date;
@@ -49,20 +53,23 @@ function addMinutes(date: Date, minutes: number): Date {
   return new Date(date.getTime() + minutes * MINUTE);
 }
 
-// Zuhr Iqama is fixed at 1:30 PM every day, regardless of the Adhan time.
-// Fajr Iqama is 30 minutes after its Adhan; every other prayer's Iqama is
-// 10 minutes after its Adhan.
+// Iqama offsets (how long after Adhan the standing prayer begins) come
+// from src/content/azan.json, editable via the CMS. Zuhr Iqama is a fixed
+// clock time rather than an offset, since it takes Jumu'ah's slot on
+// Fridays and shouldn't drift with the astronomical Dhuhr time.
 export function getDailyPrayers(now: MelbourneNow): DailyPrayer[] {
   const times = getLivePrayerTimes(now);
-  const zuhrIqama = melbourneWallTimeToDate(now.year, now.month, now.day, 13, 30);
+  const { iqamaOffsets } = azanContent;
+  const [zuhrHour, zuhrMinute] = iqamaOffsets.dhuhrFixedTime.split(':').map(Number);
+  const zuhrIqama = melbourneWallTimeToDate(now.year, now.month, now.day, zuhrHour, zuhrMinute);
 
   return [
-    { name: 'Fajr', adhan: times.fajr, iqama: addMinutes(times.fajr, 30) },
+    { name: 'Fajr', adhan: times.fajr, iqama: addMinutes(times.fajr, iqamaOffsets.fajrMinutesAfterAdhan) },
     { name: 'Sunrise', adhan: times.sunrise, iqama: null },
     { name: 'Dhuhr', adhan: times.dhuhr, iqama: zuhrIqama },
-    { name: 'Asr', adhan: times.asr, iqama: addMinutes(times.asr, 10) },
-    { name: 'Maghrib', adhan: times.maghrib, iqama: addMinutes(times.maghrib, 10) },
-    { name: 'Isha', adhan: times.isha, iqama: addMinutes(times.isha, 10) },
+    { name: 'Asr', adhan: times.asr, iqama: addMinutes(times.asr, iqamaOffsets.asrMinutesAfterAdhan) },
+    { name: 'Maghrib', adhan: times.maghrib, iqama: addMinutes(times.maghrib, iqamaOffsets.maghribMinutesAfterAdhan) },
+    { name: 'Isha', adhan: times.isha, iqama: addMinutes(times.isha, iqamaOffsets.ishaMinutesAfterAdhan) },
   ];
 }
 
