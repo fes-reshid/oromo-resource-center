@@ -11,7 +11,9 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import Reveal from '@/components/Reveal';
+import { Link } from 'react-router-dom';
 import content from '@/content/upcoming-events.json';
 
 const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
@@ -47,12 +49,20 @@ const UpcomingEvents = () => {
               key={event.title}
               className="min-w-[320px] md:min-w-[600px] snap-center flex-shrink-0 overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300"
             >
-              <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-6 md:p-8">
-                <p className="text-sm opacity-90 mb-1">{event.greeting}</p>
-                <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">{event.title}</h3>
-                <p className="text-lg font-semibold text-accent">{event.titleOromo}</p>
-                <p className="mt-2 text-primary-foreground/90">{event.tagline}</p>
-              </div>
+              {event.posterImage ? (
+                <img
+                  src={event.posterImage}
+                  alt={`${event.title} flyer`}
+                  className="w-full max-h-72 object-cover"
+                />
+              ) : (
+                <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-6 md:p-8">
+                  <p className="text-sm opacity-90 mb-1">{event.greeting}</p>
+                  <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">{event.title}</h3>
+                  <p className="text-lg font-semibold text-accent">{event.titleOromo}</p>
+                  <p className="mt-2 text-primary-foreground/90">{event.tagline}</p>
+                </div>
+              )}
 
               <CardContent className="p-6 md:p-8 space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
@@ -117,6 +127,10 @@ const UpcomingEvents = () => {
                     Proudly sponsored by <span className="font-semibold">{event.sponsor}</span>
                   </p>
                 )}
+
+                <Button asChild className="w-full sm:w-auto">
+                  <Link to="/events">View Full Event Details</Link>
+                </Button>
               </CardContent>
             </Card>
           ))}

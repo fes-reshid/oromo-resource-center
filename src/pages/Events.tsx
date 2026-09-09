@@ -1,10 +1,38 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, MapPin, Users, Clock, PartyPopper, BookOpen, Heart } from 'lucide-react';
+import {
+  Calendar,
+  MapPin,
+  Users,
+  Clock,
+  PartyPopper,
+  BookOpen,
+  Heart,
+  FerrisWheel,
+  Candy,
+  Palette,
+  Popcorn,
+  Sparkles,
+  CalendarPlus,
+  Navigation,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import eventsContent from '@/content/upcoming-events.json';
+import { googleCalendarUrl } from '@/lib/calendarLink';
+
+const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
+  'Jumping Castle': PartyPopper,
+  'Chair O Plane': FerrisWheel,
+  'Fairy Floss': Candy,
+  'Face Painting': Palette,
+  Popcorn: Popcorn,
+};
+
+const HIGHLIGHT_ICONS = [Users, Popcorn, Sparkles, PartyPopper];
 
 const Events = () => {
+  const featuredEvent = eventsContent.events[0];
   const events = [
     {
       title: 'Muhadara',
@@ -77,6 +105,129 @@ const Events = () => {
           </div>
         </div>
       </section>
+
+      {/* Featured Upcoming Event */}
+      {featuredEvent && (
+        <section className="py-16 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <Card className="max-w-5xl mx-auto overflow-hidden border-0 shadow-2xl">
+              {featuredEvent.posterImage ? (
+                <img
+                  src={featuredEvent.posterImage}
+                  alt={`${featuredEvent.title} flyer`}
+                  className="w-full max-h-[600px] object-contain bg-black/5"
+                />
+              ) : (
+                <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-8 md:p-12">
+                  <div className="inline-flex items-center gap-2 bg-primary-foreground/15 px-4 py-2 rounded-full mb-4">
+                    <PartyPopper className="h-5 w-5" />
+                    <span className="text-sm font-semibold uppercase tracking-wide">
+                      {featuredEvent.greeting}
+                    </span>
+                  </div>
+                  <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                    {featuredEvent.title}
+                  </h2>
+                  <p className="text-xl font-semibold text-accent">{featuredEvent.titleOromo}</p>
+                  <p className="mt-2 text-lg text-primary-foreground/90">{featuredEvent.tagline}</p>
+                </div>
+              )}
+
+              <CardContent className="p-6 md:p-10 space-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm md:text-base">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-foreground">{featuredEvent.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-foreground">{featuredEvent.time}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-foreground">{featuredEvent.location}</span>
+                  </div>
+                </div>
+
+                <div className="bg-primary/10 rounded-lg px-4 py-2 text-sm font-semibold text-primary inline-flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  {featuredEvent.khutbahTime}
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-foreground mb-3 text-lg">What's on:</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                    {featuredEvent.activities.map((activity) => {
+                      const Icon = ACTIVITY_ICONS[activity] ?? Sparkles;
+                      return (
+                        <div
+                          key={activity}
+                          className="flex items-center gap-2 bg-secondary/40 rounded-lg px-3 py-2 text-sm text-foreground"
+                        >
+                          <Icon className="h-4 w-4 text-primary flex-shrink-0" />
+                          {activity}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <p className="text-muted-foreground">{featuredEvent.foodNote}</p>
+
+                <div className="flex flex-wrap gap-2">
+                  {featuredEvent.highlights.map((highlight, i) => {
+                    const Icon = HIGHLIGHT_ICONS[i % HIGHLIGHT_ICONS.length];
+                    return (
+                      <span
+                        key={highlight}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium bg-accent/15 text-accent-foreground px-3 py-1.5 rounded-full"
+                      >
+                        <Icon className="h-3.5 w-3.5 text-primary" />
+                        {highlight}
+                      </span>
+                    );
+                  })}
+                </div>
+
+                <p className="text-primary font-medium leading-relaxed">
+                  {featuredEvent.closingOromo}
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <Button asChild size="lg" className="gap-2">
+                    <a
+                      href={googleCalendarUrl(
+                        featuredEvent.title,
+                        featuredEvent.startDateTime,
+                        featuredEvent.endDateTime,
+                        featuredEvent.location,
+                        featuredEvent.tagline,
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <CalendarPlus className="h-4 w-4" />
+                      Add to Calendar
+                    </a>
+                  </Button>
+                  <Button asChild size="lg" variant="outline" className="gap-2">
+                    <a href={featuredEvent.mapsUrl} target="_blank" rel="noopener noreferrer">
+                      <Navigation className="h-4 w-4" />
+                      Get Directions
+                    </a>
+                  </Button>
+                </div>
+
+                {featuredEvent.sponsor && (
+                  <p className="text-xs text-muted-foreground pt-2 border-t">
+                    Proudly sponsored by <span className="font-semibold">{featuredEvent.sponsor}</span>
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      )}
 
       {/* Events Grid */}
       <section className="py-20">

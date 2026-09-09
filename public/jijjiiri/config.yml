@@ -263,8 +263,12 @@ collections:
               - { label: "Greeting", name: "greeting", widget: "string" }
               - { label: "Date", name: "date", widget: "string" }
               - { label: "Time", name: "time", widget: "string" }
+              - { label: "Start Date & Time (for Add to Calendar)", name: "startDateTime", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
+              - { label: "End Date & Time (for Add to Calendar)", name: "endDateTime", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm" }
               - { label: "Khutbah Time", name: "khutbahTime", widget: "string" }
               - { label: "Location", name: "location", widget: "string" }
+              - { label: "Google Maps Link (for Get Directions)", name: "mapsUrl", widget: "string" }
+              - { label: "Poster Image (upload the event flyer here — shows instead of the text banner)", name: "posterImage", widget: "image", required: false }
               - label: "Activities"
                 name: "activities"
                 widget: "list"
@@ -338,6 +342,23 @@ collections:
               - { label: "Label", name: "label", widget: "string" }
               - { label: "Arabic Text", name: "arabic", widget: "text" }
               - { label: "Oromo Translation", name: "oromo", widget: "text" }
+
+  - name: "gallery_photos"
+    label: "Gallery Photos"
+    folder: "src/content/gallery-photos"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    slug: "{{album}}-{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}"
+    summary: "{{album}} — {{caption}}"
+    fields:
+      - { label: "Photo", name: "image", widget: "image" }
+      - label: "Album"
+        name: "album"
+        widget: "select"
+        options: ["Saturday School", "Community Gatherings", "Cultural Events", "Islamic Events", "Other"]
+      - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
 
   - name: "translations"
     label: "Site Translations (Nav, Hero, About, etc.)"

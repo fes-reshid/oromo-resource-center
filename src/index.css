@@ -41,7 +41,8 @@
     --oromo-gold-dark: 30 45% 55%;
     --oromo-brown: 25 30% 45%;
     --oromo-accent-red: 0 65% 55%;
-    
+    --deep-forest: 140 55% 15%;
+
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(140 60% 25%), hsl(140 60% 20%));
     --gradient-warm: linear-gradient(180deg, hsl(30 45% 90%), hsl(30 40% 95%));
