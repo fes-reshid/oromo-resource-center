@@ -1,9 +1,32 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowRight, Users, GraduationCap, Heart, PartyPopper, Calendar, Clock, MapPin } from 'lucide-react';
+import {
+  ArrowRight,
+  Users,
+  GraduationCap,
+  Heart,
+  PartyPopper,
+  Calendar,
+  Clock,
+  MapPin,
+  FerrisWheel,
+  Candy,
+  Palette,
+  Popcorn,
+  Sparkles,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import eventsContent from '@/content/upcoming-events.json';
+import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS } from '@/lib/eventStyle';
+
+const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
+  'Jumping Castle': PartyPopper,
+  'Chair O Plane': FerrisWheel,
+  'Fairy Floss': Candy,
+  'Face Painting': Palette,
+  Popcorn: Popcorn,
+};
 
 const SLIDE_INTERVAL_MS = 8000;
 
@@ -145,6 +168,8 @@ const Hero = () => {
             className="relative min-h-screen flex items-center flex-shrink-0 bg-gradient-to-br from-primary via-primary to-deep-forest"
             style={{ width: `${100 / slideCount}%` }}
           >
+            <div className={`absolute top-0 left-0 right-0 ${FESTIVE_STRIPE_CLASS}`} />
+            <div className={`absolute bottom-0 left-0 right-0 ${FESTIVE_STRIPE_CLASS}`} />
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_20%_20%,white,transparent_35%),radial-gradient(circle_at_80%_60%,white,transparent_35%)]" />
             <div className="relative z-10 container mx-auto px-4">
               <div className="max-w-2xl text-primary-foreground">
@@ -173,6 +198,23 @@ const Hero = () => {
                     <MapPin className="h-5 w-5 text-accent flex-shrink-0" />
                     {featuredEvent.location}
                   </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-10">
+                  {featuredEvent.activities.map((activity) => {
+                    const Icon = ACTIVITY_ICONS[activity] ?? Sparkles;
+                    return (
+                      <span
+                        key={activity}
+                        className={`inline-flex items-center gap-1.5 text-xs md:text-sm font-medium px-3 py-1.5 rounded-full shadow-sm ${
+                          ACTIVITY_COLORS[activity] ?? DEFAULT_ACTIVITY_COLOR
+                        }`}
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                        {activity}
+                      </span>
+                    );
+                  })}
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">

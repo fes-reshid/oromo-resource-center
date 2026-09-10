@@ -20,6 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import eventsContent from '@/content/upcoming-events.json';
 import { googleCalendarUrl } from '@/lib/calendarLink';
+import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS } from '@/lib/eventStyle';
 
 const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
   'Jumping Castle': PartyPopper,
@@ -118,18 +119,24 @@ const Events = () => {
                   className="w-full max-h-[600px] object-contain bg-black/5"
                 />
               ) : (
-                <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-8 md:p-12">
-                  <div className="inline-flex items-center gap-2 bg-primary-foreground/15 px-4 py-2 rounded-full mb-4">
-                    <PartyPopper className="h-5 w-5" />
-                    <span className="text-sm font-semibold uppercase tracking-wide">
-                      {featuredEvent.greeting}
+                <div>
+                  <div className={FESTIVE_STRIPE_CLASS} />
+                  <div className="bg-gradient-to-br from-primary via-primary to-deep-forest text-primary-foreground p-8 md:p-12">
+                    <div className="inline-flex items-center gap-2 bg-primary-foreground/15 px-4 py-2 rounded-full mb-4">
+                      <PartyPopper className="h-5 w-5" />
+                      <span className="text-sm font-semibold uppercase tracking-wide">
+                        {featuredEvent.greeting}
+                      </span>
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                      {featuredEvent.title}
+                    </h2>
+                    <p className="text-xl font-semibold text-accent">{featuredEvent.titleOromo}</p>
+                    <span className="inline-block mt-3 bg-accent text-accent-foreground text-sm font-bold px-4 py-1.5 rounded-full">
+                      {featuredEvent.tagline}
                     </span>
                   </div>
-                  <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
-                    {featuredEvent.title}
-                  </h2>
-                  <p className="text-xl font-semibold text-accent">{featuredEvent.titleOromo}</p>
-                  <p className="mt-2 text-lg text-primary-foreground/90">{featuredEvent.tagline}</p>
+                  <div className={FESTIVE_STRIPE_CLASS} />
                 </div>
               )}
 
@@ -162,9 +169,11 @@ const Events = () => {
                       return (
                         <div
                           key={activity}
-                          className="flex items-center gap-2 bg-secondary/40 rounded-lg px-3 py-2 text-sm text-foreground"
+                          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium shadow-sm ${
+                            ACTIVITY_COLORS[activity] ?? DEFAULT_ACTIVITY_COLOR
+                          }`}
                         >
-                          <Icon className="h-4 w-4 text-primary flex-shrink-0" />
+                          <Icon className="h-4 w-4 flex-shrink-0" />
                           {activity}
                         </div>
                       );
@@ -172,7 +181,10 @@ const Events = () => {
                   </div>
                 </div>
 
-                <p className="text-muted-foreground">{featuredEvent.foodNote}</p>
+                <div className="bg-red-600 text-white rounded-lg px-4 py-3">
+                  <p className="text-xs font-bold uppercase tracking-wide mb-1">Oromo Cultural Food</p>
+                  <p className="text-sm">{featuredEvent.foodNote}</p>
+                </div>
 
                 <div className="flex flex-wrap gap-2">
                   {featuredEvent.highlights.map((highlight, i) => {

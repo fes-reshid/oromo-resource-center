@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import Reveal from '@/components/Reveal';
 import { Link } from 'react-router-dom';
 import content from '@/content/upcoming-events.json';
+import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS } from '@/lib/eventStyle';
 
 const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
   'Jumping Castle': PartyPopper,
@@ -56,11 +57,17 @@ const UpcomingEvents = () => {
                   className="w-full max-h-72 object-cover"
                 />
               ) : (
-                <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-6 md:p-8">
-                  <p className="text-sm opacity-90 mb-1">{event.greeting}</p>
-                  <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">{event.title}</h3>
-                  <p className="text-lg font-semibold text-accent">{event.titleOromo}</p>
-                  <p className="mt-2 text-primary-foreground/90">{event.tagline}</p>
+                <div>
+                  <div className={FESTIVE_STRIPE_CLASS} />
+                  <div className="bg-gradient-to-br from-primary via-primary to-deep-forest text-primary-foreground p-6 md:p-8">
+                    <p className="text-sm opacity-90 mb-1">{event.greeting}</p>
+                    <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">{event.title}</h3>
+                    <p className="text-lg font-semibold text-accent">{event.titleOromo}</p>
+                    <span className="inline-block mt-3 bg-accent text-accent-foreground text-sm font-bold px-4 py-1.5 rounded-full">
+                      {event.tagline}
+                    </span>
+                  </div>
+                  <div className={FESTIVE_STRIPE_CLASS} />
                 </div>
               )}
 
@@ -93,9 +100,11 @@ const UpcomingEvents = () => {
                       return (
                         <div
                           key={activity}
-                          className="flex items-center gap-2 bg-secondary/40 rounded-lg px-3 py-2 text-sm text-foreground"
+                          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium shadow-sm ${
+                            ACTIVITY_COLORS[activity] ?? DEFAULT_ACTIVITY_COLOR
+                          }`}
                         >
-                          <Icon className="h-4 w-4 text-primary flex-shrink-0" />
+                          <Icon className="h-4 w-4 flex-shrink-0" />
                           {activity}
                         </div>
                       );
@@ -103,7 +112,10 @@ const UpcomingEvents = () => {
                   </div>
                 </div>
 
-                <p className="text-muted-foreground text-sm">{event.foodNote}</p>
+                <div className="bg-red-600 text-white rounded-lg px-4 py-3">
+                  <p className="text-xs font-bold uppercase tracking-wide mb-1">Oromo Cultural Food</p>
+                  <p className="text-sm">{event.foodNote}</p>
+                </div>
 
                 <div className="flex flex-wrap gap-2">
                   {event.highlights.map((highlight, i) => {
