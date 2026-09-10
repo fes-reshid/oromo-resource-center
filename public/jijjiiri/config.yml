@@ -79,7 +79,9 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Text (use a new line for line breaks)", name: "text", widget: "text" }
+              - { label: "Address (shown as a tap-to-open-in-Maps link)", name: "address", widget: "string" }
+              - { label: "Google Maps Link", name: "mapsUrl", widget: "string" }
+              - { label: "Description (use a new line for line breaks)", name: "description", widget: "text" }
           - label: "Emergency Contact"
             name: "emergencyContact"
             widget: "object"

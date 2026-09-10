@@ -100,7 +100,16 @@ const Contact = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground whitespace-pre-line">
-                  {content.location.text}
+                  <a
+                    href={content.location.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline underline-offset-2 hover:text-primary/80"
+                  >
+                    {content.location.address}
+                  </a>
+                  {'\n'}
+                  {content.location.description}
                 </p>
               </CardContent>
             </Card>

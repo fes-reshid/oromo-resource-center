@@ -3,7 +3,9 @@
   "subtitle": "Whether you have questions about our services or need immediate support, we're here to help our community.",
   "location": {
     "title": "Location",
-    "text": "664 Downing St, Mount Cottrell VIC\nServing the Victorian community and the\nAustralian Oromo community at large"
+    "address": "664 Downing St, Mount Cottrell VIC",
+    "mapsUrl": "https://maps.google.com/?q=664+Downing+St+Mount+Cottrell+VIC+3024",
+    "description": "Serving the Victorian community and the\nAustralian Oromo community at large"
   },
   "emergencyContact": {
     "title": "Emergency Contact",
