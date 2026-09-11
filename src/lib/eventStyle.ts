@@ -12,6 +12,17 @@ export const ACTIVITY_COLORS: Record<string, string> = {
 
 export const DEFAULT_ACTIVITY_COLOR = 'bg-primary text-primary-foreground';
 
+// Real photos cropped from the event flyer itself (not stock images — this
+// environment can't fetch from the open internet). Swap any of these for a
+// higher-resolution photo via the CMS whenever one's available.
+export const ACTIVITY_PHOTOS: Record<string, string> = {
+  'Jumping Castle': '/lovable-uploads/activity-jumping-castle.jpg',
+  'Chair O Plane': '/lovable-uploads/activity-chair-o-plane.jpg',
+  'Fairy Floss': '/lovable-uploads/activity-fairy-floss.jpg',
+  'Face Painting': '/lovable-uploads/activity-face-painting.jpg',
+  Popcorn: '/lovable-uploads/activity-popcorn.jpg',
+};
+
 // A festive diagonal stripe in the site's own brand colors (green/gold/red),
 // used as a decorative accent instead of a flat single-tone bar.
 export const FESTIVE_STRIPE_CLASS =

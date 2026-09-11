@@ -1,14 +1,12 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Calendar,
   MapPin,
   Users,
   Clock,
   PartyPopper,
-  BookOpen,
-  Heart,
   FerrisWheel,
   Candy,
   Palette,
@@ -20,8 +18,15 @@ import {
 import { Button } from '@/components/ui/button';
 import eventsContent from '@/content/upcoming-events.json';
 import { googleCalendarUrl } from '@/lib/calendarLink';
-import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS, formatRibbonDate } from '@/lib/eventStyle';
+import {
+  ACTIVITY_COLORS,
+  ACTIVITY_PHOTOS,
+  DEFAULT_ACTIVITY_COLOR,
+  FESTIVE_STRIPE_CLASS,
+  formatRibbonDate,
+} from '@/lib/eventStyle';
 import EventFlyer from '@/components/EventFlyer';
+import Reveal from '@/components/Reveal';
 
 const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
   'Jumping Castle': PartyPopper,
@@ -36,56 +41,6 @@ const HIGHLIGHT_ICONS = [Users, Popcorn, Sparkles, PartyPopper];
 const Events = () => {
   const featuredEvent = eventsContent.events[0];
   const ribbonDate = featuredEvent ? formatRibbonDate(featuredEvent.startDateTime) : '';
-  const events = [
-    {
-      title: 'Muhadara',
-      description: 'Islamic lectures and educational sessions featuring renowned scholars and speakers, providing spiritual guidance and knowledge to our community.',
-      icon: BookOpen,
-      color: 'from-primary to-accent',
-      details: [
-        { icon: Calendar, text: 'Monthly Sessions' },
-        { icon: Clock, text: 'Evening Programs' },
-        { icon: Users, text: 'Open to All' },
-        { icon: MapPin, text: 'Victoria' }
-      ]
-    },
-    {
-      title: 'ORC Family Day',
-      description: 'A special day bringing together families from our community for fun activities, cultural programs, and shared meals. Strengthening bonds and creating memories.',
-      icon: Users,
-      color: 'from-accent to-primary',
-      details: [
-        { icon: Calendar, text: 'Annual Event' },
-        { icon: Clock, text: 'All Day Activities' },
-        { icon: Users, text: 'Family Friendly' },
-        { icon: MapPin, text: 'Various Venues' }
-      ]
-    },
-    {
-      title: 'Eid al-Fitr',
-      description: 'Celebrate the blessed festival marking the end of Ramadan with communal prayers, festive meals, and joyous gatherings with the community.',
-      icon: PartyPopper,
-      color: 'from-primary to-deep-forest',
-      details: [
-        { icon: Calendar, text: 'After Ramadan' },
-        { icon: Clock, text: 'Morning Prayer & Celebration' },
-        { icon: Users, text: 'Community Celebration' },
-        { icon: MapPin, text: 'Victoria' }
-      ]
-    },
-    {
-      title: 'Eid al-Adha',
-      description: 'Join us in commemorating the willingness of Ibrahim to sacrifice as an act of obedience to Allah. Prayers, sacrifice, and community feasting.',
-      icon: Heart,
-      color: 'from-deep-forest to-primary',
-      details: [
-        { icon: Calendar, text: 'During Hajj Season' },
-        { icon: Clock, text: 'Morning Prayer & Qurbani' },
-        { icon: Users, text: 'Community Gathering' },
-        { icon: MapPin, text: 'Victoria' }
-      ]
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -262,41 +217,49 @@ const Events = () => {
         </section>
       )}
 
-      {/* Events Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {events.map((event, index) => {
-              const IconComponent = event.icon;
-              return (
-                <Card key={index} className="relative overflow-hidden group hover:shadow-xl transition-all duration-300 border-0">
-                  <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${event.color}`}></div>
-                  <CardHeader className="pb-4">
-                    <div className={`w-20 h-20 bg-gradient-to-br ${event.color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
-                      <IconComponent className="h-10 w-10 text-primary-foreground" />
+      {/* Activity Photo Gallery */}
+      {featuredEvent && (
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <Reveal className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+                A Day Full of Fun
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Jumping castles, fairy floss, face painting and more — something for every child.
+              </p>
+            </Reveal>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+              {featuredEvent.activities.map((activity, i) => {
+                const Icon = ACTIVITY_ICONS[activity] ?? Sparkles;
+                const photo = ACTIVITY_PHOTOS[activity];
+                return (
+                  <Reveal key={activity} delayMs={i * 100}>
+                    <div className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                      {photo && (
+                        <img
+                          src={photo}
+                          alt={activity}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                      <div
+                        className={`absolute top-3 left-3 h-9 w-9 rounded-full flex items-center justify-center shadow-md ${
+                          ACTIVITY_COLORS[activity] ?? DEFAULT_ACTIVITY_COLOR
+                        }`}
+                      >
+                        <Icon className="h-4.5 w-4.5" />
+                      </div>
+                      <p className="absolute bottom-3 left-3 right-3 text-white font-bold text-sm md:text-base leading-tight">
+                        {activity}
+                      </p>
                     </div>
-                    <CardTitle className="text-2xl text-foreground">{event.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {event.description}
-                    </p>
-                    <div className="grid grid-cols-2 gap-3">
-                      {event.details.map((detail, idx) => {
-                        const DetailIcon = detail.icon;
-                        return (
-                          <div key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <DetailIcon className="h-4 w-4 text-primary" />
-                            <span>{detail.text}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                  </Reveal>
+                );
+              })}
+            </div>
 
           {/* Call to Action */}
           <div className="mt-16 text-center">
@@ -314,6 +277,7 @@ const Events = () => {
           </div>
         </div>
       </section>
+      )}
 
       <Footer />
     </div>
