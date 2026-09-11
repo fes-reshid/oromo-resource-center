@@ -40,7 +40,7 @@ const UpcomingEvents = () => {
             <span className="text-sm font-medium text-primary">Upcoming Event</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground">
-            Join Us for Our Next Celebration
+            Join us on this big event
           </h2>
         </Reveal>
 

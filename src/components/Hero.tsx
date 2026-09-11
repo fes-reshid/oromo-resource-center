@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import eventsContent from '@/content/upcoming-events.json';
-import { FESTIVE_STRIPE_CLASS, formatRibbonDate } from '@/lib/eventStyle';
+import { formatRibbonDate } from '@/lib/eventStyle';
 import EventFlyer from '@/components/EventFlyer';
 
 const SLIDE_INTERVAL_MS = 8000;
@@ -156,8 +156,6 @@ const Hero = () => {
             className="relative min-h-screen flex items-center flex-shrink-0 bg-gradient-to-br from-primary via-primary to-deep-forest"
             style={{ width: `${100 / slideCount}%` }}
           >
-            <div className={`absolute top-0 left-0 right-0 ${FESTIVE_STRIPE_CLASS}`} />
-            <div className={`absolute bottom-0 left-0 right-0 ${FESTIVE_STRIPE_CLASS}`} />
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_20%_20%,white,transparent_35%),radial-gradient(circle_at_80%_60%,white,transparent_35%)]" />
             {featuredEvent.posterImage && (
               <img
