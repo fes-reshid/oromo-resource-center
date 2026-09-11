@@ -20,7 +20,8 @@ import {
 import { Button } from '@/components/ui/button';
 import eventsContent from '@/content/upcoming-events.json';
 import { googleCalendarUrl } from '@/lib/calendarLink';
-import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS } from '@/lib/eventStyle';
+import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS, formatRibbonDate } from '@/lib/eventStyle';
+import EventFlyer from '@/components/EventFlyer';
 
 const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
   'Jumping Castle': PartyPopper,
@@ -34,6 +35,7 @@ const HIGHLIGHT_ICONS = [Users, Popcorn, Sparkles, PartyPopper];
 
 const Events = () => {
   const featuredEvent = eventsContent.events[0];
+  const ribbonDate = featuredEvent ? formatRibbonDate(featuredEvent.startDateTime) : '';
   const events = [
     {
       title: 'Muhadara',
@@ -113,11 +115,30 @@ const Events = () => {
           <div className="container mx-auto px-4">
             <Card className="max-w-5xl mx-auto overflow-hidden border-0 shadow-2xl">
               {featuredEvent.posterImage ? (
-                <img
-                  src={featuredEvent.posterImage}
-                  alt={`${featuredEvent.title} flyer`}
-                  className="w-full max-h-[600px] object-contain bg-black/5"
-                />
+                <div className="bg-gradient-to-br from-primary via-primary to-deep-forest p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  <div className="text-primary-foreground text-center md:text-left order-2 md:order-1">
+                    <div className="inline-flex items-center gap-2 bg-primary-foreground/15 px-4 py-2 rounded-full mb-4">
+                      <PartyPopper className="h-5 w-5" />
+                      <span className="text-sm font-semibold uppercase tracking-wide">
+                        {featuredEvent.greeting}
+                      </span>
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                      {featuredEvent.title}
+                    </h2>
+                    <p className="text-xl font-semibold text-accent">{featuredEvent.titleOromo}</p>
+                    <span className="inline-block mt-3 bg-accent text-accent-foreground text-sm font-bold px-4 py-1.5 rounded-full">
+                      {featuredEvent.tagline}
+                    </span>
+                  </div>
+                  <div className="order-1 md:order-2">
+                    <EventFlyer
+                      src={featuredEvent.posterImage}
+                      alt={`${featuredEvent.title} flyer`}
+                      dateBadge={ribbonDate}
+                    />
+                  </div>
+                </div>
               ) : (
                 <div>
                   <div className={FESTIVE_STRIPE_CLASS} />

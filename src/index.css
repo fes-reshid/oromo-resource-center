@@ -149,4 +149,31 @@
   .animate-dhikr-slide-in {
     animation: dhikr-slide-in 0.6s ease-out;
   }
+
+  @keyframes float-flyer {
+    0%, 100% { transform: rotateY(-5deg) rotateX(2deg) translateY(0); }
+    50% { transform: rotateY(-2deg) rotateX(1deg) translateY(-12px); }
+  }
+
+  .animate-float-flyer {
+    animation: float-flyer 5.5s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { transform: scale(0.95); opacity: 0.55; }
+    50% { transform: scale(1.08); opacity: 0.85; }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes spark-twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.7) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.15) rotate(20deg); }
+  }
+
+  .animate-spark-twinkle {
+    animation: spark-twinkle 3s ease-in-out infinite;
+  }
 }

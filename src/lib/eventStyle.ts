@@ -16,3 +16,17 @@ export const DEFAULT_ACTIVITY_COLOR = 'bg-primary text-primary-foreground';
 // used as a decorative accent instead of a flat single-tone bar.
 export const FESTIVE_STRIPE_CLASS =
   'h-2 w-full bg-[repeating-linear-gradient(45deg,hsl(var(--oromo-accent-red))_0_10px,hsl(var(--secondary))_10px_20px,hsl(var(--primary))_20px_30px)]';
+
+// Compact "25 SEP 2026" style date for the flyer's corner ribbon, derived
+// from an ISO datetime so it stays correct regardless of how the event's
+// display date string is worded.
+export function formatRibbonDate(isoDateTime: string): string {
+  const date = new Date(isoDateTime);
+  return new Intl.DateTimeFormat('en-AU', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+    .format(date)
+    .toUpperCase();
+}

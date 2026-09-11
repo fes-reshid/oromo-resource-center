@@ -15,7 +15,8 @@ import { Button } from '@/components/ui/button';
 import Reveal from '@/components/Reveal';
 import { Link } from 'react-router-dom';
 import content from '@/content/upcoming-events.json';
-import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS } from '@/lib/eventStyle';
+import { ACTIVITY_COLORS, DEFAULT_ACTIVITY_COLOR, FESTIVE_STRIPE_CLASS, formatRibbonDate } from '@/lib/eventStyle';
+import EventFlyer from '@/components/EventFlyer';
 
 const ACTIVITY_ICONS: Record<string, typeof PartyPopper> = {
   'Jumping Castle': PartyPopper,
@@ -51,11 +52,14 @@ const UpcomingEvents = () => {
               className="min-w-[320px] md:min-w-[600px] snap-center flex-shrink-0 overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               {event.posterImage ? (
-                <img
-                  src={event.posterImage}
-                  alt={`${event.title} flyer`}
-                  className="w-full max-h-72 object-cover"
-                />
+                <div className="bg-gradient-to-br from-primary via-primary to-deep-forest p-6 md:p-8 flex justify-center">
+                  <EventFlyer
+                    src={event.posterImage}
+                    alt={`${event.title} flyer`}
+                    dateBadge={formatRibbonDate(event.startDateTime)}
+                    className="max-w-[280px]"
+                  />
+                </div>
               ) : (
                 <div>
                   <div className={FESTIVE_STRIPE_CLASS} />
