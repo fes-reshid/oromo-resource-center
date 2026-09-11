@@ -159,6 +159,14 @@ const Hero = () => {
             <div className={`absolute top-0 left-0 right-0 ${FESTIVE_STRIPE_CLASS}`} />
             <div className={`absolute bottom-0 left-0 right-0 ${FESTIVE_STRIPE_CLASS}`} />
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_20%_20%,white,transparent_35%),radial-gradient(circle_at_80%_60%,white,transparent_35%)]" />
+            {featuredEvent.posterImage && (
+              <img
+                src={featuredEvent.posterImage}
+                alt=""
+                aria-hidden
+                className="hidden md:block absolute right-[-8%] top-1/2 -translate-y-1/2 w-[65%] max-w-[900px] opacity-[0.14] blur-md scale-110 pointer-events-none select-none"
+              />
+            )}
             <div className="relative z-10 container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-10">
               <div className="text-primary-foreground text-center md:text-left order-2 md:order-1">
                 <div className="inline-flex items-center gap-2 bg-accent/20 px-4 py-2 rounded-full mb-6">
@@ -218,7 +226,7 @@ const Hero = () => {
                     src={featuredEvent.posterImage}
                     alt={`${featuredEvent.title} flyer`}
                     dateBadge={formatRibbonDate(featuredEvent.startDateTime)}
-                    className="max-w-[220px] md:max-w-[260px]"
+                    className="max-w-[300px] sm:max-w-[360px] md:max-w-[440px]"
                   />
                 </div>
               )}

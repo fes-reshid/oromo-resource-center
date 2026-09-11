@@ -46,7 +46,7 @@ const EventFlyer = ({ src, alt, dateBadge, className = '' }: EventFlyerProps) =>
           <button
             type="button"
             aria-label={`View full ${alt}`}
-            className="relative w-full max-w-[420px] rounded-2xl overflow-hidden border-[6px] border-white/90 shadow-2xl bg-white cursor-zoom-in md:animate-float-flyer md:[transform:rotateY(-5deg)_rotateX(2deg)] transition-transform hover:!scale-[1.02]"
+            className="relative w-full rounded-2xl overflow-hidden shadow-2xl cursor-zoom-in md:animate-float-flyer md:[transform:rotateY(-5deg)_rotateX(2deg)] transition-transform hover:!scale-[1.02]"
           >
             {dateBadge && (
               <span className="absolute top-5 -right-11 bg-destructive text-destructive-foreground text-xs font-black tracking-wide px-12 py-2 rotate-[38deg] shadow-lg z-10">
