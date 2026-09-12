@@ -157,9 +157,27 @@ const Events = () => {
                   </div>
                 </div>
 
-                <div className="bg-red-600 text-white rounded-lg px-4 py-3">
-                  <p className="text-xs font-bold uppercase tracking-wide mb-1">Oromo Cultural Food</p>
-                  <p className="text-sm">{featuredEvent.foodNote}</p>
+                <div>
+                  <div className="bg-red-600 text-white rounded-lg px-4 py-3">
+                    <p className="text-xs font-bold uppercase tracking-wide mb-1">Oromo Cultural Food</p>
+                    <p className="text-sm">{featuredEvent.foodNote}</p>
+                  </div>
+                  {featuredEvent.foodPhotos && featuredEvent.foodPhotos.length > 0 && (
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      {featuredEvent.foodPhotos.map((photo, i) => (
+                        <div
+                          key={photo}
+                          className="aspect-video rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+                        >
+                          <img
+                            src={photo}
+                            alt={`Oromo cultural food ${i + 1}`}
+                            className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-wrap gap-2">

@@ -276,6 +276,11 @@ collections:
                 widget: "list"
                 field: { label: "Activity", name: "item", widget: "string" }
               - { label: "Food Note", name: "foodNote", widget: "text" }
+              - label: "Food Photos (upload real photos of the food here)"
+                name: "foodPhotos"
+                widget: "list"
+                required: false
+                field: { label: "Photo", name: "item", widget: "image" }
               - label: "Highlights"
                 name: "highlights"
                 widget: "list"
