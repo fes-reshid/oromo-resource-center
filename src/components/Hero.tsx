@@ -54,7 +54,7 @@ const Hero = () => {
         <div className="relative min-h-screen flex items-center flex-shrink-0" style={{ width: `${100 / slideCount}%` }}>
           <div className="absolute inset-0 z-0">
             <img
-              src="lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png"
+              src="/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png"
               alt="Oromo Resource Center grounds and memorial site"
               className="w-full h-full object-cover"
             />

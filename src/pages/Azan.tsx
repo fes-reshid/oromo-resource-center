@@ -143,7 +143,7 @@ const Azan = () => {
                   </p>
                 </div>
                 <img
-                  src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+                  src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
                   alt="Oromo Resource Centre Inc Logo"
                   className="w-14 h-14 lg:w-20 lg:h-20 object-contain flex-shrink-0"
                 />
@@ -184,7 +184,7 @@ const Azan = () => {
                   <p className="text-sm lg:text-base text-muted-foreground mt-1">{slide.event.tagline}</p>
                 </div>
                 <img
-                  src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+                  src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
                   alt="Oromo Resource Centre Inc Logo"
                   className="w-14 h-14 lg:w-20 lg:h-20 object-contain flex-shrink-0"
                 />
@@ -259,7 +259,7 @@ const Azan = () => {
               <div className="flex flex-col items-center gap-3 bg-white text-foreground rounded-2xl p-6 lg:p-8">
                 <Moon className="h-6 w-6 text-primary" />
                 <img
-                  src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+                  src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
                   alt="Oromo Resource Centre Inc Logo"
                   className="w-28 h-28 lg:w-36 lg:h-36 object-contain"
                 />

@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+                src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
                 alt="Oromo Resource Centre Inc Logo"
                 className="w-12 h-12 object-contain bg-white rounded-lg p-1"
               />
