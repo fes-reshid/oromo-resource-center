@@ -14,6 +14,7 @@ import {
   Sparkles,
   CalendarPlus,
   Navigation,
+  UtensilsCrossed,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import eventsContent from '@/content/upcoming-events.json';
@@ -158,27 +159,9 @@ const Events = () => {
                   </div>
                 </div>
 
-                <div>
-                  <div className="bg-red-600 text-white rounded-lg px-4 py-3">
-                    <p className="text-xs font-bold uppercase tracking-wide mb-1">Oromo Cultural Food</p>
-                    <p className="text-sm">{featuredEvent.foodNote}</p>
-                  </div>
-                  {featuredEvent.foodPhotos && featuredEvent.foodPhotos.length > 0 && (
-                    <div className="grid grid-cols-2 gap-3 mt-3">
-                      {featuredEvent.foodPhotos.map((photo, i) => (
-                        <div
-                          key={photo}
-                          className="aspect-video rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
-                        >
-                          <img
-                            src={photo}
-                            alt={`Oromo cultural food ${i + 1}`}
-                            className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                <div className="bg-red-600 text-white rounded-lg px-4 py-3">
+                  <p className="text-xs font-bold uppercase tracking-wide mb-1">Oromo Cultural Food</p>
+                  <p className="text-sm">{featuredEvent.foodNote}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
@@ -236,8 +219,8 @@ const Events = () => {
         </section>
       )}
 
-      {/* Event Video */}
-      {featuredEvent?.videoUrl && (
+      {/* Event Videos */}
+      {featuredEvent?.videos && featuredEvent.videos.length > 0 && (
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <Reveal className="text-center mb-10">
@@ -248,19 +231,29 @@ const Events = () => {
                 Hear the invitation to {featuredEvent.title} straight from the community.
               </p>
             </Reveal>
-            <div className="max-w-2xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-black">
-              <div className="aspect-video">
-                <iframe
-                  src={getVideoEmbedUrl(featuredEvent.videoUrl)}
-                  className="w-full h-full"
-                  style={{ border: 'none', overflow: 'hidden' }}
-                  scrolling="no"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  title={`${featuredEvent.title} invitation video`}
-                />
-              </div>
+            <div
+              className={`grid gap-6 max-w-5xl mx-auto ${
+                featuredEvent.videos.length > 1 ? 'md:grid-cols-2' : 'max-w-2xl'
+              }`}
+            >
+              {featuredEvent.videos.map((video, i) => (
+                <Reveal key={video} delayMs={i * 100}>
+                  <div className="rounded-2xl overflow-hidden shadow-2xl bg-black">
+                    <div className="aspect-video">
+                      <iframe
+                        src={getVideoEmbedUrl(video)}
+                        className="w-full h-full"
+                        style={{ border: 'none', overflow: 'hidden' }}
+                        scrolling="no"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        title={`${featuredEvent.title} invitation video ${i + 1}`}
+                      />
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>
@@ -308,6 +301,25 @@ const Events = () => {
                   </Reveal>
                 );
               })}
+
+              {featuredEvent.foodPhotos?.map((photo, i) => (
+                <Reveal key={photo} delayMs={(featuredEvent.activities.length + i) * 100}>
+                  <div className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                    <img
+                      src={photo}
+                      alt="Oromo Cultural Food"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                    <div className="absolute top-3 left-3 h-9 w-9 rounded-full flex items-center justify-center shadow-md bg-amber-600 text-white">
+                      <UtensilsCrossed className="h-4.5 w-4.5" />
+                    </div>
+                    <p className="absolute bottom-3 left-3 right-3 text-white font-bold text-sm md:text-base leading-tight">
+                      Oromo Food
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
 
           {/* Call to Action */}
