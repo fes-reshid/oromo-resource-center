@@ -28,10 +28,38 @@ export const ACTIVITY_PHOTOS: Record<string, string> = {
 export const FESTIVE_STRIPE_CLASS =
   'h-2 w-full bg-[repeating-linear-gradient(45deg,hsl(var(--oromo-accent-red))_0_10px,hsl(var(--secondary))_10px_20px,hsl(var(--primary))_20px_30px)]';
 
-// Builds a Facebook video-plugin embed URL from a public Facebook video/post
-// link. The linked post must be set to Public — Facebook's embed shows a
-// blank box (or a login prompt) to visitors who aren't logged in otherwise.
-export function facebookVideoEmbedUrl(videoUrl: string): string {
+// Pulls the video ID out of any common YouTube URL shape: watch?v=, youtu.be
+// short links, /shorts/, and already-an-embed-link /embed/.
+function extractYouTubeId(url: string): string | null {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname === 'youtu.be') {
+      return parsed.pathname.slice(1) || null;
+    }
+    if (parsed.hostname.includes('youtube.com')) {
+      if (parsed.pathname === '/watch') return parsed.searchParams.get('v');
+      const shortsMatch = parsed.pathname.match(/^\/shorts\/([^/?]+)/);
+      if (shortsMatch) return shortsMatch[1];
+      const embedMatch = parsed.pathname.match(/^\/embed\/([^/?]+)/);
+      if (embedMatch) return embedMatch[1];
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+// Builds the right embed URL for either a YouTube or a Facebook video link,
+// so the CMS's single "Video Link" field accepts either kind. A Facebook
+// post must be set to Public — its embed shows a blank box (or a login
+// prompt) to visitors who aren't logged in otherwise; YouTube has no such
+// restriction for public/unlisted videos.
+export function getVideoEmbedUrl(videoUrl: string): string {
+  const youTubeId = extractYouTubeId(videoUrl);
+  if (youTubeId) {
+    return `https://www.youtube-nocookie.com/embed/${youTubeId}`;
+  }
+
   const params = new URLSearchParams({
     href: videoUrl,
     show_text: 'false',

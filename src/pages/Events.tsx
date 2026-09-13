@@ -23,7 +23,7 @@ import {
   ACTIVITY_PHOTOS,
   DEFAULT_ACTIVITY_COLOR,
   FESTIVE_STRIPE_CLASS,
-  facebookVideoEmbedUrl,
+  getVideoEmbedUrl,
   formatRibbonDate,
 } from '@/lib/eventStyle';
 import EventFlyer from '@/components/EventFlyer';
@@ -251,12 +251,12 @@ const Events = () => {
             <div className="max-w-2xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-black">
               <div className="aspect-video">
                 <iframe
-                  src={facebookVideoEmbedUrl(featuredEvent.videoUrl)}
+                  src={getVideoEmbedUrl(featuredEvent.videoUrl)}
                   className="w-full h-full"
                   style={{ border: 'none', overflow: 'hidden' }}
                   scrolling="no"
                   frameBorder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   title={`${featuredEvent.title} invitation video`}
                 />
