@@ -23,6 +23,7 @@ import {
   ACTIVITY_PHOTOS,
   DEFAULT_ACTIVITY_COLOR,
   FESTIVE_STRIPE_CLASS,
+  facebookVideoEmbedUrl,
   formatRibbonDate,
 } from '@/lib/eventStyle';
 import EventFlyer from '@/components/EventFlyer';
@@ -231,6 +232,36 @@ const Events = () => {
                 )}
               </CardContent>
             </Card>
+          </div>
+        </section>
+      )}
+
+      {/* Event Video */}
+      {featuredEvent?.videoUrl && (
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <Reveal className="text-center mb-10">
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+                Watch the Invitation
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Hear the invitation to {featuredEvent.title} straight from the community.
+              </p>
+            </Reveal>
+            <div className="max-w-2xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-black">
+              <div className="aspect-video">
+                <iframe
+                  src={facebookVideoEmbedUrl(featuredEvent.videoUrl)}
+                  className="w-full h-full"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  scrolling="no"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                  title={`${featuredEvent.title} invitation video`}
+                />
+              </div>
+            </div>
           </div>
         </section>
       )}

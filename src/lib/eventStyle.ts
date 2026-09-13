@@ -28,6 +28,17 @@ export const ACTIVITY_PHOTOS: Record<string, string> = {
 export const FESTIVE_STRIPE_CLASS =
   'h-2 w-full bg-[repeating-linear-gradient(45deg,hsl(var(--oromo-accent-red))_0_10px,hsl(var(--secondary))_10px_20px,hsl(var(--primary))_20px_30px)]';
 
+// Builds a Facebook video-plugin embed URL from a public Facebook video/post
+// link. The linked post must be set to Public — Facebook's embed shows a
+// blank box (or a login prompt) to visitors who aren't logged in otherwise.
+export function facebookVideoEmbedUrl(videoUrl: string): string {
+  const params = new URLSearchParams({
+    href: videoUrl,
+    show_text: 'false',
+  });
+  return `https://www.facebook.com/plugins/video.php?${params.toString()}`;
+}
+
 // Compact "25 SEP 2026" style date for the flyer's corner ribbon, derived
 // from an ISO datetime so it stays correct regardless of how the event's
 // display date string is worded.
