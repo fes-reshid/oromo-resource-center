@@ -1,21 +1,7 @@
 {
   "events": [
     {
-      "title": "ORC Family Day",
-      "titleOromo": "Guyyaa Maatii ORC",
-      "tagline": "A Fun Day for the Whole Family!",
-      "greeting": "Afeerraa Kabajaa Oromoo hundaaf",
-      "date": "Friday, 25 September 2026",
       "time": "10:00 AM – 6:00 PM",
-      "startDateTime": "2026-09-25T10:00:00",
-      "endDateTime": "2026-09-25T18:00:00",
-      "khutbahTime": "Friday Khutbah at 1:00 PM",
-      "location": "ORC Centre, 664–678 Downing St, Mount Cottrell VIC 3024",
-      "mapsUrl": "https://maps.google.com/?q=664+Downing+St+Mount+Cottrell+VIC+3024",
-      "posterImage": "/lovable-uploads/orc-family-day-flyer.jpg",
-      "videos": [
-        "https://www.facebook.com/share/v/1J8xc7xqKN/?mibextid=wwXIfr"
-      ],
       "activities": [
         "Jumping Castle",
         "Chair O Plane",
@@ -23,19 +9,33 @@
         "Face Painting",
         "Popcorn"
       ],
+      "posterImage": "/lovable-uploads/orc-family-day-flyer.jpg",
+      "tagline": "A Fun Day for the Whole Family!",
+      "date": "Friday, 25 September 2026",
       "foodNote": "Enjoy a variety of delicious Oromo cultural dishes made with love and tradition!",
-      "foodPhotos": [
-        "/lovable-uploads/ormo-food.jpeg",
-        "/lovable-uploads/images.jpeg"
+      "location": "ORC Centre, 664–678 Downing St, Mount Cottrell VIC 3024",
+      "endDateTime": "2026-09-25T18:00:00",
+      "titleOromo": "Guyyaa Maatii ORC",
+      "title": "ORC Family Day",
+      "mapsUrl": "https://maps.google.com/?q=664+Downing+St+Mount+Cottrell+VIC+3024",
+      "videos": [
+        "https://youtu.be/aIdhFJ70rC0"
       ],
+      "greeting": "Afeerraa Kabajaa Oromoo hundaaf",
+      "closingOromo": "Wajjiin nyaannee Wajjiin haa Bashannannu. Taphni ijoollee fi nyaanni aadaatis ni jira.",
+      "khutbahTime": "Friday Khutbah at 1:00 PM",
+      "sponsor": "Westend Tax Solution",
+      "startDateTime": "2026-09-25T10:00:00",
       "highlights": [
         "Fun for the Whole Family",
         "Popcorn for Kids",
         "Community Togetherness",
         "Fun All Day Long!"
       ],
-      "closingOromo": "Wajjiin nyaannee Wajjiin haa Bashannannu. Taphni ijoollee fi nyaanni aadaatis ni jira.",
-      "sponsor": "Westend Tax Solution"
+      "foodPhotos": [
+        "/lovable-uploads/ormo-food.jpeg",
+        "/lovable-uploads/images.jpeg"
+      ]
     }
   ]
 }
