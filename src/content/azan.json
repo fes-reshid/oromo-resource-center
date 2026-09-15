@@ -14,6 +14,11 @@
   },
   "jumuahTime": "1:30 PM",
   "slideIntervalSeconds": 9,
+  "prayerTransition": {
+    "darkDurationMinutes": 5,
+    "duaDurationMinutes": 5,
+    "darkMessage": "Prayer in progress — please maintain silence"
+  },
   "dhikrHeader": {
     "title": "After Prayer Dhikr",
     "subtitle": "Zikrii Salaata Booda — Oromo Resource Centre"

@@ -22,7 +22,7 @@ import { afterPrayerDhikr, type DhikrSlide } from '@/data/afterPrayerDhikr';
 import { jumuahTime } from '@/data/prayerTimes';
 import { formatHijri } from '@/lib/hijri';
 import { getMelbourneNow, formatCountdown, MELBOURNE_TZ } from '@/lib/prayerCountdown';
-import { getDailyPrayers, getNextSalah } from '@/lib/livePrayerTimes';
+import { getDailyPrayers, getNextSalah, type DailyPrayer } from '@/lib/livePrayerTimes';
 import { getAppBase } from '@/lib/appBase';
 import eventsContent from '@/content/upcoming-events.json';
 import azanContent from '@/content/azan.json';
@@ -66,10 +66,37 @@ const slides: Slide[] = [
 ];
 
 const SLIDE_INTERVAL_MS = azanContent.slideIntervalSeconds * 1000;
+const MINUTE_MS = 60 * 1000;
+
+type DisplayMode =
+  | { kind: 'normal' }
+  | { kind: 'dark'; prayerName: string }
+  | { kind: 'fullscreen-dua'; prayerName: string };
+
+// At each of today's five daily Salah (not Sunrise), the screen goes dark
+// for a stretch (so the display doesn't distract during the prayer itself),
+// then shows the after-prayer dhikr full-screen, then returns to normal —
+// durations come from azan.json's prayerTransition so they're CMS-editable.
+function getDisplayMode(now: Date, todaysPrayers: DailyPrayer[]): DisplayMode {
+  const darkMs = azanContent.prayerTransition.darkDurationMinutes * MINUTE_MS;
+  const duaMs = azanContent.prayerTransition.duaDurationMinutes * MINUTE_MS;
+  for (const prayer of todaysPrayers) {
+    if (prayer.name === 'Sunrise') continue;
+    const elapsed = now.getTime() - prayer.adhan.getTime();
+    if (elapsed >= 0 && elapsed < darkMs) {
+      return { kind: 'dark', prayerName: prayer.name };
+    }
+    if (elapsed >= darkMs && elapsed < darkMs + duaMs) {
+      return { kind: 'fullscreen-dua', prayerName: prayer.name };
+    }
+  }
+  return { kind: 'normal' };
+}
 
 const Azan = () => {
   const [now, setNow] = useState(() => new Date());
   const [slideIndex, setSlideIndex] = useState(0);
+  const [duaIndex, setDuaIndex] = useState(0);
   const donateUrl = useMemo(
     () => `${window.location.origin}${getAppBase()}donate`,
     [],
@@ -96,6 +123,21 @@ const Azan = () => {
     () => getNextSalah(now, melbourneNow),
     [now, melbourneNow],
   );
+  const displayMode = useMemo(
+    () => getDisplayMode(now, todaysPrayers),
+    [now, todaysPrayers],
+  );
+
+  useEffect(() => {
+    if (displayMode.kind !== 'fullscreen-dua') {
+      setDuaIndex(0);
+      return;
+    }
+    const advance = setInterval(() => {
+      setDuaIndex((i) => (i + 1) % afterPrayerDhikr.length);
+    }, SLIDE_INTERVAL_MS);
+    return () => clearInterval(advance);
+  }, [displayMode.kind]);
   const hijriDate = useMemo(
     () => formatHijri(new Date(melbourneNow.year, melbourneNow.month - 1, melbourneNow.day)),
     [melbourneNow.year, melbourneNow.month, melbourneNow.day],
@@ -119,6 +161,72 @@ const Azan = () => {
 
   const slide = slides[slideIndex];
   const isDonationSlide = slide.kind === 'donation';
+
+  if (displayMode.kind === 'dark') {
+    return (
+      <div className="h-screen w-screen bg-black flex flex-col items-center justify-center text-center px-8">
+        <Moon className="h-10 w-10 text-white/40 mb-6" />
+        <h1 className="text-3xl lg:text-5xl font-bold text-white/80 mb-3">
+          {displayMode.prayerName}
+        </h1>
+        <p className="text-base lg:text-xl text-white/40 max-w-lg">
+          {azanContent.prayerTransition.darkMessage}
+        </p>
+      </div>
+    );
+  }
+
+  if (displayMode.kind === 'fullscreen-dua') {
+    const dhikr = afterPrayerDhikr[duaIndex];
+    return (
+      <div className="h-screen w-screen bg-card text-foreground flex flex-col p-8 lg:p-16">
+        <div className="flex items-start justify-between mb-8">
+          <div>
+            <h1 className="text-3xl lg:text-5xl font-bold text-primary">
+              {azanContent.dhikrHeader.title}
+            </h1>
+            <p className="text-base lg:text-lg text-muted-foreground">
+              {azanContent.dhikrHeader.subtitle}
+            </p>
+          </div>
+          <img
+            src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+            alt="Oromo Resource Centre Inc Logo"
+            className="w-16 h-16 lg:w-24 lg:h-24 object-contain flex-shrink-0"
+          />
+        </div>
+
+        <div className="flex-1 flex flex-col justify-center min-h-0">
+          <div key={dhikr.id} className="animate-dhikr-slide-in overflow-y-auto">
+            <p className="text-base lg:text-xl font-semibold text-secondary-foreground/70 uppercase tracking-wide mb-4">
+              {dhikr.label}
+            </p>
+            <p
+              dir="rtl"
+              lang="ar"
+              className="text-3xl lg:text-6xl leading-relaxed lg:leading-loose mb-8 font-arabic"
+            >
+              {dhikr.arabic}
+            </p>
+            <p className="text-lg lg:text-3xl text-muted-foreground leading-relaxed lg:leading-loose">
+              {dhikr.oromo}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 pt-6">
+          {afterPrayerDhikr.map((d, i) => (
+            <span
+              key={d.id}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                i === duaIndex ? 'w-8 bg-primary' : 'w-2.5 bg-primary/30'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-secondary/30 flex flex-col">

@@ -320,6 +320,14 @@ collections:
               - { label: "Isha — minutes after Adhan", name: "ishaMinutesAfterAdhan", widget: "number" }
           - { label: "Jumu'ah Time", name: "jumuahTime", widget: "string" }
           - { label: "Slide Rotation Speed (seconds)", name: "slideIntervalSeconds", widget: "number" }
+          - label: "Prayer Time Screen Transition"
+            name: "prayerTransition"
+            widget: "object"
+            hint: "At each prayer's Adhan time, the screen goes dark, then shows After Prayer Dhikr full-screen, then returns to normal."
+            fields:
+              - { label: "Dark Screen Duration (minutes)", name: "darkDurationMinutes", widget: "number" }
+              - { label: "Full-Screen Dhikr Duration (minutes)", name: "duaDurationMinutes", widget: "number" }
+              - { label: "Dark Screen Message", name: "darkMessage", widget: "string" }
           - label: "Dhikr Panel Header"
             name: "dhikrHeader"
             widget: "object"
