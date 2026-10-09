@@ -323,9 +323,10 @@ collections:
           - label: "Prayer Time Screen Transition"
             name: "prayerTransition"
             widget: "object"
-            hint: "At each prayer's Adhan time, the screen goes dark, then shows After Prayer Dhikr full-screen, then returns to normal."
+            hint: "At each prayer's Iqama time, the screen goes dark, then shows After Prayer Dhikr full-screen, then returns to normal."
             fields:
               - { label: "Dark Screen Duration (minutes)", name: "darkDurationMinutes", widget: "number" }
+              - { label: "Dhuhr/Jumu'ah Dark Screen Duration (minutes, at 1:30)", name: "dhuhrDarkDurationMinutes", widget: "number" }
               - { label: "Full-Screen Dhikr Duration (minutes)", name: "duaDurationMinutes", widget: "number" }
               - { label: "Dark Screen Message", name: "darkMessage", widget: "string" }
           - label: "Dhikr Panel Header"

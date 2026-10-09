@@ -16,6 +16,7 @@ import {
   Candy,
   Palette,
   Popcorn,
+  PhoneOff,
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { afterPrayerDhikr, type DhikrSlide } from '@/data/afterPrayerDhikr';
@@ -74,15 +75,22 @@ type DisplayMode =
   | { kind: 'fullscreen-dua'; prayerName: string };
 
 // At each of today's five daily Salah (not Sunrise), the screen goes dark
-// for a stretch (so the display doesn't distract during the prayer itself),
-// then shows the after-prayer dhikr full-screen, then returns to normal —
-// durations come from azan.json's prayerTransition so they're CMS-editable.
+// starting at Iqama time (not Adhan — people are still arriving before
+// then) for a stretch, then shows the after-prayer dhikr full-screen, then
+// returns to normal. Dhuhr/Jumu'ah (always 1:30, per iqamaOffsets) gets its
+// own longer dark duration since that prayer (and Friday khutbah) runs
+// longer. Durations come from azan.json's prayerTransition, CMS-editable.
 function getDisplayMode(now: Date, todaysPrayers: DailyPrayer[]): DisplayMode {
-  const darkMs = azanContent.prayerTransition.darkDurationMinutes * MINUTE_MS;
-  const duaMs = azanContent.prayerTransition.duaDurationMinutes * MINUTE_MS;
+  const { prayerTransition } = azanContent;
+  const duaMs = prayerTransition.duaDurationMinutes * MINUTE_MS;
   for (const prayer of todaysPrayers) {
-    if (prayer.name === 'Sunrise') continue;
-    const elapsed = now.getTime() - prayer.adhan.getTime();
+    if (prayer.name === 'Sunrise' || !prayer.iqama) continue;
+    const darkMinutes =
+      prayer.name === 'Dhuhr'
+        ? prayerTransition.dhuhrDarkDurationMinutes
+        : prayerTransition.darkDurationMinutes;
+    const darkMs = darkMinutes * MINUTE_MS;
+    const elapsed = now.getTime() - prayer.iqama.getTime();
     if (elapsed >= 0 && elapsed < darkMs) {
       return { kind: 'dark', prayerName: prayer.name };
     }
@@ -169,9 +177,15 @@ const Azan = () => {
         <h1 className="text-3xl lg:text-5xl font-bold text-white/80 mb-3">
           {displayMode.prayerName}
         </h1>
-        <p className="text-base lg:text-xl text-white/40 max-w-lg">
+        <p className="text-base lg:text-xl text-white/40 max-w-lg mb-8">
           {azanContent.prayerTransition.darkMessage}
         </p>
+        <div className="flex flex-col items-center gap-3 border border-white/20 rounded-2xl px-8 py-6">
+          <PhoneOff className="h-12 w-12 lg:h-16 lg:w-16 text-white/60" />
+          <p className="text-sm lg:text-lg text-white/50 tracking-wide uppercase">
+            Please silence your mobile phone
+          </p>
+        </div>
       </div>
     );
   }

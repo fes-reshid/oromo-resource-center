@@ -16,6 +16,7 @@
   "slideIntervalSeconds": 9,
   "prayerTransition": {
     "darkDurationMinutes": 5,
+    "dhuhrDarkDurationMinutes": 10,
     "duaDurationMinutes": 5,
     "darkMessage": "Prayer in progress — please maintain silence"
   },
