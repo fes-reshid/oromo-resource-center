@@ -71,20 +71,29 @@ const MINUTE_MS = 60 * 1000;
 
 type DisplayMode =
   | { kind: 'normal' }
+  | { kind: 'azan-dua'; prayerName: string }
   | { kind: 'dark'; prayerName: string }
   | { kind: 'fullscreen-dua'; prayerName: string };
 
-// At each of today's five daily Salah (not Sunrise), the screen goes dark
-// starting at Iqama time (not Adhan — people are still arriving before
-// then) for a stretch, then shows the after-prayer dhikr full-screen, then
-// returns to normal. Dhuhr/Jumu'ah (always 1:30, per iqamaOffsets) gets its
-// own longer dark duration since that prayer (and Friday khutbah) runs
-// longer. Durations come from azan.json's prayerTransition, CMS-editable.
+// At each of today's five daily Salah (not Sunrise), the screen shows the
+// full-screen Azan du'a starting at Adhan time, then returns to normal.
+// Then, starting at Iqama time (not Adhan — people are still arriving
+// before then), the screen goes dark for a stretch, then shows the
+// after-prayer dhikr full-screen, then returns to normal. Dhuhr/Jumu'ah
+// (always 1:30, per iqamaOffsets) gets its own longer dark duration since
+// that prayer (and Friday khutbah) runs longer. Durations come from
+// azan.json's azanDua/prayerTransition, CMS-editable.
 function getDisplayMode(now: Date, todaysPrayers: DailyPrayer[]): DisplayMode {
-  const { prayerTransition } = azanContent;
+  const { azanDua, prayerTransition } = azanContent;
+  const azanDuaMs = azanDua.durationMinutes * MINUTE_MS;
   const duaMs = prayerTransition.duaDurationMinutes * MINUTE_MS;
   for (const prayer of todaysPrayers) {
-    if (prayer.name === 'Sunrise' || !prayer.iqama) continue;
+    if (prayer.name === 'Sunrise') continue;
+    const azanElapsed = now.getTime() - prayer.adhan.getTime();
+    if (azanElapsed >= 0 && azanElapsed < azanDuaMs) {
+      return { kind: 'azan-dua', prayerName: prayer.name };
+    }
+    if (!prayer.iqama) continue;
     const darkMinutes =
       prayer.name === 'Dhuhr'
         ? prayerTransition.dhuhrDarkDurationMinutes
@@ -169,6 +178,47 @@ const Azan = () => {
 
   const slide = slides[slideIndex];
   const isDonationSlide = slide.kind === 'donation';
+
+  if (displayMode.kind === 'azan-dua') {
+    const { azanDua } = azanContent;
+    return (
+      <div className="h-screen w-screen bg-card text-foreground flex flex-col p-8 lg:p-16">
+        <div className="flex items-start justify-between mb-8">
+          <div>
+            <h1 className="text-3xl lg:text-5xl font-bold text-primary">
+              {azanDua.title}
+            </h1>
+            <p className="text-base lg:text-lg text-muted-foreground">
+              {displayMode.prayerName} Adhan
+            </p>
+          </div>
+          <img
+            src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+            alt="Oromo Resource Centre Inc Logo"
+            className="w-16 h-16 lg:w-24 lg:h-24 object-contain flex-shrink-0"
+          />
+        </div>
+
+        <div className="flex-1 flex flex-col justify-center items-center text-center gap-10 min-h-0 overflow-y-auto">
+          <p
+            dir="rtl"
+            lang="ar"
+            className="text-3xl lg:text-6xl leading-relaxed lg:leading-loose font-arabic max-w-4xl"
+          >
+            {azanDua.arabic}
+          </p>
+          <div className="flex flex-col gap-4 max-w-3xl">
+            <p className="text-lg lg:text-2xl text-foreground/90 leading-relaxed">
+              {azanDua.english}
+            </p>
+            <p className="text-lg lg:text-2xl text-muted-foreground leading-relaxed">
+              {azanDua.oromo}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (displayMode.kind === 'dark') {
     return (

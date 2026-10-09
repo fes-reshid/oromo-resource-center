@@ -329,6 +329,16 @@ collections:
               - { label: "Dhuhr/Jumu'ah Dark Screen Duration (minutes, at 1:30)", name: "dhuhrDarkDurationMinutes", widget: "number" }
               - { label: "Full-Screen Dhikr Duration (minutes)", name: "duaDurationMinutes", widget: "number" }
               - { label: "Dark Screen Message", name: "darkMessage", widget: "string" }
+          - label: "Azan Du'a (full-screen at Adhan time)"
+            name: "azanDua"
+            widget: "object"
+            hint: "At each prayer's Adhan time, this full-screen du'a is shown (Arabic on top, English and Afaan Oromoo translation below) before returning to normal."
+            fields:
+              - { label: "Duration (minutes)", name: "durationMinutes", widget: "number" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Arabic", name: "arabic", widget: "text" }
+              - { label: "English Translation", name: "english", widget: "text" }
+              - { label: "Afaan Oromoo Translation", name: "oromo", widget: "text" }
           - label: "Dhikr Panel Header"
             name: "dhikrHeader"
             widget: "object"

@@ -20,6 +20,13 @@
     "duaDurationMinutes": 5,
     "darkMessage": "Prayer in progress — please maintain silence"
   },
+  "azanDua": {
+    "durationMinutes": 3,
+    "title": "Du'aa After Azan",
+    "arabic": "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
+    "english": "O Allah, Lord of this perfect call and the established prayer, grant Muhammad the intercession and favour, and raise him to the honoured station You have promised him.",
+    "oromo": "Yaa Rabbi, Gooftaa waamicha (azaanaa) guutuu kanaafi salaata dhaabbataa kanaa, Muhammad (SAW) araarsaafi ol'aantummaa isaaf kenni; sadarkaa faarfamaa ati waadaa isaaf galte sanas isa gahi."
+  },
   "dhikrHeader": {
     "title": "After Prayer Dhikr",
     "subtitle": "Zikrii Salaata Booda — Oromo Resource Centre"
