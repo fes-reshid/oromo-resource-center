@@ -20,6 +20,16 @@
     "duaDurationMinutes": 5,
     "darkMessage": "Prayer in progress — please maintain silence"
   },
+  "azanResponse": {
+    "callDurationMinutes": 2,
+    "title": "Respond to the Azan",
+    "subtitle": "Hisnul Muslim — Du'aa at the Time of the Azan",
+    "instructionEnglish": "Repeat each phrase after the mu'adhin. For “Hayya 'ala-s-Salah” (come to prayer) and “Hayya 'ala-l-Falah” (come to success), say this instead:",
+    "instructionOromo": "Jecha mu'adhinichaa hunda deebisaa. “Hayya 'ala-s-Salah” fi “Hayya 'ala-l-Falah” irratti garuu kana jedhaa:",
+    "arabic": "لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللهِ",
+    "english": "There is no power and no strength except with Allah.",
+    "oromo": "Tooftaafi humni Rabbiin biraa malee hin argamu."
+  },
   "azanDua": {
     "durationMinutes": 3,
     "title": "Du'aa After Azan",

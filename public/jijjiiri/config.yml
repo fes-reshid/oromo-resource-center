@@ -329,10 +329,23 @@ collections:
               - { label: "Dhuhr/Jumu'ah Dark Screen Duration (minutes, at 1:30)", name: "dhuhrDarkDurationMinutes", widget: "number" }
               - { label: "Full-Screen Dhikr Duration (minutes)", name: "duaDurationMinutes", widget: "number" }
               - { label: "Dark Screen Message", name: "darkMessage", widget: "string" }
-          - label: "Azan Du'a (full-screen at Adhan time)"
+          - label: "Respond to the Azan (full-screen while Azan is being called)"
+            name: "azanResponse"
+            widget: "object"
+            hint: "From Adhan time, for this many minutes (roughly how long the call to prayer takes), the screen shows the Hisnul Muslim response to repeat after the mu'adhin. After it, the Azan Du'a below is shown."
+            fields:
+              - { label: "Call Duration (minutes)", name: "callDurationMinutes", widget: "number" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - { label: "Instruction (English)", name: "instructionEnglish", widget: "text" }
+              - { label: "Instruction (Afaan Oromoo)", name: "instructionOromo", widget: "text" }
+              - { label: "Arabic (response to Hayya 'ala)", name: "arabic", widget: "text" }
+              - { label: "English Translation", name: "english", widget: "text" }
+              - { label: "Afaan Oromoo Translation", name: "oromo", widget: "text" }
+          - label: "Azan Du'a (full-screen after the Azan finishes)"
             name: "azanDua"
             widget: "object"
-            hint: "At each prayer's Adhan time, this full-screen du'a is shown (Arabic on top, English and Afaan Oromoo translation below) before returning to normal."
+            hint: "Shown full-screen right after the Respond to the Azan phase ends (Arabic on top, English and Afaan Oromoo translation below) before returning to normal."
             fields:
               - { label: "Duration (minutes)", name: "durationMinutes", widget: "number" }
               - { label: "Title", name: "title", widget: "string" }

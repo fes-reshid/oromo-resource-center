@@ -71,26 +71,33 @@ const MINUTE_MS = 60 * 1000;
 
 type DisplayMode =
   | { kind: 'normal' }
+  | { kind: 'azan-response'; prayerName: string }
   | { kind: 'azan-dua'; prayerName: string }
   | { kind: 'dark'; prayerName: string }
   | { kind: 'fullscreen-dua'; prayerName: string };
 
-// At each of today's five daily Salah (not Sunrise), the screen shows the
-// full-screen Azan du'a starting at Adhan time, then returns to normal.
-// Then, starting at Iqama time (not Adhan — people are still arriving
-// before then), the screen goes dark for a stretch, then shows the
-// after-prayer dhikr full-screen, then returns to normal. Dhuhr/Jumu'ah
-// (always 1:30, per iqamaOffsets) gets its own longer dark duration since
-// that prayer (and Friday khutbah) runs longer. Durations come from
-// azan.json's azanDua/prayerTransition, CMS-editable.
+// At each of today's five daily Salah (not Sunrise), the screen shows,
+// starting at Adhan time, the Hisnul Muslim response to repeat after the
+// mu'adhin for as long as the call roughly takes, then the Azan du'a once
+// it finishes, then returns to normal. Then, starting at Iqama time (not
+// Adhan — people are still arriving before then), the screen goes dark for
+// a stretch, then shows the after-prayer dhikr full-screen, then returns
+// to normal. Dhuhr/Jumu'ah (always 1:30, per iqamaOffsets) gets its own
+// longer dark duration since that prayer (and Friday khutbah) runs longer.
+// Durations come from azan.json's azanResponse/azanDua/prayerTransition,
+// CMS-editable.
 function getDisplayMode(now: Date, todaysPrayers: DailyPrayer[]): DisplayMode {
-  const { azanDua, prayerTransition } = azanContent;
+  const { azanResponse, azanDua, prayerTransition } = azanContent;
+  const azanResponseMs = azanResponse.callDurationMinutes * MINUTE_MS;
   const azanDuaMs = azanDua.durationMinutes * MINUTE_MS;
   const duaMs = prayerTransition.duaDurationMinutes * MINUTE_MS;
   for (const prayer of todaysPrayers) {
     if (prayer.name === 'Sunrise') continue;
     const azanElapsed = now.getTime() - prayer.adhan.getTime();
-    if (azanElapsed >= 0 && azanElapsed < azanDuaMs) {
+    if (azanElapsed >= 0 && azanElapsed < azanResponseMs) {
+      return { kind: 'azan-response', prayerName: prayer.name };
+    }
+    if (azanElapsed >= azanResponseMs && azanElapsed < azanResponseMs + azanDuaMs) {
       return { kind: 'azan-dua', prayerName: prayer.name };
     }
     if (!prayer.iqama) continue;
@@ -178,6 +185,55 @@ const Azan = () => {
 
   const slide = slides[slideIndex];
   const isDonationSlide = slide.kind === 'donation';
+
+  if (displayMode.kind === 'azan-response') {
+    const { azanResponse } = azanContent;
+    return (
+      <div className="h-screen w-screen bg-card text-foreground flex flex-col p-8 lg:p-16">
+        <div className="flex items-start justify-between mb-8">
+          <div>
+            <h1 className="text-3xl lg:text-5xl font-bold text-primary">
+              {azanResponse.title}
+            </h1>
+            <p className="text-base lg:text-lg text-muted-foreground">
+              {azanResponse.subtitle} — {displayMode.prayerName} Adhan
+            </p>
+          </div>
+          <img
+            src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
+            alt="Oromo Resource Centre Inc Logo"
+            className="w-16 h-16 lg:w-24 lg:h-24 object-contain flex-shrink-0"
+          />
+        </div>
+
+        <div className="flex-1 flex flex-col justify-center items-center text-center gap-8 min-h-0 overflow-y-auto">
+          <div className="flex flex-col gap-3 max-w-3xl">
+            <p className="text-lg lg:text-2xl text-foreground/90 leading-relaxed">
+              {azanResponse.instructionEnglish}
+            </p>
+            <p className="text-lg lg:text-2xl text-muted-foreground leading-relaxed">
+              {azanResponse.instructionOromo}
+            </p>
+          </div>
+          <p
+            dir="rtl"
+            lang="ar"
+            className="text-4xl lg:text-7xl leading-relaxed font-arabic max-w-4xl"
+          >
+            {azanResponse.arabic}
+          </p>
+          <div className="flex flex-col gap-2 max-w-3xl">
+            <p className="text-lg lg:text-2xl text-foreground/90 leading-relaxed">
+              {azanResponse.english}
+            </p>
+            <p className="text-lg lg:text-2xl text-muted-foreground leading-relaxed">
+              {azanResponse.oromo}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (displayMode.kind === 'azan-dua') {
     const { azanDua } = azanContent;
