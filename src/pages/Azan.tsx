@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Sunrise,
@@ -117,6 +117,80 @@ function getDisplayMode(now: Date, todaysPrayers: DailyPrayer[]): DisplayMode {
   return { kind: 'normal' };
 }
 
+// Centers its content vertically when it fits. When the content is taller
+// than the available space, it holds at the top, smoothly scrolls down to
+// reveal the rest, holds at the bottom, then resets and loops — so every
+// word becomes visible over time without needing a scrollbar, which no one
+// can use on an unattended TV display. (Plain flex centering would instead
+// clip the top of overflowing content permanently, since a centered flex
+// item that overflows can't be scrolled past zero.)
+function AutoScrollPane({
+  children,
+  className,
+  contentClassName,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  contentClassName?: string;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const content = contentRef.current;
+    if (!container || !content) return;
+
+    const HOLD_MS = 3000;
+    const PIXELS_PER_SEC = 45;
+    let cancelled = false;
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+
+    const cycle = () => {
+      if (cancelled) return;
+      const overflow = content.scrollHeight - container.clientHeight;
+      content.style.transition = 'none';
+      if (overflow <= 4) {
+        content.style.transform = `translateY(${Math.max(0, -overflow / 2)}px)`;
+        return;
+      }
+      content.style.transform = 'translateY(0)';
+      const scrollMs = (overflow / PIXELS_PER_SEC) * 1000;
+      timeouts.push(
+        setTimeout(() => {
+          if (cancelled) return;
+          content.style.transition = `transform ${scrollMs}ms linear`;
+          content.style.transform = `translateY(-${overflow}px)`;
+        }, HOLD_MS),
+      );
+      timeouts.push(
+        setTimeout(() => {
+          if (cancelled) return;
+          content.style.transition = 'none';
+          content.style.transform = 'translateY(0)';
+          cycle();
+        }, HOLD_MS + scrollMs + HOLD_MS),
+      );
+    };
+
+    cycle();
+    window.addEventListener('resize', cycle);
+    return () => {
+      cancelled = true;
+      timeouts.forEach(clearTimeout);
+      window.removeEventListener('resize', cycle);
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className={`relative overflow-hidden ${className ?? ''}`}>
+      <div ref={contentRef} className={contentClassName}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 const Azan = () => {
   const [now, setNow] = useState(() => new Date());
   const [slideIndex, setSlideIndex] = useState(0);
@@ -206,7 +280,10 @@ const Azan = () => {
           />
         </div>
 
-        <div className="flex-1 flex flex-col justify-center items-center text-center gap-8 min-h-0 overflow-y-auto">
+        <AutoScrollPane
+          className="flex-1 min-h-0"
+          contentClassName="flex flex-col items-center text-center gap-8 px-2"
+        >
           <div className="flex flex-col gap-3 max-w-3xl">
             <p className="text-lg lg:text-2xl text-foreground/90 leading-relaxed">
               {azanResponse.instructionEnglish}
@@ -230,7 +307,7 @@ const Azan = () => {
               {azanResponse.oromo}
             </p>
           </div>
-        </div>
+        </AutoScrollPane>
       </div>
     );
   }
@@ -255,7 +332,10 @@ const Azan = () => {
           />
         </div>
 
-        <div className="flex-1 flex flex-col justify-center items-center text-center gap-10 min-h-0 overflow-y-auto">
+        <AutoScrollPane
+          className="flex-1 min-h-0"
+          contentClassName="flex flex-col items-center text-center gap-10 px-2"
+        >
           <p
             dir="rtl"
             lang="ar"
@@ -271,7 +351,7 @@ const Azan = () => {
               {azanDua.oromo}
             </p>
           </div>
-        </div>
+        </AutoScrollPane>
       </div>
     );
   }
@@ -316,8 +396,12 @@ const Azan = () => {
           />
         </div>
 
-        <div className="flex-1 flex flex-col justify-center min-h-0">
-          <div key={dhikr.id} className="animate-dhikr-slide-in overflow-y-auto">
+        <div className="flex-1 min-h-0">
+          <AutoScrollPane
+            key={dhikr.id}
+            className="h-full animate-dhikr-slide-in"
+            contentClassName="px-2"
+          >
             <p className="text-base lg:text-xl font-semibold text-secondary-foreground/70 uppercase tracking-wide mb-4">
               {dhikr.label}
             </p>
@@ -331,7 +415,7 @@ const Azan = () => {
             <p className="text-lg lg:text-3xl text-muted-foreground leading-relaxed lg:leading-loose">
               {dhikr.oromo}
             </p>
-          </div>
+          </AutoScrollPane>
         </div>
 
         <div className="flex items-center justify-center gap-2 pt-6">
@@ -377,8 +461,11 @@ const Azan = () => {
                 />
               </div>
 
-              <div className="flex-1 flex flex-col justify-center min-h-0">
-                <div key={slide.dhikr.id} className="animate-dhikr-slide-in overflow-y-auto">
+              <div className="flex-1 min-h-0">
+                <AutoScrollPane
+                  key={slide.dhikr.id}
+                  className="h-full animate-dhikr-slide-in"
+                >
                   <p className="text-sm lg:text-lg font-semibold text-secondary-foreground/70 uppercase tracking-wide mb-4">
                     {slide.dhikr.label}
                   </p>
@@ -392,7 +479,7 @@ const Azan = () => {
                   <p className="text-base lg:text-xl text-muted-foreground leading-relaxed lg:leading-loose">
                     {slide.dhikr.oromo}
                   </p>
-                </div>
+                </AutoScrollPane>
               </div>
             </>
           ) : slide.kind === 'event' ? (
