@@ -78,10 +78,6 @@ const Donate = () => {
                   <p className="text-sm text-muted-foreground mb-1">Account Number</p>
                   <p className="text-lg font-semibold">{content.bankTransfer.accountNumber}</p>
                 </div>
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">PayID</p>
-                  <p className="text-lg font-semibold">{content.bankTransfer.payId}</p>
-                </div>
               </div>
             </div>
 

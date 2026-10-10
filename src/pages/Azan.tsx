@@ -634,7 +634,6 @@ const Azan = () => {
               <p>Account Name: {donateContent.bankTransfer.accountName}</p>
               <p>BSB: {donateContent.bankTransfer.bsb}</p>
               <p>Account No: {donateContent.bankTransfer.accountNumber}</p>
-              <p>PayID: {donateContent.bankTransfer.payId}</p>
             </div>
             <p className="text-sm lg:text-base mt-3 font-semibold">
               {azanContent.donationSlide.thankYou}

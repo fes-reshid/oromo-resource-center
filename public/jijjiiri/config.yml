@@ -132,7 +132,6 @@ collections:
               - { label: "Account Name", name: "accountName", widget: "string" }
               - { label: "BSB", name: "bsb", widget: "string" }
               - { label: "Account Number", name: "accountNumber", widget: "string" }
-              - { label: "PayID", name: "payId", widget: "string" }
               - { label: "Note", name: "note", widget: "text" }
           - label: "About Your Donation"
             name: "aboutYourDonation"
