@@ -117,13 +117,16 @@ function getDisplayMode(now: Date, todaysPrayers: DailyPrayer[]): DisplayMode {
   return { kind: 'normal' };
 }
 
+let autoScrollPaneCounter = 0;
+
 // Centers its content vertically when it fits. When the content is taller
-// than the available space, it holds at the top, smoothly scrolls down to
-// reveal the rest, holds at the bottom, then resets and loops — so every
-// word becomes visible over time without needing a scrollbar, which no one
-// can use on an unattended TV display. (Plain flex centering would instead
-// clip the top of overflowing content permanently, since a centered flex
-// item that overflows can't be scrolled past zero.)
+// than the available space, it eases down to reveal the rest, holds, then
+// eases back up to the top and holds again, on a continuous infinite loop —
+// a smooth, single CSS animation with no instant jump-cut at the seam — so
+// every word becomes visible over time without needing a scrollbar, which no
+// one can use on an unattended TV display. (Plain flex centering would
+// instead clip the top of overflowing content permanently, since a centered
+// flex item that overflows can't be scrolled past zero.)
 function AutoScrollPane({
   children,
   className,
@@ -135,50 +138,49 @@ function AutoScrollPane({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef(`auto-scroll-pane-${++autoScrollPaneCounter}`);
 
   useEffect(() => {
     const container = containerRef.current;
     const content = contentRef.current;
     if (!container || !content) return;
 
-    const HOLD_MS = 3000;
-    const PIXELS_PER_SEC = 45;
-    let cancelled = false;
-    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    const HOLD_MS = 2500;
+    const PIXELS_PER_SEC = 40;
+    const name = nameRef.current;
+    const style = document.createElement('style');
+    document.head.appendChild(style);
 
-    const cycle = () => {
-      if (cancelled) return;
+    const update = () => {
       const overflow = content.scrollHeight - container.clientHeight;
-      content.style.transition = 'none';
       if (overflow <= 4) {
+        style.textContent = '';
+        content.style.animation = 'none';
         content.style.transform = `translateY(${Math.max(0, -overflow / 2)}px)`;
         return;
       }
-      content.style.transform = 'translateY(0)';
       const scrollMs = (overflow / PIXELS_PER_SEC) * 1000;
-      timeouts.push(
-        setTimeout(() => {
-          if (cancelled) return;
-          content.style.transition = `transform ${scrollMs}ms linear`;
-          content.style.transform = `translateY(-${overflow}px)`;
-        }, HOLD_MS),
-      );
-      timeouts.push(
-        setTimeout(() => {
-          if (cancelled) return;
-          content.style.transition = 'none';
-          content.style.transform = 'translateY(0)';
-          cycle();
-        }, HOLD_MS + scrollMs + HOLD_MS),
-      );
+      const totalMs = HOLD_MS * 2 + scrollMs * 2;
+      const downEnd = ((HOLD_MS + scrollMs) / totalMs) * 100;
+      const bottomHoldEnd = ((HOLD_MS + scrollMs + HOLD_MS) / totalMs) * 100;
+      style.textContent = `
+        @keyframes ${name} {
+          0% { transform: translateY(0); }
+          ${(HOLD_MS / totalMs) * 100}% { transform: translateY(0); }
+          ${downEnd}% { transform: translateY(-${overflow}px); }
+          ${bottomHoldEnd}% { transform: translateY(-${overflow}px); }
+          100% { transform: translateY(0); }
+        }
+      `;
+      content.style.transform = '';
+      content.style.animation = `${name} ${totalMs}ms ease-in-out infinite`;
     };
 
-    cycle();
-    window.addEventListener('resize', cycle);
+    update();
+    window.addEventListener('resize', update);
     return () => {
-      cancelled = true;
-      timeouts.forEach(clearTimeout);
-      window.removeEventListener('resize', cycle);
+      window.removeEventListener('resize', update);
+      style.remove();
     };
   }, []);
 
