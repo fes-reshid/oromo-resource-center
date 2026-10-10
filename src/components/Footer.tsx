@@ -1,4 +1,4 @@
-import { Heart, MapPin, Phone, Mail, Facebook, Instagram, Globe } from 'lucide-react';
+import { Heart, MapPin, Phone, Facebook, Instagram, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import content from '@/content/footer.json';
 
@@ -60,10 +60,6 @@ const Footer = () => {
               <a href={content.contact.phoneHref} className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <Phone className="h-4 w-4 text-primary-foreground/60" />
                 <span className="text-primary-foreground/80 text-sm">{content.contact.phoneLabel}</span>
-              </a>
-              <a href={`mailto:${content.contact.email}`} className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
-                <Mail className="h-4 w-4 text-primary-foreground/60" />
-                <span className="text-primary-foreground/80 text-sm">{content.contact.email}</span>
               </a>
             </div>
 

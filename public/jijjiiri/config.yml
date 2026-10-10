@@ -36,8 +36,19 @@ media_folder: "public/lovable-uploads"
 public_folder: "/lovable-uploads"
 
 collections:
+  - name: "guide"
+    label: "📖 Read Me First — How to Use This Admin"
+    description: "Start here. A plain-language guide to editing the website — how to publish changes, and where to find what you're looking for."
+    files:
+      - file: "src/content/admin-guide.json"
+        label: "Guide"
+        name: "guide"
+        fields:
+          - { label: "Guide", name: "guide", widget: "markdown" }
+
   - name: "home_about"
     label: "About Section (Home Page)"
+    description: "The \"About\" text block on the homepage: mission text, the three pillars, stats, and the \"Serving Victoria\" paragraph."
     files:
       - file: "src/content/about.json"
         label: "About Content"
@@ -67,6 +78,7 @@ collections:
 
   - name: "contact"
     label: "Contact Page"
+    description: "The \"Get In Touch\" section on the homepage: address, emergency contact card, Saturday school hours, and the quick contact card."
     files:
       - file: "src/content/contact.json"
         label: "Contact Content"
@@ -109,6 +121,7 @@ collections:
 
   - name: "donate"
     label: "Donate Page"
+    description: "Everything on oromorc.org/donate: bank transfer details, online payment note, and the \"About Your Donation\" / impact text."
     files:
       - file: "src/content/donate.json"
         label: "Donate Content"
@@ -154,6 +167,7 @@ collections:
 
   - name: "funeral_services"
     label: "Funeral Services Page"
+    description: "Everything on the Janaza / funeral services page: contact info, service list, the Funeral Savings Fund details, and important notes."
     files:
       - file: "src/content/funeral-services.json"
         label: "Funeral Services Content"
@@ -166,7 +180,6 @@ collections:
             widget: "object"
             fields:
               - { label: "Address", name: "address", widget: "string" }
-              - { label: "Email", name: "email", widget: "string" }
               - { label: "ABN", name: "abn", widget: "string" }
           - label: "About"
             name: "about"
@@ -212,6 +225,7 @@ collections:
 
   - name: "footer"
     label: "Footer"
+    description: "The green bar at the bottom of every page: address, phone, Quick Links, and the Saturday School note."
     files:
       - file: "src/content/footer.json"
         label: "Footer Content"
@@ -235,7 +249,6 @@ collections:
               - { label: "Google Maps URL", name: "mapsUrl", widget: "string" }
               - { label: "Phone Label", name: "phoneLabel", widget: "string" }
               - { label: "Phone Href (e.g. tel:+61...)", name: "phoneHref", widget: "string" }
-              - { label: "Email", name: "email", widget: "string" }
           - label: "Saturday School"
             name: "saturdaySchool"
             widget: "object"
@@ -248,6 +261,7 @@ collections:
 
   - name: "upcoming_events"
     label: "Upcoming Events (Home Page + Azan Display)"
+    description: "Event cards shown on the homepage AND on the mosque TV screen. Add a new event here when something's coming up; remove it once it's passed."
     files:
       - file: "src/content/upcoming-events.json"
         label: "Upcoming Events"
@@ -294,6 +308,7 @@ collections:
 
   - name: "azan_settings"
     label: "Azan Display (TV Screen)"
+    description: "Everything on the mosque's TV screen at oromorc.org/azan: prayer time settings, the dark screen during prayer, the \"Respond to the Azan\" and \"Du'aa After Azan\" screens, and the donation panel."
     files:
       - file: "src/content/azan.json"
         label: "Azan Display Settings"
@@ -371,6 +386,7 @@ collections:
 
   - name: "after_prayer_dhikr"
     label: "After Prayer Dhikr (Azan Display)"
+    description: "The Arabic du'as that rotate on the TV screen after each prayer, each with an Afaan Oromoo translation."
     files:
       - file: "src/content/after-prayer-dhikr.json"
         label: "Dhikr Slides"
@@ -388,6 +404,7 @@ collections:
 
   - name: "gallery_photos"
     label: "Gallery Photos"
+    description: "Photos shown on the Gallery page. Click \"New Gallery Photos\" to add one, or open an existing one to replace the photo or edit its caption."
     folder: "src/content/gallery-photos"
     create: true
     delete: true
@@ -405,6 +422,7 @@ collections:
 
   - name: "translations"
     label: "Site Translations (Nav, Hero, About, etc.)"
+    description: "English and Afaan Oromoo text used in menus, buttons, and headings across the site. More technical — the wrong edit can make text disappear from a button or heading. If unsure, it's safest to leave this one alone."
     files:
       - file: "src/content/translations.json"
         label: "Translations"
@@ -657,9 +675,6 @@ collections:
                     widget: "string"
                   - label: "Email Us"
                     name: "emailUs"
-                    widget: "string"
-                  - label: "Email Address"
-                    name: "emailAddress"
                     widget: "string"
               - label: "Footer"
                 name: "footer"
@@ -1069,9 +1084,6 @@ collections:
                     widget: "string"
                   - label: "Email Us"
                     name: "emailUs"
-                    widget: "string"
-                  - label: "Email Address"
-                    name: "emailAddress"
                     widget: "string"
               - label: "Footer"
                 name: "footer"

@@ -1,4 +1,4 @@
-import { MapPin, Mail, FileText, Calendar, Users, DollarSign } from 'lucide-react';
+import { MapPin, FileText, Calendar, Users, DollarSign } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -114,11 +114,7 @@ const VenueBooking = () => {
             <CardTitle className="text-2xl text-center">Oromo Resource Centre Inc</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-              <div className="flex items-center justify-center gap-2">
-                <Mail className="h-5 w-5 text-primary" />
-                <span>oromoirc@gmail.com</span>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
               <div className="flex items-center justify-center gap-2">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span>664–678 Downing Street, Mt Cottrell VIC 3024</span>
