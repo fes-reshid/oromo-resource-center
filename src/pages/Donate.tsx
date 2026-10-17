@@ -33,7 +33,7 @@ const Donate = () => {
           </div>
         </div>
 
-        {/* Coming Soon - Stripe */}
+        {/* Online Card Payments */}
         <Card className="mb-12 border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2">
@@ -42,12 +42,24 @@ const Donate = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Alert>
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription className="text-lg">
-                {content.onlinePayments.text}
-              </AlertDescription>
-            </Alert>
+            {content.onlinePayments.paymentLink ? (
+              <a
+                href={content.onlinePayments.paymentLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-3 rounded-lg text-lg transition-colors"
+              >
+                <CreditCard className="h-5 w-5" />
+                {content.onlinePayments.buttonText}
+              </a>
+            ) : (
+              <Alert>
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription className="text-lg">
+                  {content.onlinePayments.text}
+                </AlertDescription>
+              </Alert>
+            )}
           </CardContent>
         </Card>
 

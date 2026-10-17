@@ -4,7 +4,9 @@
   "sadaqahNote": "Your donation is Sadaqah Jariyah (ongoing charity)",
   "onlinePayments": {
     "heading": "Online Card Payments",
-    "text": "Coming Soon! We're working on integrating secure online card payments through Stripe. Soon you'll be able to donate easily using your credit or debit card."
+    "text": "Coming Soon! We're working on integrating secure online card payments. Soon you'll be able to donate easily using your credit or debit card.",
+    "paymentLink": "",
+    "buttonText": "Donate by Card"
   },
   "bankTransfer": {
     "heading": "Bank Transfer Details",
