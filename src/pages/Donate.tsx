@@ -37,9 +37,15 @@ const Donate = () => {
         {/* Online Card Payments */}
         <Card className="mb-12 border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
           <CardHeader>
-            <CardTitle className="text-2xl flex items-center gap-2">
-              <CreditCard className="h-6 w-6 text-primary" />
-              {content.onlinePayments.heading}
+            <CardTitle className="text-2xl flex items-center flex-wrap gap-3">
+              <span className="flex items-center gap-2">
+                <CreditCard className="h-6 w-6 text-primary" />
+                {content.onlinePayments.heading}
+              </span>
+              <span className="flex items-center gap-2">
+                <SiApplepay className="h-7 w-auto text-foreground" aria-label="Apple Pay" />
+                <SiGooglepay className="h-6 w-auto text-foreground" aria-label="Google Pay" />
+              </span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -58,29 +64,19 @@ const Donate = () => {
                 );
               }
               return (
-                <div>
-                  <div className="flex flex-wrap gap-3">
-                    {activeOptions.map((option) => (
-                      <a
-                        key={option.label}
-                        href={option.paymentLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-3 rounded-lg text-lg transition-colors"
-                      >
-                        <CreditCard className="h-5 w-5" />
-                        {option.label}
-                      </a>
-                    ))}
-                  </div>
-                  <div className="flex items-center flex-wrap gap-4 mt-5 pt-4 border-t border-primary/10">
-                    <span className="text-sm text-muted-foreground">Also accepts:</span>
-                    <SiApplepay className="h-8 w-auto text-foreground" aria-label="Apple Pay" />
-                    <SiGooglepay className="h-7 w-auto text-foreground" aria-label="Google Pay" />
-                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
-                      <CreditCard className="h-4 w-4" /> Card
-                    </span>
-                  </div>
+                <div className="flex flex-wrap gap-3">
+                  {activeOptions.map((option) => (
+                    <a
+                      key={option.label}
+                      href={option.paymentLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-3 rounded-lg text-lg transition-colors"
+                    >
+                      <CreditCard className="h-5 w-5" />
+                      {option.label}
+                    </a>
+                  ))}
                 </div>
               );
             })()}

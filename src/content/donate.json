@@ -3,7 +3,7 @@
   "taxNote": "All donations are tax deductible",
   "sadaqahNote": "Your donation is Sadaqah Jariyah (ongoing charity)",
   "onlinePayments": {
-    "heading": "Online Card Payments",
+    "heading": "Online Payment",
     "text": "Coming Soon! We're working on integrating secure online card payments. Soon you'll be able to donate easily using your credit or debit card.",
     "amountOptions": [
       {
