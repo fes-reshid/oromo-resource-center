@@ -1,5 +1,13 @@
 import { Heart, DollarSign, CreditCard, Building2, AlertCircle } from 'lucide-react';
-import { SiApplepay, SiGooglepay } from 'react-icons/si';
+import {
+  SiApplepay,
+  SiGooglepay,
+  SiVisa,
+  SiMastercard,
+  SiAmericanexpress,
+  SiJcb,
+  SiDiscover,
+} from 'react-icons/si';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import Header from '@/components/Header';
@@ -42,9 +50,20 @@ const Donate = () => {
                 <CreditCard className="h-6 w-6 text-primary" />
                 {content.onlinePayments.heading}
               </span>
-              <span className="flex items-center gap-2">
+              <span className="flex items-center flex-wrap gap-2">
                 <SiApplepay className="h-7 w-auto text-foreground" aria-label="Apple Pay" />
                 <SiGooglepay className="h-6 w-auto text-foreground" aria-label="Google Pay" />
+                <span className="inline-flex items-center gap-1.5 ml-1">
+                  <CreditCard className="h-5 w-5 text-foreground" />
+                  <span className="text-base font-semibold text-foreground">Card</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <SiVisa className="h-5 w-auto text-foreground" aria-label="Visa" />
+                  <SiMastercard className="h-5 w-auto text-foreground" aria-label="Mastercard" />
+                  <SiAmericanexpress className="h-5 w-auto text-foreground" aria-label="American Express" />
+                  <SiJcb className="h-5 w-auto text-foreground" aria-label="JCB" />
+                  <SiDiscover className="h-5 w-auto text-foreground" aria-label="Discover" />
+                </span>
               </span>
             </CardTitle>
           </CardHeader>
