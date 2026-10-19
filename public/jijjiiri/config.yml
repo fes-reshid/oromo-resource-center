@@ -133,12 +133,16 @@ collections:
           - label: "Online Payments"
             name: "onlinePayments"
             widget: "object"
-            hint: "Paste a Zeller Payment Link below to show a 'Donate by Card' button. Leave it blank to show the 'Coming Soon' message instead."
+            hint: "Add a Zeller Payment Link for each amount button below (generate one per amount in the Zeller Virtual Terminal). Leave a Payment Link blank to hide that button; if every button is blank, the 'Coming Soon' message shows instead. You can add, remove, or reorder amount buttons here too."
             fields:
               - { label: "Heading", name: "heading", widget: "string" }
-              - { label: "'Coming Soon' Text (shown only if no Payment Link below)", name: "text", widget: "text" }
-              - { label: "Zeller Payment Link", name: "paymentLink", widget: "string", required: false }
-              - { label: "Button Text", name: "buttonText", widget: "string" }
+              - { label: "'Coming Soon' Text (shown only if every amount below has no Payment Link)", name: "text", widget: "text" }
+              - label: "Amount Buttons"
+                name: "amountOptions"
+                widget: "list"
+                fields:
+                  - { label: "Button Label (e.g. $15, Custom Amount)", name: "label", widget: "string" }
+                  - { label: "Zeller Payment Link", name: "paymentLink", widget: "string", required: false }
           - label: "Bank Transfer"
             name: "bankTransfer"
             widget: "object"

@@ -42,24 +42,37 @@ const Donate = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {content.onlinePayments.paymentLink ? (
-              <a
-                href={content.onlinePayments.paymentLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-3 rounded-lg text-lg transition-colors"
-              >
-                <CreditCard className="h-5 w-5" />
-                {content.onlinePayments.buttonText}
-              </a>
-            ) : (
-              <Alert>
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription className="text-lg">
-                  {content.onlinePayments.text}
-                </AlertDescription>
-              </Alert>
-            )}
+            {(() => {
+              const activeOptions = content.onlinePayments.amountOptions.filter(
+                (option) => option.paymentLink,
+              );
+              if (activeOptions.length === 0) {
+                return (
+                  <Alert>
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription className="text-lg">
+                      {content.onlinePayments.text}
+                    </AlertDescription>
+                  </Alert>
+                );
+              }
+              return (
+                <div className="flex flex-wrap gap-3">
+                  {activeOptions.map((option) => (
+                    <a
+                      key={option.label}
+                      href={option.paymentLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-3 rounded-lg text-lg transition-colors"
+                    >
+                      <CreditCard className="h-5 w-5" />
+                      {option.label}
+                    </a>
+                  ))}
+                </div>
+              );
+            })()}
           </CardContent>
         </Card>
 

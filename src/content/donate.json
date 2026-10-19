@@ -5,8 +5,24 @@
   "onlinePayments": {
     "heading": "Online Card Payments",
     "text": "Coming Soon! We're working on integrating secure online card payments. Soon you'll be able to donate easily using your credit or debit card.",
-    "paymentLink": "https://pay.myzeller.com/zeller/pay-by-link?sc=6g1ko7&id=PBLh3ehr336&d=au",
-    "buttonText": "Donate by Card"
+    "amountOptions": [
+      {
+        "label": "$15",
+        "paymentLink": ""
+      },
+      {
+        "label": "$25",
+        "paymentLink": "https://pay.myzeller.com/zeller/pay-by-link?sc=6g1ko7&id=PBLh3ehr336&d=au"
+      },
+      {
+        "label": "$50",
+        "paymentLink": ""
+      },
+      {
+        "label": "Custom Amount",
+        "paymentLink": ""
+      }
+    ]
   },
   "bankTransfer": {
     "heading": "Bank Transfer Details",
