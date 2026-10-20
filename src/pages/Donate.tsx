@@ -54,7 +54,7 @@ const Donate = () => {
                 <p className="orc-donate-intro">When you give to Oromo Resource Centre, you support a place where children learn their heritage, families find connection, and our community cares for one another.</p>
                 <a href="#donation-options" className="orc-donate-mobile-link">Make a donation<ArrowDown size={17} /></a>
                 <figure className="orc-donate-photo">
-                  <img src="/lovable-uploads/gallery-1.jpg" alt="Families and community members together at Oromo Resource Centre" width="1919" height="1279" fetchPriority="high" />
+                  <img src="/lovable-uploads/f306178b-014f-4630-8f80-7cb59f05f283.png" alt="Oromo Resource Centre grounds in Mount Cottrell, Victoria" width="1777" height="578" fetchPriority="high" />
                   <figcaption><span>ROOTED IN CULTURE. UNITED IN CARE.</span><strong>For our families.<br />For our future.</strong></figcaption>
                 </figure>
                 <p className="orc-donate-caption">Oromo Resource Centre · Mount Cottrell, Victoria</p>
