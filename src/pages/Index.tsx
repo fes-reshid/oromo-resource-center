@@ -1,5 +1,4 @@
 import Header from '@/components/Header';
-import SchoolSpotlight from '@/components/SchoolSpotlight';
 import Hero from '@/components/Hero';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import About from '@/components/About';
@@ -12,7 +11,6 @@ const Index = () => {
       <Header />
       <main id="main-content">
         <Hero />
-        <SchoolSpotlight />
         <UpcomingEvents />
         <About />
         <Contact />

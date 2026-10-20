@@ -20,7 +20,7 @@ const Hero = () => {
             <h1 id="welcome-heading">{t('hero.title')} <span>{t('hero.titleAccent')}</span></h1>
             <p className="orc-hero-description">{t('hero.description')}</p>
             <div className="flex flex-wrap gap-3 mt-8">
-              <Link to="/school" className="orc-button orc-button-gold">{t('hero.saturdaySchool')}<ArrowUpRight size={19} /></Link>
+              <Link to="/community-services" className="orc-button orc-button-gold">{t('hero.communityHub')}<ArrowUpRight size={19} /></Link>
               <a href="#about" className="orc-button orc-button-outline">{t('hero.learnMore')}<ArrowRight size={18} /></a>
             </div>
             <div className="orc-hero-note"><MapPin size={16} aria-hidden="true" />Mount Cottrell, Victoria<span aria-hidden="true">·</span>{om ? 'Waliin ni guddanna' : 'Growing together'}</div>
