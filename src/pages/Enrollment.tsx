@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { submitToWeb3Forms } from '@/lib/web3forms';
+import { logSubmissionToSheet } from '@/lib/sheetsLog';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -27,7 +28,7 @@ const Enrollment = () => {
     try {
       const childName = formData.get('childName') as string;
 
-      await submitToWeb3Forms(`New Saturday School enrollment for ${childName}`, {
+      const fields = {
         'Child Full Name': childName,
         'Child Date of Birth': formData.get('childDob') as string,
         'Parent/Guardian Name': formData.get('parentName') as string,
@@ -37,7 +38,9 @@ const Enrollment = () => {
         'Emergency Contact Phone': (formData.get('emergencyPhone') as string) || 'N/A',
         'Medical/Allergy Information': (formData.get('medical') as string) || 'N/A',
         'Additional Notes': (formData.get('notes') as string) || 'N/A',
-      });
+      };
+      await submitToWeb3Forms(`New Saturday School enrollment for ${childName}`, fields);
+      await logSubmissionToSheet('Enrollment', fields);
 
       toast({
         title: 'Enrollment Submitted!',

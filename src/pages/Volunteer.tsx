@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { submitToWeb3Forms } from '@/lib/web3forms';
+import { logSubmissionToSheet } from '@/lib/sheetsLog';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -40,14 +41,16 @@ const Volunteer = () => {
     try {
       const name = formData.get('name') as string;
 
-      await submitToWeb3Forms(`New volunteer application from ${name}`, {
+      const fields = {
         Name: name,
         Email: formData.get('email') as string,
         Phone: (formData.get('phone') as string) || 'N/A',
         'Areas of Interest': interests.length > 0 ? interests.join(', ') : 'N/A',
         Availability: (formData.get('availability') as string) || 'N/A',
         Message: (formData.get('message') as string) || 'N/A',
-      });
+      };
+      await submitToWeb3Forms(`New volunteer application from ${name}`, fields);
+      await logSubmissionToSheet('Volunteer', fields);
 
       toast({
         title: 'Application Submitted!',

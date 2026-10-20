@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { submitToWeb3Forms } from '@/lib/web3forms';
+import { logSubmissionToSheet } from '@/lib/sheetsLog';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 
@@ -66,6 +67,7 @@ const Membership = () => {
         `New membership application from ${membershipData['First Name']} ${membershipData.Surname}`,
         membershipData,
       );
+      await logSubmissionToSheet('Membership', membershipData);
 
       toast({
         title: "Application Submitted!",

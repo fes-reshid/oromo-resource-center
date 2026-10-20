@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import { submitToWeb3Forms } from '@/lib/web3forms';
+import { logSubmissionToSheet } from '@/lib/sheetsLog';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -73,6 +74,7 @@ const VenueBooking = () => {
         `New venue booking request from ${bookingData['Applicant Name']} (${selectedDate})`,
         bookingData,
       );
+      await logSubmissionToSheet('Venue Booking', bookingData);
 
       toast({
         title: "Booking Submitted!",

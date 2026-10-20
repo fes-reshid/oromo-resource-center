@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import Reveal from '@/components/Reveal';
 import { submitToWeb3Forms } from '@/lib/web3forms';
+import { logSubmissionToSheet } from '@/lib/sheetsLog';
 import content from '@/content/contact.json';
 
 const Contact = () => {
@@ -42,14 +43,16 @@ const Contact = () => {
         return;
       }
 
-      await submitToWeb3Forms(`New contact form message from ${formData.firstName} ${formData.lastName}`, {
+      const fields = {
         'First Name': formData.firstName,
         'Last Name': formData.lastName,
         Email: formData.email,
         Phone: formData.phone,
         'Service Type': formData.serviceType,
         Message: formData.message,
-      });
+      };
+      await submitToWeb3Forms(`New contact form message from ${formData.firstName} ${formData.lastName}`, fields);
+      await logSubmissionToSheet('Contact', fields);
 
       toast({
         title: "Message Sent!",
