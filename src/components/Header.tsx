@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <header className="orc-header sticky top-0 z-50 bg-background">
-      {['/', '/school', '/services'].includes(location.pathname) && <a href="#main-content" className="orc-skip-link">Skip to content</a>}
+      {['/', '/school', '/services', '/donate'].includes(location.pathname) && <a href="#main-content" className="orc-skip-link">Skip to content</a>}
       {/* Top Language Bar - Green */}
       <div className="bg-primary">
         <div className="container mx-auto px-4">
