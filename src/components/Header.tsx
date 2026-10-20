@@ -1,5 +1,5 @@
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -15,13 +15,16 @@ const Header = () => {
   const { language, setLanguage, t } = useLanguage();
   const location = useLocation();
   
+  useEffect(() => { setIsMenuOpen(false); }, [location.pathname, location.hash]);
+
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background">
+    <header className="orc-header sticky top-0 z-50 bg-background">
+      {['/', '/school', '/services'].includes(location.pathname) && <a href="#main-content" className="orc-skip-link">Skip to content</a>}
       {/* Top Language Bar - Green */}
       <div className="bg-primary">
         <div className="container mx-auto px-4">
@@ -40,22 +43,23 @@ const Header = () => {
 
           {/* Main navigation row */}
           <div className="flex items-center justify-between py-4">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 shrink-0 mr-4">
               <img 
                 src="/lovable-uploads/b99f89fa-f302-4d77-8775-fb2f5e6a9ec1.png"
                 alt="Oromo Resource Centre Inc Logo" 
                 className="w-12 h-12 object-contain"
               />
               <div>
-                <h1 className="text-xl font-bold text-foreground">Oromo Resource Centre Inc</h1>
+                <p className="text-base sm:text-xl font-bold text-foreground">Oromo Resource Centre Inc</p>
                 <p className="text-xs text-muted-foreground">Melbourne Community Hub</p>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6">
+            <nav className="hidden xl:flex items-center justify-end flex-wrap gap-x-5 gap-y-2">
               <Link to="/" className={`text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
               <a href="./#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
+              <Link to="/school" className="text-sm font-semibold text-primary">{t('hero.saturdaySchool')}</Link>
               <DropdownMenu>
                 <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-semibold transition-colors ${isActive('/services') || isActive('/gallery') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
                   {t('whatWeDo')} <ChevronDown className="h-4 w-4" />
@@ -85,7 +89,10 @@ const Header = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="lg:hidden"
+              className="xl:hidden"
+              aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -96,9 +103,10 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-background border-b border-border">
+        <div className="xl:hidden bg-background border-b border-border">
           <div className="container mx-auto px-4">
-            <nav className="flex flex-col gap-2 py-4">
+            <nav id="mobile-navigation" className="flex flex-col gap-2 py-4 max-h-[70vh] overflow-y-auto">
+              <Link to="/school" className="py-2 text-sm font-semibold text-primary">{t('hero.saturdaySchool')}</Link>
               <Link to="/" className={`py-2 text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
               <a href="./#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <Link to="/services" className={`py-2 text-sm font-semibold transition-colors ${isActive('/services') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('servicesLink')}</Link>

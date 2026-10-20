@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import SchoolSpotlight from '@/components/SchoolSpotlight';
 import Hero from '@/components/Hero';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import About from '@/components/About';
@@ -9,10 +10,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Hero />
-      <UpcomingEvents />
-      <About />
-      <Contact />
+      <main id="main-content">
+        <Hero />
+        <SchoolSpotlight />
+        <UpcomingEvents />
+        <About />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );

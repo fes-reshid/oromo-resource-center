@@ -1,0 +1,22 @@
+[
+  {
+    "id": "tuhfatul-atfaal",
+    "title": "Tuhfatul Atfaal",
+    "category": "TAJWEED & RECITATION",
+    "categoryOm": "TAJWIIDAA FI QARAATII",
+    "description": "Build confidence in Quran recitation through the Tuhfatul Atfaal poem, clear explanations and guided practice.",
+    "descriptionOm": "Walaloo Tuhfatul Atfaal, ibsa salphaa fi shaakalaan qaraatii Qur'aanaa baradhaa.",
+    "features": ["Learn the Tuhfatul Atfaal poem", "Noon saakinah and tanween rules", "Meem saakinah and madd rules", "Recitation and memorisation practice"],
+    "featuresOm": ["Walaloo Tuhfatul Atfaal barachuu", "Seera nuun saakinaa fi tanwiinii", "Seera miim saakinaa fi maddii", "Qaraatii fi hifzii shaakaluu"]
+  },
+  {
+    "id": "seeraa",
+    "title": "Seeraa",
+    "category": "STORIES, FAITH & CHARACTER",
+    "categoryOm": "SEENAA, IIMAANAA FI AMALA",
+    "description": "Discover the life of Prophet Muhammad ﷺ, from the pre-Islamic era to Makkah and Madinah, with meaningful lessons for everyday life.",
+    "descriptionOm": "Jireenya Nabii Muhammad ﷺ, Islaama dura, Makkaa fi Madiinaa keessatti, akkasumas barumsa jireenyaaf ta'u baradhaa.",
+    "features": ["The pre-Islamic era", "The Makkah period", "The Madinah period", "Good character and lessons for daily life"],
+    "featuresOm": ["Yeroo Islaama dura ture", "Yeroo Makkaa", "Yeroo Madiinaa", "Amala gaarii fi barumsa jireenyaa"]
+  }
+]

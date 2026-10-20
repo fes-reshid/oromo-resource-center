@@ -17,6 +17,8 @@ const ServicesPage = () => {
       description: t('servicesPage.educational.description'),
       features: [
         t('servicesPage.educational.saturdaySchool'),
+        'Tuhfatul Atfaal (Tajweed)',
+        'Seeraa',
         t('servicesPage.educational.adultClasses'),
         t('servicesPage.educational.quranicStudies'),
         t('servicesPage.educational.languageClasses')
@@ -67,7 +69,7 @@ const ServicesPage = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container mx-auto px-4 py-20">
+      <main id="main-content" className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             {t('servicesPage.title')}

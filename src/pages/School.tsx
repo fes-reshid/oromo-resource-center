@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import Reveal from '@/components/Reveal';
+import courses from '@/content/featured-courses.json';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -14,13 +17,26 @@ import {
   MapPin,
   Calendar
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const School = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
+  const om = language === 'om';
+  const { hash } = useLocation();
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (hash) document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [hash]);
   const navigate = useNavigate();
 
   const programs = [
+    ...courses.map(course => ({
+      id: course.id, icon: BookOpen, title: course.title,
+      description: om ? course.descriptionOm : course.description,
+      features: om ? course.featuresOm : course.features, color: 'primary',
+    })),
     {
       icon: BookOpen,
       title: 'Quranic Studies',
@@ -99,15 +115,15 @@ const School = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <div className="container mx-auto px-4 py-20">
+      <main id="main-content" className="container mx-auto px-4 py-16 orc-school-page">
         {/* Page Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 orc-school-page-heading">
           <SchoolIcon className="h-16 w-16 mx-auto mb-4 text-primary" />
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
             Saturday School Programs
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Quality education in Islamic studies, Oromo language, and essential life skills for all ages
+            Discover Tuhfatul Atfaal, Seeraa, Quran, Oromo language and more. A welcoming place to learn, connect and grow.
           </p>
         </div>
 
@@ -141,9 +157,10 @@ const School = () => {
             {programs.map((program, index) => {
               const Icon = program.icon;
               return (
-                <Card 
-                  key={index}
-                  className="relative overflow-hidden hover:shadow-lg transition-all duration-300"
+                <Reveal key={program.title} delayMs={(index % 3) * 80} className="h-full">
+                <Card
+                  id={'id' in program ? program.id : undefined}
+                  className="orc-program-card group h-full relative overflow-hidden hover:shadow-lg transition-all duration-300"
                 >
                   <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
                   <CardHeader className="pb-4">
@@ -166,6 +183,7 @@ const School = () => {
                     </ul>
                   </CardContent>
                 </Card>
+                </Reveal>
               );
             })}
           </div>
@@ -234,7 +252,7 @@ const School = () => {
             </Button>
           </CardContent>
         </Card>
-      </div>
+      </main>
 
       <Footer />
     </div>

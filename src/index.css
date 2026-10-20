@@ -177,3 +177,152 @@
     animation: spark-twinkle 3s ease-in-out infinite;
   }
 }
+/* ORC community refresh: warm paper, forest green and restrained gold. */
+@layer base {
+  :root {
+    --background: 42 38% 97%;
+    --foreground: 160 25% 15%;
+    --primary: 160 44% 22%;
+    --muted-foreground: 155 8% 38%;
+    --secondary: 40 65% 72%;
+    --accent: 38 64% 66%;
+    --border: 40 20% 86%;
+    --ring: 160 44% 22%;
+    --radius: 1rem;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 140px; }
+  body { font-family: 'Avenir Next', 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { text-wrap: balance; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 3px solid #b28232; outline-offset: 5px; }
+}
+.orc-header { box-shadow: 0 4px 30px #123e2e09; }
+.orc-header > div:first-of-type { background: #173f33; }
+.orc-header > div:nth-of-type(2) { background: #fcfaf5f5; backdrop-filter: blur(16px); }
+.orc-skip-link { position: absolute; left: 16px; top: -100px; z-index: 100; padding: 12px 20px; background: white; color: #173f33; border-radius: 8px; }
+.orc-skip-link:focus { top: 12px; }
+.orc-hero { position: relative; overflow: hidden; background: #153d31; color: #fffdf6; padding: 60px 0 28px; isolation: isolate; }
+.orc-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at 85% 15%, #3d765950, transparent 60%), linear-gradient(125deg, #153d31, #0d2c25); }
+.orc-hero-orbit { position: absolute; width: 720px; height: 720px; border: 1px solid #d9c68b15; border-radius: 50%; top: -360px; left: -200px; box-shadow: 0 0 0 70px #d9c68b06, 0 0 0 140px #d9c68b05; pointer-events: none; }
+.orc-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 70px; padding: 12px 0 70px; }
+.orc-eyebrow { display: flex; align-items: center; gap: 9px; text-transform: uppercase; letter-spacing: .17em; font-size: 11px; font-weight: 700; line-height: 1.7; margin-bottom: 24px; }
+.orc-status-dot { width: 7px; height: 7px; background: #e4c78b; border-radius: 50%; box-shadow: 0 0 0 5px #e4c78b15; flex-shrink: 0; }
+.orc-hero-copy { animation: orc-rise .8s both; }
+.orc-hero-copy .orc-eyebrow { color: #dfcfaa; }
+.orc-hero h1 { font: 500 clamp(42px, 4.6vw, 72px)/1.08 Georgia, 'Times New Roman', serif; letter-spacing: -.045em; margin: 0 0 24px; }
+.orc-hero h1 span { display: block; color: #e8c784; font-style: italic; }
+.orc-hero-description { font-size: 16px; line-height: 1.85; color: #d1dfd8; max-width: 540px; }
+.orc-button { display: inline-flex; align-items: center; justify-content: center; gap: 16px; padding: 15px 22px; font-size: 14px; font-weight: 650; border-radius: 8px; transition: transform .25s, background .25s, box-shadow .25s; min-height: 50px; }
+.orc-button:hover { transform: translateY(-3px); box-shadow: 0 8px 24px #0002; }
+.orc-button-gold { background: #e8c784; color: #183c2e; }
+.orc-button-gold:hover { background: #f0d69f; }
+.orc-button-outline { border: 1px solid #d3e6db55; color: #fffdf6; }
+.orc-button-outline:hover { background: #ffffff0d; }
+.orc-hero-note { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 9px; color: #bdcfc3; font-size: 11px; }
+.orc-hero-visual { position: relative; padding: 20px 20px 12px 0; animation: orc-rise 1s .15s both; min-width: 0; }
+.orc-hero-photo { position: relative; aspect-ratio: 1.13; overflow: hidden; border-radius: 160px 16px 16px 16px; background: #315347; }
+.orc-hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; animation: orc-photo-in 1.5s ease-out both; }
+.orc-hero-photo::after { content: ''; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, #0e2924ca); }
+.orc-hero-photo figcaption { position: absolute; left: 24px; bottom: 24px; z-index: 1; color: white; font: italic 25px/1.2 Georgia, serif; }
+.orc-photo-outline { position: absolute; inset: 0 0 32px 20px; border: 1px solid #dac48860; border-radius: 160px 16px 16px 16px; }
+.orc-photo-badge { position: absolute; bottom: -12px; right: 0; display: flex; align-items: center; gap: 12px; background: #fcf7ea; color: #204c3b; padding: 17px 23px; border-radius: 12px; box-shadow: 0 15px 30px #0002; animation: orc-float 3s ease-in-out 2; }
+.orc-photo-badge span { display: block; font-size: 11px; }
+.orc-photo-badge strong { display: block; font-size: 12px; margin-top: 4px; }
+.orc-photo-mark { position: absolute; top: 2px; right: 5px; width: 85px; height: 85px; border-radius: 50%; background: #e8c784; color: #173f33; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: rotate(12deg); font: 700 26px Georgia, serif; border: 6px double #173f3325; }
+.orc-photo-mark span { font: 7px system-ui, sans-serif; letter-spacing: .06em; margin-top: 3px; }
+.orc-service-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid #ffffff25; padding-top: 24px; }
+.orc-service-link { display: flex; align-items: center; gap: 16px; padding: 16px 24px; border-radius: 12px; transition: background .25s, transform .25s; animation: orc-rise .65s both; }
+.orc-service-link + .orc-service-link { border-left: 1px solid #ffffff20; }
+.orc-service-link:hover { background: #ffffff08; transform: translateY(-3px); }
+.orc-service-icon { color: #e8c784; background: #ffffff08; padding: 14px; border-radius: 14px; }
+.orc-service-link h2 { font-size: 15px; font-weight: 650; margin-bottom: 5px; }
+.orc-service-link p { color: #bfcec6; font-size: 12px; }
+.orc-service-arrow { margin-left: auto; color: #d6c38f; flex-shrink: 0; }
+.orc-school-spotlight { padding: 88px 0; background: #faf7ef; }
+.orc-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 40px; }
+.orc-section-heading .orc-eyebrow { color: #39634d; margin-bottom: 15px; }
+.orc-section-heading h2 { font: 500 clamp(36px, 4vw, 54px)/1.13 Georgia, serif; letter-spacing: -.035em; color: #193c30; }
+.orc-section-heading h2 em { color: #54765b; }
+.orc-text-link { display: inline-flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 650; color: #204e3b; }
+.orc-text-link svg { transition: transform .25s; flex-shrink: 0; }
+.orc-text-link:hover svg { transform: translateX(5px); }
+.orc-course-card { border: 1px solid #dedfce; border-radius: 20px; padding: 32px; height: 100%; background: #edf2e7; transition: transform .35s, box-shadow .35s; position: relative; overflow: hidden; }
+.orc-course-card::after { content: ''; width: 200px; height: 200px; position: absolute; right: -75px; top: -75px; border: 1px solid #4a705b18; border-radius: 50%; box-shadow: 0 0 0 22px #4a705b06, 0 0 0 44px #4a705b05; pointer-events: none; }
+.orc-course-1 { background: #f4e9d6; border-color: #e5d7bc; }
+.orc-course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 45px #143c3010; }
+.orc-course-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.orc-course-top > span { font: italic 36px Georgia, serif; color: #536d4d70; }
+.orc-course-icon { background: #fffc; padding: 16px; border-radius: 18px; color: #2a624b; }
+.orc-course-1 .orc-course-icon { color: #815d2b; }
+.orc-course-category { font-size: 10px; font-weight: 700; letter-spacing: .16em; color: #4c624a; }
+.orc-course-card h3 { font: 500 34px/1.25 Georgia, serif; color: #1d4433; margin: 9px 0 13px; }
+.orc-course-description { font-size: 15px; line-height: 1.8; color: #4e5c4c; max-width: 460px; }
+.orc-course-card ul { margin: 22px 0 26px; display: grid; gap: 10px; }
+.orc-course-card li { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #415640; }
+.orc-course-card li svg { flex-shrink: 0; }
+.orc-course-card > .orc-text-link { padding-top: 19px; border-top: 1px solid #526e4e26; width: 100%; justify-content: space-between; }
+.orc-school-invitation { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px 24px; padding-top: 30px; font-size: 14px; color: #5e6959; }
+.orc-school-page-heading { padding: 46px 24px; background: radial-gradient(circle at top right, #e7c87f40, transparent 50%), #e9efe5; border: 1px solid #dae2d4; border-radius: 24px; animation: orc-rise .7s both; }
+.orc-school-page-heading h1 { font-family: Georgia, serif; letter-spacing: -.035em; font-weight: 500; }
+.orc-program-card { border-radius: 20px; scroll-margin-top: 150px; }
+.orc-program-card:hover { transform: translateY(-5px); }
+.orc-program-card[id="tuhfatul-atfaal"] { background: #edf2e7; border-color: #b9cfaf; }
+.orc-program-card[id="seeraa"] { background: #f8eedb; border-color: #dfc59b; }
+.orc-program-card:target { outline: 3px solid #b7954b; outline-offset: 5px; }
+#about h2, #contact h2 { font-family: Georgia, serif; font-weight: 500; letter-spacing: -.035em; }
+#about { background: #fffdf7; }
+#contact { background: #f1eee3; }
+.orc-event-section { padding: 72px 0; background: #eef1e9; }
+.orc-event-layout { display: grid; grid-template-columns: .65fr 1.35fr; gap: 50px; align-items: center; }
+.orc-event-layout h2 { font: 500 clamp(32px, 3vw, 46px)/1.2 Georgia, serif; letter-spacing: -.03em; }
+.orc-event-card { display: grid; grid-template-columns: .8fr 1.2fr; border: 1px solid #dce1d3; border-radius: 20px; overflow: hidden; background: #fffdf7; }
+.orc-event-poster { background: #153d31; padding: 20px; display: flex; align-items: center; justify-content: center; }
+.orc-event-poster img { max-height: 260px; width: 100%; object-fit: contain; border-radius: 8px; transition: transform .4s; }
+.orc-event-card:hover img { transform: rotate(-2deg) scale(1.02); }
+.orc-event-details { padding: 30px; }
+.orc-event-details h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.orc-event-details dl { margin: 22px 0; display: grid; gap: 14px; font-size: 12px; color: #52634f; }
+.orc-event-details dl > div { display: flex; gap: 9px; align-items: start; }
+.orc-event-details svg { flex-shrink: 0; }
+@keyframes orc-rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes orc-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes orc-photo-in { from { transform: scale(1.08); } to { transform: scale(1); } }
+@media (min-width: 1280px) { .orc-hero .container, .orc-school-spotlight .container, .orc-event-section .container { max-width: 1240px; } }
+@media (max-width: 1023px) {
+  .orc-hero-grid { gap: 35px; }
+  .orc-hero-photo { aspect-ratio: .85; border-top-left-radius: 120px; }
+  .orc-photo-badge { padding: 14px; }
+  .orc-service-link { padding: 14px 10px; gap: 10px; }
+  .orc-service-icon { padding: 10px; }
+  .orc-event-layout { grid-template-columns: 1fr; gap: 25px; }
+}
+@media (max-width: 767px) {
+  html { scroll-padding-top: 135px; }
+  .orc-hero { padding-top: 36px; }
+  .orc-hero-grid { grid-template-columns: 1fr; gap: 26px; padding-bottom: 38px; }
+  .orc-hero h1 { font-size: clamp(39px, 10vw, 62px); }
+  .orc-eyebrow { font-size: 9px; letter-spacing: .12em; }
+  .orc-hero-description { font-size: 15px; }
+  .orc-hero-visual { max-width: 520px; width: 100%; margin: 0 auto; }
+  .orc-hero-photo { aspect-ratio: 1.35; border-top-left-radius: 100px; }
+  .orc-photo-outline { border-top-left-radius: 100px; }
+  .orc-photo-badge { bottom: -8px; right: 8px; }
+  .orc-photo-mark { width: 70px; height: 70px; font-size: 22px; }
+  .orc-photo-mark span { font-size: 6px; }
+  .orc-service-strip { grid-template-columns: 1fr; padding-top: 10px; }
+  .orc-service-link + .orc-service-link { border-left: 0; border-top: 1px solid #ffffff16; }
+  .orc-service-link { padding: 14px 5px; }
+  .orc-school-spotlight { padding: 54px 0; }
+  .orc-section-heading { display: block; margin-bottom: 28px; }
+  .orc-section-heading > div + div { margin-top: 22px; }
+  .orc-course-card { padding: 26px; }
+  .orc-school-page-heading { padding: 30px 18px; }
+  .orc-event-section { padding: 50px 0; }
+  .orc-event-card { grid-template-columns: 1fr; }
+  .orc-event-poster img { max-height: 310px; }
+  .orc-school-invitation { text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
