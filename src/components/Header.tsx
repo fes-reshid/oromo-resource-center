@@ -59,7 +59,6 @@ const Header = () => {
             <nav className="hidden xl:flex items-center justify-end flex-wrap gap-x-5 gap-y-2">
               <Link to="/" className={`text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
               <a href="./#about" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
-              <Link to="/school" className="text-sm font-semibold text-primary">{t('hero.saturdaySchool')}</Link>
               <DropdownMenu>
                 <DropdownMenuTrigger className={`flex items-center gap-1 text-sm font-semibold transition-colors ${isActive('/services') || isActive('/gallery') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>
                   {t('whatWeDo')} <ChevronDown className="h-4 w-4" />
@@ -106,7 +105,6 @@ const Header = () => {
         <div className="xl:hidden bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <nav id="mobile-navigation" className="flex flex-col gap-2 py-4 max-h-[70vh] overflow-y-auto">
-              <Link to="/school" className="py-2 text-sm font-semibold text-primary">{t('hero.saturdaySchool')}</Link>
               <Link to="/" className={`py-2 text-sm font-semibold transition-colors ${isActive('/') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('home')}</Link>
               <a href="./#about" className="py-2 text-sm font-semibold text-foreground hover:text-primary transition-colors">{t('aboutLink')}</a>
               <Link to="/services" className={`py-2 text-sm font-semibold transition-colors ${isActive('/services') ? 'text-primary' : 'text-foreground hover:text-primary'}`}>{t('servicesLink')}</Link>
