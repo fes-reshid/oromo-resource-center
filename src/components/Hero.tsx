@@ -1,10 +1,28 @@
+import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight, GraduationCap, Heart, Users, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
+const HERO_PHOTOS = [
+  { src: '/lovable-uploads/gallery-1.jpg', altEn: 'Families and community members gathering at ORC', altOm: 'Hawaasa Oromoo walitti dhufe' },
+  { src: '/lovable-uploads/gallery-2.jpg', altEn: 'Community members gathered outside the ORC centre', altOm: 'Miseensonni hawaasaa mana ORC duratti walitti qabaman' },
+  { src: '/lovable-uploads/gallery-4.jpg', altEn: 'Community members walking together at ORC', altOm: 'Miseensonni hawaasaa ORC keessatti walwajjin deemaa jiru' },
+  { src: '/lovable-uploads/gallery-3.jpg', altEn: 'Community members honoured with certificates at ORC', altOm: 'Miseensonni hawaasaa waraqaa ragaa ORC irraa argatan' },
+];
+const HERO_PHOTO_INTERVAL_MS = 5000;
+
 const Hero = () => {
   const { t, language } = useLanguage();
   const om = language === 'om';
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setPhotoIndex((i) => (i + 1) % HERO_PHOTOS.length),
+      HERO_PHOTO_INTERVAL_MS,
+    );
+    return () => clearInterval(id);
+  }, []);
   const services = [
     { icon: GraduationCap, title: t('hero.saturdaySchool'), text: t('hero.educationalPrograms'), to: '/school' },
     { icon: Users, title: t('hero.communityHub'), text: t('hero.victoria'), to: '/community-services' },
@@ -28,7 +46,18 @@ const Hero = () => {
           <div className="orc-hero-visual">
             <div className="orc-photo-outline" aria-hidden="true" />
             <figure className="orc-hero-photo">
-              <img src="/lovable-uploads/gallery-1.jpg" alt={om ? 'Hawaasa Oromoo walitti dhufe' : 'Families and community members gathering at ORC'} width="1919" height="1279" fetchPriority="high" />
+              {HERO_PHOTOS.map((photo, i) => (
+                <img
+                  key={photo.src}
+                  src={photo.src}
+                  alt={i === photoIndex ? (om ? photo.altOm : photo.altEn) : ''}
+                  width="1919"
+                  height="1279"
+                  fetchPriority={i === 0 ? 'high' : undefined}
+                  className={`orc-hero-photo-slide ${i === photoIndex ? 'is-active' : ''}`}
+                  aria-hidden={i === photoIndex ? undefined : true}
+                />
+              ))}
               <figcaption>{om ? 'Hawaasa keenya. Mana keenya.' : 'Our community. Our home.'}</figcaption>
             </figure>
             <div className="orc-photo-badge"><Heart size={21} /><span>{om ? 'Tokkummaa keenya' : 'Connected by culture'}<strong>{om ? 'Dhalootaaf barnoota' : 'Inspired by the next generation'}</strong></span></div>
