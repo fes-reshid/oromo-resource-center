@@ -18,11 +18,23 @@
  * Re-running "Deploy -> New deployment" after editing this file produces a
  * NEW url and breaks the old one — use "Manage deployments -> Edit -> New
  * version" instead if this script is ever updated later.
+ *
+ * SHARED_SECRET below must exactly match SHEET_LOG_TOKEN in the website's
+ * src/lib/sheetsLog.ts. It isn't real security (this script's URL and the
+ * matching website source are both public), but it filters out casual or
+ * automated spam that doesn't know the expected request shape.
  */
+
+var SHARED_SECRET = 'ACnlkyl_nbDOhz8kY5BcgHl9KvqGcrXEtsCfRGQxxsw';
 
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
+    if (data.token !== SHARED_SECRET) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ success: false, error: 'Unauthorized' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
     var formType = (data.formType || 'Unknown').toString();
     var fields = data.fields || {};
 
