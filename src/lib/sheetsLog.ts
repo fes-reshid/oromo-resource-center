@@ -8,7 +8,8 @@
 // in scripts/google-sheets-form-log.gs, then Deploy -> New deployment ->
 // Web app (Execute as: Me, Who has access: Anyone), and paste the resulting
 // URL below. Leave blank to disable sheet logging entirely.
-const SHEET_LOG_URL = '';
+const SHEET_LOG_URL =
+  'https://script.google.com/macros/s/AKfycbwpPdSXtShwCOeaEjow0fxOo4B128JdfgfMa7PCBSpghK9-V8-taxAtzWzlzQc_R-sk/exec';
 
 export async function logSubmissionToSheet(
   formType: string,
